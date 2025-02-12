@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const Sidebar = () => {
   const nav = useNavigate();
   return (
-    <div className='sidebar'>
+    <div className='sidebar top-1/2 left-3 -translate-y-1/2'>
       <ListIcon
         className='transition-transform duration-200 hover:scale-120'
         onClick={() => nav('/dashboard')}
