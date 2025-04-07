@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Landing from './pages/landing/Landing'; // 새로운 시작 페이지
 import Dashboard from './pages/dashboard/Dashboard';
+import FeedbackSummary from './pages/feedback/FeedbackSummary';
+
 function App() {
   return (
     <>
@@ -16,8 +18,8 @@ function App() {
             element={<Dashboard />}
           />
           <Route
-            path='/dashboard'
-            element={<Dashboard />}
+            path='/feedback/summary'
+            element={<FeedbackSummary />}
           />
         </Routes>
       </Router>
