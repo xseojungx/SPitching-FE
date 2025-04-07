@@ -1,0 +1,94 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import 'tailwindcss';
+
+@theme {
+  /* Primary Colors */
+  --color-mint-500: #a9ead6; /* 메인 */
+  --color-blue-500: #4c9acf; /* 서브1 */
+  --color-avocado-400: #c2e59c; /* 서브2 */
+  --color-navy-700: #255a9b; /* 네이비 강조 색상 */
+
+  /* Accent Colors */
+  --color-coral-400: #ff8a80; /* 보색 1 */
+  --color-rose-500: #e1677b; /* 보색 2 */
+
+  /* Text / Background */
+  --color-gray-700: #5a5f5c; /* 텍스트 */
+  --color-gray-900: #303331; /* dark text */
+  --color-cream-100: #f8faf5; /* 배경 */
+  --color-cream-50: #fefffc; /* 메인배경 */
+
+  /* Additional Utility Colors */
+  --color-shadow-100: rgba(87, 89, 114, 0.08); /* 그림자 */
+  --color-slate-200: rgba(64, 80, 98, 0.1); /* 그라테두리 */
+
+  /*폰트*/
+  --font-display: 'Pretendard', 'sans-serif';
+}
+
+/* @layer components {
+  .sidebar {
+    display: flex;
+    width: 70px;
+    padding: 50px 13px;
+    flex-direction: column;
+    align-items: center;
+    gap: 34px;
+    border-radius: 40px;
+    border: 1px solid #5a5f5c;
+    background: #fff;
+    z-index: 1;
+    position: fixed;
+  }
+} */
+
+body {
+  @apply font-sans;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  background-color: #f5f5f5;
+}
+
+/* 모바일 기기 크기 (iPhone 14 기준) */
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+@layer components {
+  .h1 {
+    @apply text-[60px] leading-[140%] font-bold tracking-[-0.01em];
+  }
+
+  .h2 {
+    @apply text-[20px] leading-[140%] font-semibold tracking-[-0.01em];
+  }
+
+  .s1 {
+    @apply text-[16px] leading-[140%] font-semibold tracking-[0em];
+  }
+
+  .s2 {
+    @apply text-[14px] leading-[140%] font-semibold tracking-[0.0025em];
+  }
+
+  .b1 {
+    @apply text-[16px] leading-[150%] font-normal tracking-[0em];
+  }
+
+  .b2 {
+    @apply text-[14px] leading-[150%] font-normal tracking-[0.0025em];
+  }
+
+  .c1 {
+    @apply text-[12px] leading-[140%] font-medium tracking-[0.005em];
+  }
+
+  .c2 {
+    @apply text-[12px] leading-[140%] font-normal tracking-[0.005em];
+  }
+}
