@@ -21,6 +21,7 @@
   /* Additional Utility Colors */
   --color-shadow-100: rgba(87, 89, 114, 0.08); /* 그림자 */
   --color-slate-200: rgba(64, 80, 98, 0.1); /* 그라테두리 */
+  --color-box-white: rgba(255, 255, 255, 0.7);
 
   /*폰트*/
   --font-display: 'Pretendard', 'sans-serif';
@@ -61,7 +62,7 @@ body {
 
 @layer components {
   .h1 {
-    @apply text-[60px] leading-[140%] font-bold tracking-[-0.01em];
+    @apply text-[24px] leading-[140%] font-bold tracking-[-0.01em];
   }
 
   .h2 {
@@ -90,5 +91,14 @@ body {
 
   .c2 {
     @apply text-[12px] leading-[140%] font-normal tracking-[0.005em];
+  }
+}
+
+@layer components {
+  .white-card {
+    @apply shadow-shadow-100 bg-box-white flex h-full w-full shrink-0 flex-col items-start rounded-2xl border border-[rgba(64,80,98,0.10)] px-6 py-4;
+  }
+  .grid-layout {
+    @apply mx-auto grid max-w-screen-2xl grid-cols-12 gap-4 pt-20;
   }
 }
