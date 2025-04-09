@@ -45,10 +45,10 @@ const SummaryAreaChart = () => {
 
   //마우스
   const [opacity, setOpacity] = useState({
-    ges: 0.5,
-    eye: 0.5,
-    sim: 0.5,
-    fluen: 0.5,
+    ges: 0.2,
+    eye: 0.2,
+    sim: 0.2,
+    fluen: 0.2,
   });
 
   const handleMouseEnter = (o) => {
@@ -60,7 +60,7 @@ const SummaryAreaChart = () => {
   const handleMouseLeave = (o) => {
     const { dataKey } = o;
 
-    setOpacity((op) => ({ ...op, [dataKey]: 0.5 }));
+    setOpacity((op) => ({ ...op, [dataKey]: 0.2 }));
   };
 
   return (
@@ -190,16 +190,16 @@ const SummaryAreaChart = () => {
           strokeWidth={2}
           fill='url(#colorGes)'
           fillOpacity={opacity.ges}
-          strokeOpacity={opacity.ges}
+          strokeOpacity={1}
         />
         <Area
           type='monotone'
           dataKey='eye'
-          stroke='#6be48d'
+          stroke='#479f60'
           strokeWidth={2}
           fill='url(#colorEye)'
           fillOpacity={opacity.eye}
-          strokeOpacity={opacity.eye}
+          strokeOpacity={1}
         />
         <Area
           type='monotone'
@@ -208,7 +208,7 @@ const SummaryAreaChart = () => {
           strokeWidth={2}
           fill='url(#colorSim)'
           fillOpacity={opacity.sim}
-          strokeOpacity={opacity.sim}
+          strokeOpacity={1}
         />
         <Area
           type='monotone'
@@ -217,7 +217,7 @@ const SummaryAreaChart = () => {
           strokeWidth={2}
           fill='url(#colorFluen)'
           fillOpacity={opacity.fluen}
-          strokeOpacity={opacity.fluen}
+          strokeOpacity={1}
         />
       </AreaChart>
     </ResponsiveContainer>
