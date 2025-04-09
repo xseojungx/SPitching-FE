@@ -44,7 +44,12 @@ const SummaryAreaChart = () => {
   }, [allValues]);
 
   //마우스
-  const [opacity, setOpacity] = useState({ ges: 1, eye: 1, sim: 1, fluen: 1 });
+  const [opacity, setOpacity] = useState({
+    ges: 0.5,
+    eye: 0.5,
+    sim: 0.5,
+    fluen: 0.5,
+  });
 
   const handleMouseEnter = (o) => {
     const { dataKey } = o;
