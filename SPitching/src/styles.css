@@ -24,7 +24,7 @@
   --color-box-white: rgba(255, 255, 255, 0.7);
 
   /*폰트*/
-  --font-display: 'Pretendard', 'sans-serif';
+  --font-sans: 'Pretendard', 'sans-serif';
 }
 
 /* @layer components {
