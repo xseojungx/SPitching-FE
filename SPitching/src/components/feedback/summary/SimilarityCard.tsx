@@ -1,5 +1,5 @@
 import TriangleIcon from '../../../assets/triangle.svg?react';
-import ScorePieChart from './ScorePieChart';
+import ScorePieChart from '../../common/ScorePieChart';
 const SimilarityCard = () => {
   return (
     <article className='white-card col-span-3 col-start-2 row-span-2 row-start-7'>

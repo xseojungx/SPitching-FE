@@ -1,4 +1,4 @@
-import ScorePieChart from './ScorePieChart';
+import ScorePieChart from '../../common/ScorePieChart';
 
 type EyeContactCardProps = { eyecontactScore: number };
 
