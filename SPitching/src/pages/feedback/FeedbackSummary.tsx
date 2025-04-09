@@ -24,7 +24,7 @@ const FeedbackSummary = () => {
         <DurationCard />
         <GestureScoreCard />
         <FluencyCard />
-        <EyeContactCard />
+        <EyeContactCard eyecontactScore={85} />
       </main>
     </div>
   );

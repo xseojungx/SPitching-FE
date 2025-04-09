@@ -25,6 +25,7 @@ const data = [
   { name: '8회차', score: 72 },
 ];
 const TotalScore = () => {
+  //메모 처리하기
   const CustomTooltip = ({
     active,
     payload,
