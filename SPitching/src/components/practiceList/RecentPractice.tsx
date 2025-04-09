@@ -6,6 +6,7 @@ import ScorePieChart from '../common/ScorePieChart';
 import EyeIcon from '../../assets/eye.svg?react';
 import GestureIcon from '../../assets/gesture.svg?react';
 import SimilarityIcon from '../../assets/sim.svg?react';
+import MockPPT from '../../assets/mock_ppt.png';
 import FluencyIcon from '../../assets/fluency.svg?react';
 
 type TagType = { page: number; count: number; notes: string[] };
@@ -68,7 +69,14 @@ const RecentPractice = () => {
 
       {/* 좌측 요약 상자 */}
       <div className='white-card col-span-3 row-start-2 gap-1'>
-        <div className='mb-3 aspect-[16/9] w-full bg-black' />
+        <div className='mb-3 aspect-[16/9] w-full overflow-hidden'>
+          {/* 확대 삭제하기 */}
+          <img
+            src={MockPPT}
+            alt='최근 연습 썸네일'
+            className='w-full scale-120 object-cover'
+          />
+        </div>
         <div className='flex flex-row items-center gap-2'>
           <span className='s2 text-gray-900'>최근 연습</span>
           <span className='b2 text-gray-700'>
@@ -135,7 +143,7 @@ const RecentPractice = () => {
       {/* 아래 버튼 상자 */}
 
       {/* 왼쪽: 전체 연습 */}
-      <div className='col-span-7 col-start-1 row-span-1 row-start-3 flex flex-col overflow-hidden'>
+      <div className='col-span-7 col-start-1 row-span-1 row-start-3 flex flex-col'>
         <div className='flex w-full justify-between gap-3'>
           {/* 전체 연습 */}
           <button className='flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4C9ACF] to-[#A9EAD6] px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:brightness-105'>
