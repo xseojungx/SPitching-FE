@@ -20,32 +20,33 @@ const FluencyCard = () => {
 
         {/* 차트 */}
         <div className='relative h-20 w-20'>
-          <ScorePieChart value={70} />
+          <ScorePieChart value={80} />
           <div className='h2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-900'>
-            70
+            80
           </div>
         </div>
       </div>
+      <div className='mt-8 flex w-full flex-1 flex-col gap-4'>
+        <FluencyBar
+          title='불필요한 추임새'
+          total={29}
+          segments={[
+            { label: '어', count: 20, color: '#A9EAD6' },
+            { label: '음', count: 9, color: '#4C9ACF' },
+            { label: '그', count: 10, color: '#989ccf' },
+          ]}
+        />
 
-      <FluencyBar
-        title='🗣️ 불필요한 추임새'
-        total={29}
-        segments={[
-          { label: '어', count: 20, color: '#A9EAD6' },
-          { label: '음', count: 9, color: '#4C9ACF' },
-          { label: '그', count: 10, color: '#DADADA' },
-        ]}
-      />
-
-      <FluencyBar
-        title='⏱️ 발화/침묵 비율'
-        total={99}
-        unit='%'
-        segments={[
-          { label: '발화', count: 70, color: '#4C9ACF' },
-          { label: '침묵', count: 29, color: '#FF8A80' },
-        ]}
-      />
+        <FluencyBar
+          title='발화/침묵 비율'
+          total={99}
+          unit='%'
+          segments={[
+            { label: '발화', count: 70, color: '#4C9ACF' },
+            { label: '침묵', count: 29, color: '#a6a6a6' },
+          ]}
+        />
+      </div>
     </div>
   );
   return (

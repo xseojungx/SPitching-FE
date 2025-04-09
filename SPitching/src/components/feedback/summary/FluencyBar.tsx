@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 type Segment = { label: string; count: number; color: string };
 
 type Props = {
@@ -15,37 +13,52 @@ export default function FluencyBar({
   segments,
   unit = '회',
 }: Props) {
-  const [hovered, setHovered] = useState<number | null>(null);
-
   return (
-    <div className='w-full space-y-2'>
-      <div className='s2'>{title}</div>
+    <div className='w-full space-y-3'>
+      {/* 제목 */}
+      <p className='s2 text-gray-900'>{title}</p>
 
-      {/* bar wrapper */}
-      <div className='relative flex h-2.5 w-full overflow-hidden rounded-full bg-[#ECEEEC]'>
+      {/* 막대 그래프 */}
+      <div className='relative flex h-4 w-full overflow-hidden rounded-full bg-[#ECEEEC]'>
         {segments.map((segment, idx) => {
-          const widthPercent = (segment.count / total) * 100;
+          const width = (segment.count / total) * 100;
 
           return (
             <div
               key={idx}
-              className='relative h-full cursor-pointer transition-all duration-200'
+              className={`h-full transition-all duration-300`}
               style={{
-                width: `${widthPercent}%`,
+                width: `${width}%`,
                 backgroundColor: segment.color,
+                borderTopLeftRadius: idx === 0 ? '9999px' : 0,
+                borderBottomLeftRadius: idx === 0 ? '9999px' : 0,
+                borderTopRightRadius:
+                  idx === segments.length - 1 ? '9999px' : 0,
+                borderBottomRightRadius:
+                  idx === segments.length - 1 ? '9999px' : 0,
               }}
-              onMouseEnter={() => setHovered(idx)}
-              onMouseLeave={() => setHovered(null)}
-            >
-              {hovered === idx && (
-                <div className='absolute bottom-[120%] left-1/2 z-10 -translate-x-1/2 rounded-md bg-[#303331] px-2 py-1 text-xs whitespace-nowrap text-white shadow-md'>
-                  {segment.label}: {segment.count}
-                  {unit}
-                </div>
-              )}
-            </div>
+            />
           );
         })}
+      </div>
+
+      {/* 레이블 + 값 */}
+      <div className='flex flex-wrap justify-between text-xs text-gray-700'>
+        {segments.map((segment, idx) => (
+          <div
+            key={idx}
+            className='flex items-center space-x-1'
+          >
+            <span
+              className='inline-block h-3 w-3 rounded-full'
+              style={{ backgroundColor: segment.color }}
+            />
+            <span className='c2'>
+              {segment.label} {segment.count}
+              {unit}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );

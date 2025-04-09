@@ -3,10 +3,13 @@ const GestureScoreCard = () => {
     <article className='white-card col-span-3 col-start-9 row-span-4 row-start-4'>
       <p className='s1 justify-self-start text-gray-900'>제스처</p>
       <div className='flex w-full flex-1 flex-col items-center justify-center'>
-        <p className='b2 text-gray-700'>총점</p>
-        <p className='h1 bg-gradient-to-b from-[#255A9B] via-[#7AB7CE] to-[#A9EAD6] bg-clip-text text-transparent'>
-          89
-        </p>
+        <div className='flex flex-1 flex-col items-center justify-center'>
+          <p className='b2 text-gray-700'>총점</p>
+          <p className='h1 bg-gradient-to-b from-[#255A9B] via-[#7AB7CE] to-[#A9EAD6] bg-clip-text text-transparent'>
+            75
+          </p>
+        </div>
+
         <DetailFeedback
           gestureScore={89}
           crossedScore={12}
@@ -30,7 +33,7 @@ type GestureFeedbackProps = {
 };
 
 const DetailFeedback = ({
-  gestureScore = 89,
+  gestureScore = 75,
   crossedScore = 12,
   raisedScore = 5,
   faceScore = 10,
@@ -61,7 +64,7 @@ const DetailFeedback = ({
   }
 
   return (
-    <div className='gap flex w-full flex-1 flex-col space-y-3'>
+    <div className='gap flex w-full flex-3 flex-col space-y-3'>
       {positives.length > 0 && (
         <div>
           <p className='s2 text-navy-700 mb-1'>✅ 잘한 점</p>

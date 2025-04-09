@@ -18,9 +18,9 @@ const SimilarityCard = () => {
 
         {/* 차트 */}
         <div className='relative h-20 w-20'>
-          <ScorePieChart value={80} />
+          <ScorePieChart value={65} />
           <div className='h2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-900'>
-            80
+            65
           </div>
         </div>
       </div>

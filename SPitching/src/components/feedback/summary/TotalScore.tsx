@@ -48,7 +48,7 @@ const TotalScore = () => {
         <span className='h1'>72점</span>
         <span className='c1'>전체연습 8회 | 부분연습 4회</span>
       </div>
-      <div className='w-full flex-1'>
+      <div className='h-full w-full flex-1'>
         <ResponsiveContainer
           width='100%'
           height='100%'
