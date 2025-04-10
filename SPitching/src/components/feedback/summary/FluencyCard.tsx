@@ -1,5 +1,5 @@
 import TriangleIcon from '../../../assets/triangle.svg?react';
-import ScorePieChart from './ScorePieChart';
+import ScorePieChart from '../../common/ScorePieChart';
 import FluencyBar from './FluencyBar';
 
 const FluencyCard = () => {

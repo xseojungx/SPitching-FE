@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react';
 import { recentPractice } from './mockdata';
+import ScoreLineChart from '../dashboard/ScoreLineChart';
+import ScorePieChart from '../common/ScorePieChart';
+
+import EyeIcon from '../../assets/eye.svg?react';
+import GestureIcon from '../../assets/gesture.svg?react';
+import SimilarityIcon from '../../assets/sim.svg?react';
+import MockPPT from '../../assets/mock_ppt.png';
+import FluencyIcon from '../../assets/fluency.svg?react';
 
 type TagType = { page: number; count: number; notes: string[] };
 
@@ -48,7 +56,7 @@ const RecentPractice = () => {
   };
 
   return (
-    <div className='col-span-10 grid grid-cols-10 grid-rows-[auto_1fr_64px] gap-4'>
+    <div className='max-h-600px mx-auto grid h-3/4 w-10/12 max-w-screen-xl grid-cols-10 grid-rows-[auto_1fr_auto] gap-4 px-4 py-6'>
       {/* 상단 제목 */}
       <div className='col-span-10 row-start-1 flex flex-col'>
         <span className='c2 text-gray-700'>최근 연습</span>
@@ -61,7 +69,14 @@ const RecentPractice = () => {
 
       {/* 좌측 요약 상자 */}
       <div className='white-card col-span-3 row-start-2 gap-1'>
-        <div className='mb-3 aspect-[16/9] w-full bg-black' />
+        <div className='mb-3 aspect-[16/9] w-full overflow-hidden'>
+          {/* 확대 삭제하기 */}
+          <img
+            src={MockPPT}
+            alt='최근 연습 썸네일'
+            className='w-full scale-120 object-cover'
+          />
+        </div>
         <div className='flex flex-row items-center gap-2'>
           <span className='s2 text-gray-900'>최근 연습</span>
           <span className='b2 text-gray-700'>
@@ -83,8 +98,29 @@ const RecentPractice = () => {
             {recentPractice.metadata.practiceCount.total}회차 연습 결과
           </span>
           <span className='h1 text-gray-900'>
-            {recentPractice.graph.currentScore}
+            {recentPractice.graph.currentScore}점
           </span>
+        </div>
+        <div className='box-border w-full flex-3 pt-2'>
+          <ScoreLineChart />
+        </div>
+        <div className='flex h-12 w-full flex-2'>
+          <div className='relative flex-1'>
+            <ScorePieChart value={90} />
+            <EyeIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+          </div>
+          <div className='relative flex-1'>
+            <ScorePieChart value={56} />
+            <GestureIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+          </div>
+          <div className='relative flex-1'>
+            <ScorePieChart value={78} />
+            <SimilarityIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+          </div>
+          <div className='relative flex-1'>
+            <ScorePieChart value={36} />
+            <FluencyIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+          </div>
         </div>
       </div>
 
@@ -94,16 +130,48 @@ const RecentPractice = () => {
         <div className='min-h-0 flex-1 overflow-y-auto pr-1'>
           {tag.map(renderTagItem)}
         </div>
+        <div className='mt-4 space-y-2'>
+          <button className='w-full rounded-md border border-gray-300 py-2 text-sm text-gray-700 transition hover:bg-gray-50'>
+            ✏️ 대본 수정하기
+          </button>
+          <button className='w-full rounded-md border border-gray-300 py-2 text-sm text-gray-700 transition hover:bg-gray-50'>
+            🏷️ 태그 수정하기
+          </button>
+        </div>
       </div>
 
       {/* 아래 버튼 상자 */}
 
-      <div className='bg-navy-700 col-span-4 col-start-1 row-span-1 row-start-3 flex flex-col overflow-hidden'>
-        <span className='s1 mb-2 text-gray-700'>버튼</span>
+      {/* 왼쪽: 전체 연습 */}
+      <div className='col-span-7 col-start-1 row-span-1 row-start-3 flex flex-col'>
+        <div className='flex w-full justify-between gap-3'>
+          {/* 전체 연습 */}
+          <button className='flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4C9ACF] to-[#A9EAD6] px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:brightness-105'>
+            <span className='text-lg'>▶</span>
+            전체 연습 시작하기
+          </button>
+
+          {/* 부분 연습 */}
+          <button className='flex items-center justify-center gap-1 rounded-xl border border-[#C2E59C] bg-white px-5 py-2.5 text-sm text-[#5A5F5C] transition hover:bg-[#f8faf5]'>
+            ✂️ 부분 연습
+          </button>
+
+          {/* 피드백 보기 */}
+          <button className='flex items-center justify-center gap-1 rounded-xl border border-[#DADADA] bg-white px-5 py-2.5 text-sm text-[#5A5F5C] transition hover:bg-[#f1f1f1]'>
+            📄 피드백 보기
+          </button>
+        </div>
       </div>
-      <div className='bg-navy-700 col-span-3 col-start-5 row-span-1 row-start-3 flex flex-col overflow-hidden'>
-        <span className='s1 mb-2 text-gray-700'>버튼</span>
-      </div>
+
+      {/* 오른쪽: 부분 연습 + 피드백 리포트 (가로 배치, 미니멀) */}
+      {/* <div className='col-span-3 col-start-5 row-span-1 row-start-3 flex flex-row items-center justify-between gap-2 overflow-hidden'>
+        <button className='flex-1 rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800 transition hover:bg-gray-100'>
+          ✂️ 부분 연습
+        </button>
+        <button className='flex-1 rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800 transition hover:bg-gray-100'>
+          📄 피드백 보기
+        </button>
+      </div> */}
     </div>
   );
 };

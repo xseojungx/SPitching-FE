@@ -1,16 +1,23 @@
 // Dashboard.tsx
 import RecentPractice from '../../components/practiceList/RecentPractice';
 import Navbar from '../../components/common/Navbar';
+import PracticeListCard from '../../components/dashboard/PracticeListCard';
 
 const Dashboard = () => {
   return (
-    <div className='grid-layout overflow-hidden'>
+    <div className='flex h-screen flex-col items-center overflow-scroll'>
       <Navbar />
-      <div className='col-span-0 md:col-span-1' />
       {/* 모바일에선 여백 없이 꽉 채움 */}
-      <RecentPractice />
-      <div className='pointer-events-none fixed bottom-[6.125px] -z-10 flex w-full'>
-        <div className="fixed top-0 left-0 h-[80vh] w-screen bg-[url('/assets/dashboard_bg.svg')] bg-cover bg-left-top bg-no-repeat"></div>
+      <div className='relative box-border flex min-h-2/3 w-screen items-center pt-18'>
+        <RecentPractice />
+        <div className="absolute left-0 -z-1 h-full w-screen bg-[url('/assets/dashboard_bg.svg')] bg-left-top bg-no-repeat not-first:bg-cover"></div>
+      </div>
+      <div className='box-border flex w-8/12 flex-col items-center gap-2 pt-18'>
+        <PracticeListCard />
+        <PracticeListCard />
+        <PracticeListCard />
+        <PracticeListCard />
+        <PracticeListCard />
       </div>
     </div>
   );

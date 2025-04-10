@@ -18,9 +18,6 @@ const ScorePieChart = ({ value }: ScorePieChartProps) => {
     >
       <RadialBarChart
         cx='50%'
-        cy='50%'
-        width={72}
-        height={72}
         innerRadius='70%'
         outerRadius='100%'
         barSize={20}
@@ -34,15 +31,12 @@ const ScorePieChart = ({ value }: ScorePieChartProps) => {
           domain={[0, 100]}
           angleAxisId={0}
           tick={false}
-          width={72}
-          height={72}
+          hide={true}
         />
         <RadialBar
           background
           dataKey='uv'
           cornerRadius={10}
-          width={72}
-          height={72}
         />
         <defs>
           <linearGradient
