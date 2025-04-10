@@ -9,16 +9,12 @@ const PracticeListCard = () => {
         <div>
           {/* 제목 */}
           <div className='flex flex-row items-center justify-between'>
-            <span className='s1 truncate text-gray-900'>
-              제목제목제목제목제목제목제목
-            </span>
+            <span className='s1 truncate text-gray-900'>발표 제목</span>
             <span className='c2 text-gray-600'>2025.01.22</span>
           </div>
 
           {/* 설명 */}
-          <p className='b2 mt-1 line-clamp-2 text-gray-700'>
-            설명설명설명설명설명설명설명설명설명설명설명설명설명
-          </p>
+          <p className='b2 mt-1 line-clamp-2 text-gray-700'>발표 설명</p>
         </div>
 
         {/* 하단 메타 정보 + 버튼 */}
