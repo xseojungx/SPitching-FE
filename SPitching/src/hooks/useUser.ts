@@ -6,7 +6,7 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { getMyProfile, login, logout } from '../services/userApi';
 
-export const useUserProfile = () => useQuery(['user', 'profile'], getMyProfile);
+// export const useUserProfile = () => useQuery(['user', 'profile'], getMyProfile);
 
 export const useLogin = () => useMutation({ mutationFn: login });
 
