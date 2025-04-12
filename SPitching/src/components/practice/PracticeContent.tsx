@@ -1,31 +1,34 @@
-type PracticeContentProps = {
-  currentScript: string;
-  currentSlide: string; // 👉 이미지 경로
-};
+import MockPPT from '@/assets/mock_ppt.png';
+import PracticeTag from './PracticeTag';
 
-const PracticeContent = ({
-  currentScript,
-  currentSlide,
-}: PracticeContentProps) => {
+const PracticeContent = () => {
   return (
-    <div className='flex h-full'>
-      {/* 발표 슬라이드 */}
-      <div className='flex w-2/3 items-center justify-center border-r border-gray-200 bg-white'>
+    <section className='flex flex-3/10 flex-col overflow-hidden'>
+      <div className='shadow-shadow-100 flex shrink-0 flex-col justify-center rounded-md shadow-2xl'>
         <img
-          src={currentSlide}
-          alt='슬라이드'
-          className='h-[90%] w-auto object-contain'
+          src={MockPPT}
+          alt='PPT'
+          className='h-full w-full rounded-md object-cover'
         />
       </div>
-
-      {/* 발표 원고 */}
-      <div className='w-1/3 overflow-y-auto bg-[#F8FAF5] px-6 py-8'>
-        <h2 className='s2 mb-2 text-gray-700'>발표 원고</h2>
-        <p className='b2 leading-relaxed whitespace-pre-wrap text-gray-900'>
-          {currentScript}
-        </p>
+      <div className='mt-8 flex max-h-full w-full flex-wrap gap-2.5 overflow-y-auto'>
+        <PracticeTag content={'asdfasd'} />{' '}
+        <PracticeTag content={'asdfasdfasdfasdfasfadsfafa'} />{' '}
+        <PracticeTag content={'asdfasd'} /> <PracticeTag content={'asdfasd'} />{' '}
+        <PracticeTag content={'asdfasd'} />{' '}
+        <PracticeTag content={'asdfasdfasdfasdfasfadsfafa'} />{' '}
+        <PracticeTag content={'asdfasd'} /> <PracticeTag content={'asdfasd'} />{' '}
+        <PracticeTag content={'asdfasd'} />{' '}
+        <PracticeTag content={'asdfasdfasdfasdfasfadsfafa'} />{' '}
+        <PracticeTag content={'asdfasd'} /> <PracticeTag content={'asdfasd'} />{' '}
+        <PracticeTag content={'asdfasd'} />{' '}
+        <PracticeTag content={'asdfasdfasdfasdfasfadsfafa'} />{' '}
+        <PracticeTag content={'asdfasd'} /> <PracticeTag content={'asdfasd'} />{' '}
+        <PracticeTag content={'asdfasd'} />{' '}
+        <PracticeTag content={'asdfasdfasdfasdfasfadsfafa'} />{' '}
+        <PracticeTag content={'asdfasd'} /> <PracticeTag content={'끝'} />
       </div>
-    </div>
+    </section>
   );
 };
 export default PracticeContent;

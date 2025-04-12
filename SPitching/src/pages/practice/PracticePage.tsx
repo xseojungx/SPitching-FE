@@ -1,20 +1,21 @@
 import Navbar from '@/components/common/Navbar';
 import ScriptViewer from '@/components/practice/ScriptViewer';
+import PracticeContent from '@/components/practice/PracticeContent';
+import PracticeHeader from '../../components/practice/PracticeHeader';
 const PracticePage = () => {
   return (
     <div className='box-border flex h-screen w-screen flex-col pt-24 [background:linear-gradient(114deg,#F6FCEF_0%,#E6EFF4_100%)]'>
       <Navbar />
 
       {/* 콘텐츠 영역 */}
-      <div className='flex flex-1 items-center justify-center'>
-        <article className='flex max-h-[1080px] w-10/12 max-w-screen-2xl gap-4'>
-          {/* 노란색 박스가 보이도록 최소 높이 보장 */}
-          <section className='min-h-[200px] flex-6/10 rounded-xl bg-amber-200 shadow-sm'></section>
-          <section className='min-h-[200px] flex-4/10 rounded-xl bg-amber-200 shadow-sm'></section>
+      <div className='flex flex-1 items-center justify-center overflow-hidden'>
+        <article className='flex h-full max-h-[1080px] min-h-50 w-10/12 max-w-screen-2xl gap-4'>
+          <section className='h-full flex-7/10 rounded-xl bg-amber-200 shadow-sm'></section>
+          <PracticeContent />
         </article>
       </div>
 
-      {/* 대본 영역 */}
+      {/* 대본 */}
       <ScriptViewer />
     </div>
   );
