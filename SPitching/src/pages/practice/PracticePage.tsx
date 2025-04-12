@@ -1,7 +1,21 @@
 import ScriptViewer from '@/components/practice/ScriptViewer';
 import PracticeContent from '@/components/practice/PracticeContent';
 import PracticeHeader from '../../components/practice/PracticeHeader';
+import CameraRecorder from '@/components/practice/CameraRecorder';
+
 const PracticePage = () => {
+  const handleRecordingComplete = async (blob: Blob) => {
+    const formData = new FormData();
+    formData.append('video', blob, 'practice_video.webm');
+
+    // await fetch('/api/v1/practices/1/upload', {
+    //   method: 'POST',
+    //   body: formData,
+    // });
+
+    alert('영상 업로드 완료!');
+  };
+
   return (
     <div className='box-border flex h-screen w-screen flex-col pt-24 [background:linear-gradient(114deg,#F6FCEF_0%,#E6EFF4_100%)]'>
       <PracticeHeader onFinish={() => alert('발표 종료')} />
@@ -9,7 +23,7 @@ const PracticePage = () => {
       {/* 콘텐츠 영역 */}
       <div className='flex flex-1 items-center justify-center overflow-hidden'>
         <article className='flex h-full max-h-[1080px] min-h-50 w-10/12 max-w-screen-2xl gap-4'>
-          <section className='h-full flex-7/10 rounded-xl bg-amber-200 shadow-sm'></section>
+          <CameraRecorder onRecordingComplete={handleRecordingComplete} />
           <PracticeContent />
         </article>
       </div>
