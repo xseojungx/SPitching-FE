@@ -1,4 +1,14 @@
-const PracticeListCard = () => {
+interface PracticeListCardProps {
+  title: string;
+  description: string;
+  practice_count: number;
+}
+
+const PracticeListCard = ({
+  title,
+  description,
+  practice_count,
+}: PracticeListCardProps) => {
   return (
     <div className='white-card flex h-auto w-full flex-row gap-4 p-5'>
       {/* 썸네일 */}
@@ -9,19 +19,19 @@ const PracticeListCard = () => {
         <div>
           {/* 제목 */}
           <div className='flex flex-row items-center justify-between'>
-            <span className='s1 truncate text-gray-900'>발표 제목</span>
+            <span className='s1 truncate text-gray-900'>{title}</span>
             <span className='c2 text-gray-600'>2025.01.22</span>
           </div>
 
           {/* 설명 */}
-          <p className='b2 mt-1 line-clamp-2 text-gray-700'>발표 설명</p>
+          <p className='b2 mt-1 line-clamp-2 text-gray-700'>{description}</p>
         </div>
 
         {/* 하단 메타 정보 + 버튼 */}
         <div className='mt-4 flex flex-row items-center justify-between'>
           {/* 연습 정보 */}
           <div className='flex flex-wrap items-center gap-3 text-sm text-gray-600'>
-            <span>전체 연습 4번</span>
+            <span>전체 연습 {practice_count}번</span>
             <span>마지막 연습 2025.01.23</span>
             <span>점수 23점</span>
             <span className='flex items-center gap-1'>

@@ -13,4 +13,13 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
   plugins: [react(), tailwindcss(), svgr()],
   resolve: { alias: { '@': path.resolve(__dirname, './src') } },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://spitching.store',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });
