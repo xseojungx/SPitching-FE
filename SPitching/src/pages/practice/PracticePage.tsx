@@ -1,11 +1,10 @@
-import Navbar from '@/components/common/Navbar';
 import ScriptViewer from '@/components/practice/ScriptViewer';
 import PracticeContent from '@/components/practice/PracticeContent';
 import PracticeHeader from '../../components/practice/PracticeHeader';
 const PracticePage = () => {
   return (
     <div className='box-border flex h-screen w-screen flex-col pt-24 [background:linear-gradient(114deg,#F6FCEF_0%,#E6EFF4_100%)]'>
-      <Navbar />
+      <PracticeHeader onFinish={() => alert('발표 종료')} />
 
       {/* 콘텐츠 영역 */}
       <div className='flex flex-1 items-center justify-center overflow-hidden'>
