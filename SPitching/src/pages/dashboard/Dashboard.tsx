@@ -34,11 +34,6 @@ const Dashboard = () => {
             practice_count={presentation.practice_count}
           />
         ))}
-        {/* <PracticeListCard />
-        <PracticeListCard />
-        <PracticeListCard />
-        <PracticeListCard />
-        <PracticeListCard /> */}
       </div>
     </div>
   );

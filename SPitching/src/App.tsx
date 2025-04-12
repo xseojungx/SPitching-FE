@@ -4,6 +4,7 @@ import Landing from './pages/landing/Landing'; // 새로운 시작 페이지
 import Dashboard from './pages/dashboard/Dashboard';
 import FeedbackSummary from './pages/feedback/FeedbackSummary';
 import LoginPage from './pages/auth/LoginPage';
+import PracticePage from './pages/practice/\bPracticePage';
 
 import PrivateRoute from '@/routes/PrivateRoute';
 import PublicOnlyRoute from '@/routes/PublicOnlyRoute';
@@ -38,7 +39,6 @@ function App() {
               </PublicOnlyRoute>
             }
           />
-
           <Route
             path='/dashboard'
             element={
@@ -54,6 +54,10 @@ function App() {
                 <FeedbackSummary />
               </PrivateRoute>
             }
+          />{' '}
+          <Route
+            path='/practice'
+            element={<PracticePage />}
           />
         </Routes>
       </Router>
