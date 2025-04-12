@@ -11,7 +11,17 @@ import FluencyIcon from '../../assets/fluency.svg?react';
 
 type TagType = { page: number; count: number; notes: string[] };
 
-const RecentPractice = () => {
+interface PracticeListCardProps {
+  title: string;
+  description: string;
+  practice_count: number;
+}
+
+const RecentPractice = ({
+  title,
+  description,
+  practice_count,
+}: PracticeListCardProps) => {
   const [tag, setTag] = useState<TagType[]>([]);
   const [openPages, setOpenPages] = useState<number[]>([]);
 
@@ -61,8 +71,8 @@ const RecentPractice = () => {
       <div className='col-span-10 row-start-1 flex flex-col'>
         <span className='c2 text-gray-700'>최근 연습</span>
         <div className='flex items-baseline gap-2'>
-          <span className='h2 text-gray-900'>{recentPractice.title}</span>
-          <span className='b2 text-gray-700'>{recentPractice.description}</span>
+          <span className='h2 text-gray-900'>{title}</span>
+          <span className='b2 text-gray-700'>{description}</span>
           <span className='b2 text-gray-700'>{recentPractice.created}</span>
         </div>
       </div>
@@ -85,9 +95,7 @@ const RecentPractice = () => {
         </div>
         <div className='flex flex-row items-center gap-3 text-xs'>
           <span className='s2 text-gray-900'>연습 횟수</span>
-          <span className='b2 text-gray-700'>
-            {recentPractice.metadata.practiceCount.total}
-          </span>
+          <span className='b2 text-gray-700'>{practice_count}</span>
         </div>
       </div>
 
