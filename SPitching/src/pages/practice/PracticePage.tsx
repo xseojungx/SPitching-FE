@@ -1,9 +1,14 @@
 import ScriptViewer from '@/components/practice/ScriptViewer';
 import PracticeContent from '@/components/practice/PracticeContent';
 import PracticeHeader from '../../components/practice/PracticeHeader';
-import CameraRecorder from '@/components/practice/CameraRecorder';
+import { useRef } from 'react';
+import CameraRecorder, {
+  CameraRecorderHandle,
+} from '@/components/practice/CameraRecorder';
 
 const PracticePage = () => {
+  const recorderRef = useRef<CameraRecorderHandle>(null);
+
   const handleRecordingComplete = async (blob: Blob) => {
     const formData = new FormData();
     formData.append('video', blob, 'practice_video.webm');
@@ -16,14 +21,21 @@ const PracticePage = () => {
     alert('영상 업로드 완료!');
   };
 
+  const handleFinish = () => {
+    recorderRef.current?.stopRecording(); // 🎯 녹화 중단 트리거
+  };
+
   return (
     <div className='box-border flex h-screen w-screen flex-col pt-24 [background:linear-gradient(114deg,#F6FCEF_0%,#E6EFF4_100%)]'>
-      <PracticeHeader onFinish={() => alert('발표 종료')} />
+      <PracticeHeader onFinish={handleFinish} />
 
       {/* 콘텐츠 영역 */}
       <div className='flex flex-1 items-center justify-center overflow-hidden'>
         <article className='flex h-full max-h-[1080px] min-h-50 w-10/12 max-w-screen-2xl gap-4'>
-          <CameraRecorder onRecordingComplete={handleRecordingComplete} />
+          <CameraRecorder
+            ref={recorderRef}
+            onRecordingComplete={handleRecordingComplete}
+          />
           <PracticeContent />
         </article>
       </div>

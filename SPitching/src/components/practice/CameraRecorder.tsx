@@ -1,67 +1,76 @@
-// components/practice/CameraRecorder.tsx
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import CameraPreview from './CameraPreview';
+
+export type CameraRecorderHandle = { stopRecording: () => void };
 
 type CameraRecorderProps = { onRecordingComplete: (videoBlob: Blob) => void };
 
-const CameraRecorder = ({ onRecordingComplete }: CameraRecorderProps) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const recordedChunksRef = useRef<Blob[]>([]);
-  const streamRef = useRef<MediaStream | null>(null);
+const CameraRecorder = forwardRef<CameraRecorderHandle, CameraRecorderProps>(
+  ({ onRecordingComplete }, ref) => {
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+    const recordedChunksRef = useRef<Blob[]>([]);
+    const streamRef = useRef<MediaStream | null>(null);
 
-  // 초기 카메라 접근 및 녹화 시작
-  useEffect(() => {
-    const initCamera = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-          audio: true,
-        });
-
-        streamRef.current = stream;
-
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
+    useImperativeHandle(ref, () => ({
+      stopRecording() {
+        if (mediaRecorderRef.current?.state === 'recording') {
+          mediaRecorderRef.current.stop();
         }
+      },
+    }));
 
-        const mediaRecorder = new MediaRecorder(stream, {
-          mimeType: 'video/webm',
-        });
-
-        mediaRecorder.ondataavailable = (e) => {
-          if (e.data.size > 0) recordedChunksRef.current.push(e.data);
-        };
-
-        mediaRecorder.onstop = () => {
-          const blob = new Blob(recordedChunksRef.current, {
-            type: 'video/webm',
+    useEffect(() => {
+      const initCamera = async () => {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: true,
           });
-          onRecordingComplete(blob);
-        };
 
-        mediaRecorder.start();
-        mediaRecorderRef.current = mediaRecorder;
-      } catch (err) {
-        console.error('🎥 카메라 접근 오류:', err);
-      }
-    };
+          streamRef.current = stream;
 
-    initCamera();
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+          }
 
-    return () => {
-      // 컴포넌트 언마운트 시 정리
-      if (mediaRecorderRef.current?.state !== 'inactive') {
-        mediaRecorderRef.current?.stop();
-      }
-      streamRef.current?.getTracks().forEach((track) => track.stop());
-    };
-  }, []);
+          const mediaRecorder = new MediaRecorder(stream, {
+            mimeType: 'video/webm',
+          });
 
-  // 외부에서 stop 요청 가능하게 핸들러 반환 (선택적 확장)
-  // → 예: useImperativeHandle로 제어 가능하게 만들 수도 있음
+          mediaRecorder.ondataavailable = (e) => {
+            if (e.data.size > 0) recordedChunksRef.current.push(e.data);
+          };
 
-  return <CameraPreview videoRef={videoRef} />;
-};
+          mediaRecorder.onstop = () => {
+            const blob = new Blob(recordedChunksRef.current, {
+              type: 'video/webm',
+            });
+            onRecordingComplete(blob);
+          };
+
+          mediaRecorder.start();
+          mediaRecorderRef.current = mediaRecorder;
+        } catch (err) {
+          console.error('🎥 카메라 접근 오류:', err);
+        }
+      };
+
+      initCamera();
+
+      return () => {
+        if (mediaRecorderRef.current?.state !== 'inactive') {
+          mediaRecorderRef.current?.stop();
+        }
+        streamRef.current?.getTracks().forEach((track) => track.stop());
+      };
+    }, []);
+
+    return <CameraPreview videoRef={videoRef} />;
+  },
+);
+
+// ✅ displayName 설정
+CameraRecorder.displayName = 'CameraRecorder';
 
 export default CameraRecorder;
