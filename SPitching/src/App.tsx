@@ -5,6 +5,8 @@ import Dashboard from './pages/dashboard/Dashboard';
 import FeedbackSummary from './pages/feedback/FeedbackSummary';
 import LoginPage from './pages/auth/LoginPage';
 
+import PrivateRoute from '@/routes/PrivateRoute';
+import PublicOnlyRoute from '@/routes/PublicOnlyRoute';
 function App() {
   // useEffect(() => {
   //   fetch('', {
@@ -30,16 +32,28 @@ function App() {
           />
           <Route
             path='/login'
-            element={<LoginPage />}
+            element={
+              <PublicOnlyRoute>
+                <LoginPage />
+              </PublicOnlyRoute>
+            }
           />
 
           <Route
             path='/dashboard'
-            element={<Dashboard />}
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
           />
           <Route
             path='/feedback/summary'
-            element={<FeedbackSummary />}
+            element={
+              <PrivateRoute>
+                <FeedbackSummary />
+              </PrivateRoute>
+            }
           />
         </Routes>
       </Router>
