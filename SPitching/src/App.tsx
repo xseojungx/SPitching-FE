@@ -8,7 +8,7 @@ import GoogleCallbackPage from './pages/auth/GoogleCallbackPage';
 
 function App() {
   // useEffect(() => {
-  //   fetch('https://spitching.store/api/v1/login/me', {
+  //   fetch('', {
   //     method: 'GET',
   //     credentials: 'include', // 세션 쿠키 보내기
   //   })
