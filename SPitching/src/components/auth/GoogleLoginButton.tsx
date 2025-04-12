@@ -3,8 +3,13 @@ import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import { googleLogin } from '@/services/auth.api';
 
+import { useDispatch } from 'react-redux';
+import { login } from '@/redux/slices/auth.slice';
+
 const GoogleLoginButton = () => {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const handleLoginSuccess = async (credentialResponse: CredentialResponse) => {
     const token = credentialResponse.credential;
@@ -17,6 +22,7 @@ const GoogleLoginButton = () => {
     try {
       const res = await googleLogin(token); // ✅ 서비스 레이어에서 API 호출
       alert(res.data); // 예: "로그인 성공"
+      dispatch(login());
       navigate('/dashboard');
     } catch (err) {
       console.error('❌ 로그인 실패:', err);

@@ -1,10 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import Landing from './pages/landing/Landing'; // 새로운 시작 페이지
 import Dashboard from './pages/dashboard/Dashboard';
 import FeedbackSummary from './pages/feedback/FeedbackSummary';
 import LoginPage from './pages/auth/LoginPage';
-import GoogleCallbackPage from './pages/auth/GoogleCallbackPage';
 
 function App() {
   // useEffect(() => {
@@ -32,10 +31,6 @@ function App() {
           <Route
             path='/login'
             element={<LoginPage />}
-          />
-          <Route
-            path='/login/oauth2/code/google'
-            element={<GoogleCallbackPage />}
           />
 
           <Route

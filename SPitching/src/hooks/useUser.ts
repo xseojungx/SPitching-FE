@@ -4,7 +4,7 @@
 
 // src/hooks/useUser.ts
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { getMyProfile, login, logout } from '../services/userApi';
+import { getMyProfile, login, logout } from '../services/user.api';
 
 // export const useUserProfile = () => useQuery(['user', 'profile'], getMyProfile);
 

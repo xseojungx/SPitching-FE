@@ -1,4 +1,10 @@
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import GoogleLoginButton from '../auth/GoogleLoginButton';
+
 const Navbar = () => {
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+
   return (
     <header className='fixed top-0 left-0 z-50 flex h-16 w-full items-center justify-between bg-white px-6 shadow'>
       {/* 로고 */}
@@ -10,7 +16,15 @@ const Navbar = () => {
         <button className='transition hover:text-[#255A9B]'>
           연습 바로가기
         </button>
-        <button className='transition hover:text-[#255A9B]'>마이페이지</button>
+        <div>
+          {isLoggedIn ? (
+            <button className='transition hover:text-[#255A9B]'>
+              마이페이지
+            </button>
+          ) : (
+            <GoogleLoginButton />
+          )}
+        </div>
       </nav>
     </header>
   );
