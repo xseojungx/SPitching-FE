@@ -1,5 +1,5 @@
 // CameraRecorder.tsx
-import { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
+import { useRef, useImperativeHandle, forwardRef } from 'react';
 import CameraPreview from './CameraPreview';
 
 export type CameraRecorderHandle = {

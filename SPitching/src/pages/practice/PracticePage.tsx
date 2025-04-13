@@ -12,9 +12,26 @@ import LoadingOverlay from '@/components/common/LoadingOverlay';
 const PracticePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
+  const [seconds, setSeconds] = useState(0);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const recorderRef = useRef<CameraRecorderHandle>(null);
   const navigate = useNavigate();
+
+  const startTimer = () => {
+    if (!timerRef.current) {
+      timerRef.current = setInterval(() => {
+        setSeconds((prev) => prev + 1);
+      }, 1000);
+    }
+  };
+
+  const stopTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  };
 
   const handleRecordingComplete = async (blob: Blob) => {
     setIsLoading(true);
@@ -35,6 +52,7 @@ const PracticePage = () => {
       }
 
       const result = await response.json();
+      await new Promise((res) => setTimeout(res, 2000));
 
       navigate('/feedback/summary', { state: result });
 
@@ -49,29 +67,34 @@ const PracticePage = () => {
 
   const handleStart = () => {
     recorderRef.current?.startRecording();
-    setIsRecording(true); // 👉 버튼 숨기기용 상태 변경
+    setIsRecording(true);
+    startTimer();
   };
 
   const handleFinish = () => {
     recorderRef.current?.stopRecording();
+    stopTimer();
   };
 
   return (
     <div className='box-border flex h-screen w-screen flex-col pt-24 [background:linear-gradient(114deg,#F6FCEF_0%,#E6EFF4_100%)]'>
-      <PracticeHeader onFinish={handleFinish} />
+      <PracticeHeader
+        onFinish={handleFinish}
+        seconds={seconds}
+      />
+      {!isRecording && (
+        <div className='bg-opacity-70 fixed inset-0 z-50 flex h-screen w-screen items-center justify-center border-gray-200 bg-gray-700/20 backdrop-blur-sm'>
+          <button
+            className='bg-mint-500 h-20 w-64 rounded-lg border text-xl font-semibold text-gray-900 shadow-lg backdrop-blur-md transition hover:brightness-105'
+            onClick={handleStart}
+          >
+            🎬 연습 시작하기
+          </button>
+        </div>
+      )}
 
       <div className='flex flex-1 items-center justify-center overflow-hidden'>
         <article className='relative flex h-full max-h-[1080px] min-h-50 w-10/12 max-w-screen-2xl gap-4'>
-          <div className='absolute top-8 left-8 z-50'>
-            {!isRecording && (
-              <button
-                className='rounded-xl bg-gradient-to-r from-[#A9EAD6] to-[#4C9ACF] px-5 py-2 font-semibold text-white shadow-md backdrop-blur-sm transition hover:brightness-110'
-                onClick={handleStart}
-              >
-                🎬 촬영 시작
-              </button>
-            )}
-          </div>
           <CameraRecorder
             ref={recorderRef}
             onRecordingComplete={handleRecordingComplete}
