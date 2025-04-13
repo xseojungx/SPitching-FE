@@ -9,10 +9,10 @@ const SimilarityCard = () => {
         <div className='flex flex-col items-start gap-1'>
           <span className='b2 text-gray-900'>높은 유사도입니다</span>
           <div className='c2 flex items-center whitespace-nowrap text-gray-700'>
-            <TriangleIcon className='mr-1 text-rose-500' />
+            <TriangleIcon className='mr-1 rotate-180 text-rose-500' />
             <span>유사도가&nbsp;</span>
             <span className='c1 text-rose-500'>5%&nbsp;</span>
-            <span>상승했습니다.</span>
+            <span>감소했습니다.</span>
           </div>
         </div>
 
