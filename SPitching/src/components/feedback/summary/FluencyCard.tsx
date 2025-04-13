@@ -4,7 +4,7 @@ import FluencyBar from './FluencyBar';
 
 const FluencyCard = () => {
   return (
-    <div className='white-card col-span-4 col-start-5 row-span-4 row-start-7'>
+    <div className='white-card col-span-4 col-start-5 row-span-4 row-start-7 cursor-pointer transition duration-400 hover:-translate-y-1 hover:shadow-lg'>
       <p className='s1 justify-self-start text-gray-900'>발표 유창성</p>
 
       <div className='flex shrink-0 items-center justify-between self-stretch'>

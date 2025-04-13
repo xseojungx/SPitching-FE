@@ -5,14 +5,20 @@ import GestureVideo from '@/components/feedback/GestureDetail/GestureVideo';
 import FeedbackTabs from '@/components/feedback/GestureDetail/FeedbackTabs';
 import { getGestureFeedbackMessage } from '@/utils/getGestureFeedback';
 
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+
 const GestureDetailPage = () => {
+  const { gestureScore, crossedScore, raisedScore, faceScore, explainScore, straightScore } =
+    useSelector((state: RootState) => state.gestureFeedback);
+
   const { positiveFeedback, negativeFeedback } = getGestureFeedbackMessage({
-    gestureScore: 89,
-    crossedScore: 12,
-    raisedScore: 8,
-    faceScore: 15,
-    explainScore: 5,
-    straightScore: 20,
+    gestureScore,
+    crossedScore,
+    raisedScore,
+    faceScore,
+    explainScore,
+    straightScore,
   });
 
   return (
@@ -24,19 +30,16 @@ const GestureDetailPage = () => {
         <div className='col-span-0 md:col-span-1' />
 
         {/* 제목 + 날짜 + 돌아가기 버튼 */}
-        <HeaderSection
-          title='기후 변화와 글로벌 경제: 지속 가능한 미래를 위한 대응 전략'
-          date='7/23일 기후정의 기말 발표'
-        />
+        <HeaderSection title='기후 변화와 글로벌 경제: 지속 가능한 미래를 위한 대응 전략' />
 
         {/* 제스처 점수 카드 */}
         <ScoreSummaryCard
-          gestureScore={89}
-          crossedScore={12}
-          raisedScore={8}
-          faceScore={15}
-          explainScore={5}
-          straightScore={20}
+          gestureScore={gestureScore}
+          crossedScore={crossedScore}
+          raisedScore={raisedScore}
+          faceScore={faceScore}
+          explainScore={explainScore}
+          straightScore={straightScore}
         />
 
         {/* 분석 영상 */}

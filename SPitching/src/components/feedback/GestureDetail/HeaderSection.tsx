@@ -2,20 +2,16 @@ import { ArrowLeft } from 'lucide-react';
 
 interface HeaderSectionProps {
   title: string;
-  date: string;
 }
 
-const HeaderSection = ({ title, date }: HeaderSectionProps) => {
+const HeaderSection = ({ title }: HeaderSectionProps) => {
   const handleBack = () => {
     window.history.back();
   };
 
   return (
     <div className='col-span-10 flex w-full items-center justify-between gap-3'>
-      <div className='flex items-baseline gap-3'>
-        <span className='h1 text-gray-900'>{title}</span>
-        <span className='b2 text-gray-700'>{date}</span>
-      </div>
+      <span className='h1 text-gray-900'>{title}</span>
 
       <button
         onClick={handleBack}

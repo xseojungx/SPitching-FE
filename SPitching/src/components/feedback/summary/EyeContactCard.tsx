@@ -1,4 +1,4 @@
-import ScorePieChart from '../../common/ScorePieChart';
+// import ScorePieChart from '../../common/ScorePieChart';
 
 type EyeContactCardProps = { eyecontactScore: number };
 
@@ -18,10 +18,10 @@ const EyeContactCard = ({ eyecontactScore }: EyeContactCardProps) => {
   const message = getMessage(eyecontactScore);
 
   return (
-    <div className='white-card col-span-3 col-start-9 row-span-3 row-start-8'>
+    <div className='white-card col-span-3 col-start-9 row-span-3 row-start-8 cursor-pointer transition duration-400 hover:-translate-y-1 hover:shadow-lg'>
       {/* 제목 */}
       <p className='s1 text-gray-900'>시선</p>
-      <div className='flex w-full flex-1 flex-col items-center items-start gap-2'>
+      <div className='flex w-full flex-1 flex-col items-start gap-2'>
         <span className='h1 bg-gradient-to-b from-[#255A9B] via-[#7AB7CE] to-[#A9EAD6] bg-clip-text text-transparent'>
           65점
         </span>

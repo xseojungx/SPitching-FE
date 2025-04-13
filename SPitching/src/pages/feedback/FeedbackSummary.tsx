@@ -9,9 +9,24 @@ import SimilarityCard from '../../components/feedback/summary/SimilarityCard';
 
 import { useLocation } from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
+import { setGestureFeedback } from '@/redux/slices/gestureFeedbackSlice';
+
 const FeedbackSummary = () => {
   const location = useLocation();
   const data = location.state;
+
+  const dispatch = useDispatch();
+  dispatch(
+    setGestureFeedback({
+      gestureScore: data.gestureScore,
+      crossedScore: data.crossedScore,
+      raisedScore: data.raisedScore,
+      faceScore: data.faceScore,
+      explainScore: data.explainScore,
+      straightScore: data.straightScore,
+    }),
+  );
 
   // if (!data) return <div>분석 결과 없음</div>;
 
