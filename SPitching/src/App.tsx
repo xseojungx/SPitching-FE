@@ -6,8 +6,10 @@ import FeedbackSummary from './pages/feedback/FeedbackSummary';
 import LoginPage from './pages/auth/LoginPage';
 import PracticePage from './pages/practice/\bPracticePage';
 
-import PrivateRoute from '@/routes/PrivateRoute';
-import PublicOnlyRoute from '@/routes/PublicOnlyRoute';
+import GestureDetailPage from './pages/feedback/GestureDetailPage';
+
+// import PrivateRoute from '@/routes/PrivateRoute';
+// import PublicOnlyRoute from '@/routes/PublicOnlyRoute';
 function App() {
   // useEffect(() => {
   //   fetch('', {
@@ -54,7 +56,15 @@ function App() {
               <FeedbackSummary />
               // </PrivateRoute>
             }
-          />{' '}
+          />
+          <Route
+            path='/feedback/gesture'
+            element={
+              // <PrivateRoute>
+              <GestureDetailPage />
+              // </PrivateRoute>
+            }
+          />
           <Route
             path='/practice'
             element={<PracticePage />}
