@@ -7,8 +7,12 @@ import { usePresentationList } from '@/hooks/useDashboard';
 const Dashboard = () => {
   const { data, isLoading, isError } = usePresentationList();
 
-  if (isLoading) return <p>불러오는 중...</p>;
-  if (isError) return <p>오류가 발생했어요.</p>;
+  if (isLoading) {
+    console.log('로딩중');
+  }
+  if (isError) {
+    console.log('오류');
+  }
 
   return (
     <div className='flex h-screen flex-col items-center overflow-scroll'>

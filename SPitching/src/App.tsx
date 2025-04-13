@@ -34,25 +34,25 @@ function App() {
           <Route
             path='/login'
             element={
-              <PublicOnlyRoute>
-                <LoginPage />
-              </PublicOnlyRoute>
+              // <PublicOnlyRoute>
+              <LoginPage />
+              // </PublicOnlyRoute>
             }
           />
           <Route
             path='/dashboard'
             element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
+              // <PrivateRoute>
+              <Dashboard />
+              // </PrivateRoute>
             }
           />
           <Route
             path='/feedback/summary'
             element={
-              <PrivateRoute>
-                <FeedbackSummary />
-              </PrivateRoute>
+              // <PrivateRoute>
+              <FeedbackSummary />
+              // </PrivateRoute>
             }
           />{' '}
           <Route

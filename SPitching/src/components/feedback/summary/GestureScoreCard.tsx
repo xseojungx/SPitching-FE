@@ -1,4 +1,11 @@
-const GestureScoreCard = () => {
+const GestureScoreCard = ({
+  gestureScore,
+  crossedScore,
+  raisedScore,
+  faceScore,
+  explainScore,
+  straightScore,
+}: GestureFeedbackProps) => {
   return (
     <article className='white-card col-span-3 col-start-9 row-span-4 row-start-4'>
       <p className='s1 justify-self-start text-gray-900'>제스처</p>
@@ -6,15 +13,17 @@ const GestureScoreCard = () => {
         <div className='flex flex-1 flex-col items-center justify-center'>
           <p className='b2 text-gray-700'>총점</p>
           <p className='h1 bg-gradient-to-b from-[#255A9B] via-[#7AB7CE] to-[#A9EAD6] bg-clip-text text-transparent'>
-            75
+            {gestureScore}
           </p>
         </div>
 
         <DetailFeedback
-          gestureScore={89}
-          crossedScore={12}
-          raisedScore={8}
-          faceScore={11}
+          gestureScore={gestureScore}
+          crossedScore={crossedScore}
+          raisedScore={raisedScore}
+          faceScore={faceScore}
+          explainScore={explainScore}
+          straightScore={straightScore}
         />
       </div>
     </article>
@@ -30,13 +39,17 @@ type GestureFeedbackProps = {
   crossedScore: number;
   raisedScore: number;
   faceScore: number;
+  explainScore: number;
+  straightScore: number;
 };
 
 const DetailFeedback = ({
-  gestureScore = 75,
-  crossedScore = 12,
-  raisedScore = 5,
-  faceScore = 10,
+  gestureScore,
+  crossedScore,
+  raisedScore,
+  faceScore,
+  explainScore,
+  straightScore,
 }: GestureFeedbackProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
 

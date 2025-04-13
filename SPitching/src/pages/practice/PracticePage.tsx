@@ -1,24 +1,54 @@
 import ScriptViewer from '@/components/practice/ScriptViewer';
 import PracticeContent from '@/components/practice/PracticeContent';
 import PracticeHeader from '../../components/practice/PracticeHeader';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import CameraRecorder, {
   CameraRecorderHandle,
 } from '@/components/practice/CameraRecorder';
+import { useNavigate } from 'react-router-dom';
+import LoadingOverlay from '@/components/common/LoadingOverlay';
 
 const PracticePage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const recorderRef = useRef<CameraRecorderHandle>(null);
+  const navigate = useNavigate();
 
   const handleRecordingComplete = async (blob: Blob) => {
+    setIsLoading(true);
     const formData = new FormData();
-    formData.append('video', blob, 'practice_video.webm');
 
-    // await fetch('/api/v1/practices/1/upload', {
-    //   method: 'POST',
-    //   body: formData,
-    // });
+    // 🎯 하드코딩된 값들
+    formData.append('file', blob, 'practice_video.webm');
+    formData.append('userId', '5');
+    formData.append('presentationId', '55');
+    formData.append('practiceId', '4');
 
-    alert('영상 업로드 완료!');
+    try {
+      const response = await fetch(
+        'http://localhost:8000/api/v1/feedback/gesture',
+        { method: 'POST', body: formData },
+      );
+
+      if (!response.ok) {
+        throw new Error(`분석 실패: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('🎯 분석 결과:', result);
+      await new Promise((res) => setTimeout(res, 2000)); // 1초만 기다리기
+
+      navigate('/feedback/summary', {
+        state: result, // 👈 이 안에 모든 결과를 전달
+      });
+
+      alert('제스처 분석 완료!');
+    } catch (err) {
+      console.error('AI 서버 전송 오류:', err);
+      alert('AI 분석 실패');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleFinish = () => {
@@ -42,6 +72,7 @@ const PracticePage = () => {
 
       {/* 대본 */}
       <ScriptViewer />
+      {isLoading && <LoadingOverlay />}
     </div>
   );
 };

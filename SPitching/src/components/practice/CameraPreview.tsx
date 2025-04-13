@@ -1,7 +1,9 @@
 // components/practice/CameraPreview.tsx
 import { RefObject } from 'react';
 
-type CameraPreviewProps = { videoRef: RefObject<HTMLVideoElement> };
+type CameraPreviewProps = {
+  videoRef: RefObject<HTMLVideoElement | null>; // ✅ null 허용
+};
 
 const CameraPreview = ({ videoRef }: CameraPreviewProps) => {
   return (

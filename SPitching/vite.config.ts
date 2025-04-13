@@ -18,7 +18,7 @@ export default defineConfig({
       '/api': {
         target: 'https://spitching.store',
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
     },
   },

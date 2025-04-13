@@ -7,7 +7,14 @@ import FluencyCard from '../../components/feedback/summary/FluencyCard';
 import GestureScoreCard from '../../components/feedback/summary/GestureScoreCard';
 import SimilarityCard from '../../components/feedback/summary/SimilarityCard';
 
+import { useLocation } from 'react-router-dom';
+
 const FeedbackSummary = () => {
+  const location = useLocation();
+  const data = location.state;
+
+  // if (!data) return <div>분석 결과 없음</div>;
+
   return (
     <div className='box-border flex h-screen w-screen flex-col pt-24 pb-8 [background:linear-gradient(112deg,#E9F4F1_2.32%,#E6EFF4_99.22%)] lg:pb-10 xl:pb-14'>
       <Navbar />
@@ -24,7 +31,14 @@ const FeedbackSummary = () => {
         <TotalScore />
         <SimilarityCard />
         <DurationCard />
-        <GestureScoreCard />
+        <GestureScoreCard
+          crossedScore={data.crossedScore}
+          gestureScore={data.gestureScore}
+          raisedScore={data.raisedScore}
+          faceScore={data.faceScore}
+          explainScore={data.explainScore}
+          straightScore={data.straightScore}
+        />
         <FluencyCard />
         <EyeContactCard eyecontactScore={85} />
       </main>
