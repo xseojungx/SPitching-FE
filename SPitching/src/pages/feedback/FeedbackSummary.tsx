@@ -11,6 +11,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { setGestureFeedback } from '@/redux/slices/gestureFeedbackSlice';
+import { presentationMockData } from '@/assets/mockData';
 
 const FeedbackSummary = () => {
   const location = useLocation();
@@ -30,6 +31,8 @@ const FeedbackSummary = () => {
     }),
   );
 
+  const presentationData = presentationMockData.data[0];
+
   // if (!data) return <div>분석 결과 없음</div>;
 
   return (
@@ -39,10 +42,8 @@ const FeedbackSummary = () => {
       <main className='grid-layout h-full w-full grid-rows-[auto_repeat(9,1fr)] pt-0'>
         <div className='col-span-0 md:col-span-1' />
         <div className='col-span-10 flex w-full items-end gap-3'>
-          <span className='h1 text-gray-900'>
-            기후 변화와 글로벌 경제: 지속 가능한 미래를 위한 대응 전략
-          </span>
-          <span className='b2 text-gray-700'>7/23일 기후정의 기말 발표</span>
+          <span className='h1 text-gray-900'>{presentationData.title}</span>
+          <span className='b2 text-gray-700'>{presentationData.description}</span>
         </div>
         <SummaryGraph />
         <TotalScore />

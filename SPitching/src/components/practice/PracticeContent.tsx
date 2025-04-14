@@ -15,6 +15,9 @@ const PracticeContent = () => {
         <PracticeTag content={'시작하기 전에 인사하기'} />
         <PracticeTag content={'바른 자세 유지하기'} />
         <PracticeTag content={'발음 또박또박! 말 꼬이지 않게!!'} />
+        <PracticeTag content={'설명 제스처'} /> <PracticeTag content={'바른 자세'} />
+        <PracticeTag content={'팔짱'} /> <PracticeTag content={'팔 들어올리기'} />
+        <PracticeTag content={'얼굴 만지기'} />
       </div>
     </section>
   );

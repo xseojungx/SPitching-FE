@@ -3,10 +3,10 @@ import RecentPractice from '../../components/practiceList/RecentPractice';
 import Navbar from '../../components/common/Navbar';
 import PracticeListCard from '../../components/dashboard/PracticeListCard';
 // import { usePresentationList } from '@/hooks/useDashboard';
-import { presentationData } from '@/assets/mockData';
+import { presentationMockData } from '@/assets/mockData';
 
 const Dashboard = () => {
-  const data = presentationData;
+  const data = presentationMockData;
   // const { data, isLoading, isError } = usePresentationList();
 
   // if (isLoading) {
@@ -40,6 +40,8 @@ const Dashboard = () => {
             title={presentation.title}
             description={presentation.description}
             practice_count={presentation.practice_count}
+            created_at={presentation.created_at}
+            last_practice={presentation.last_practice}
           />
         ))}
       </div>

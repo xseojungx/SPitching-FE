@@ -17,7 +17,7 @@ const PracticeHeader = ({ onFinish, seconds }: PracticeHeaderProps) => {
         <div className='flex items-center justify-center gap-2'>
           <Timer className='w-4=6 h-6 text-gray-700' />
           <span className='s1 text-rose-500'>{formatTime(seconds)}</span>
-          <span className='b1 text-gray-500'>/ 5:00</span>
+          <span className='b1 text-gray-500'>/ 00:20</span>
         </div>
         <button
           onClick={onFinish}
