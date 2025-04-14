@@ -29,8 +29,7 @@ const GoogleLoginButton = () => {
   //   }
   // };
   const handleGoogleLogin = () => {
-    window.location.href =
-      'https://spitching.store/oauth2/authorization/google';
+    window.location.href = 'https://spitching.store/oauth2/authorization/google';
   };
 
   return (

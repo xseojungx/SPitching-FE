@@ -11,22 +11,10 @@ const PracticeContent = () => {
           className='h-full w-full rounded-md object-cover'
         />
       </div>
-      <div className='mt-8 flex max-h-full w-full flex-wrap gap-2.5 overflow-y-auto'>
-        <PracticeTag content={'asdfasd'} />{' '}
-        <PracticeTag content={'asdfasdfasdfasdfasfadsfafa'} />{' '}
-        <PracticeTag content={'asdfasd'} /> <PracticeTag content={'asdfasd'} />{' '}
-        <PracticeTag content={'asdfasd'} />{' '}
-        <PracticeTag content={'asdfasdfasdfasdfasfadsfafa'} />{' '}
-        <PracticeTag content={'asdfasd'} /> <PracticeTag content={'asdfasd'} />{' '}
-        <PracticeTag content={'asdfasd'} />{' '}
-        <PracticeTag content={'asdfasdfasdfasdfasfadsfafa'} />{' '}
-        <PracticeTag content={'asdfasd'} /> <PracticeTag content={'asdfasd'} />{' '}
-        <PracticeTag content={'asdfasd'} />{' '}
-        <PracticeTag content={'asdfasdfasdfasdfasfadsfafa'} />{' '}
-        <PracticeTag content={'asdfasd'} /> <PracticeTag content={'asdfasd'} />{' '}
-        <PracticeTag content={'asdfasd'} />{' '}
-        <PracticeTag content={'asdfasdfasdfasdfasfadsfafa'} />{' '}
-        <PracticeTag content={'asdfasd'} /> <PracticeTag content={'끝'} />
+      <div className='mt-8 flex max-h-full w-full flex-wrap gap-2.5 overflow-y-auto pb-4'>
+        <PracticeTag content={'시작하기 전에 인사하기'} />
+        <PracticeTag content={'바른 자세 유지하기'} />
+        <PracticeTag content={'발음 또박또박! 말 꼬이지 않게!!'} />
       </div>
     </section>
   );

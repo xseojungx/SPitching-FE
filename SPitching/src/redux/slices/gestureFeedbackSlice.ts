@@ -7,6 +7,7 @@ interface GestureFeedbackState {
   faceScore: number;
   explainScore: number;
   straightScore: number;
+  videoName: string;
 }
 
 const initialState: GestureFeedbackState = {
@@ -16,6 +17,7 @@ const initialState: GestureFeedbackState = {
   faceScore: 0,
   explainScore: 0,
   straightScore: 0,
+  videoName: '',
 };
 
 const gestureFeedbackSlice = createSlice({

@@ -15,6 +15,7 @@ import { setGestureFeedback } from '@/redux/slices/gestureFeedbackSlice';
 const FeedbackSummary = () => {
   const location = useLocation();
   const data = location.state;
+  console.log('데이터', data);
 
   const dispatch = useDispatch();
   dispatch(
@@ -25,6 +26,7 @@ const FeedbackSummary = () => {
       faceScore: data.faceScore,
       explainScore: data.explainScore,
       straightScore: data.straightScore,
+      videoName: data.videoUrl,
     }),
   );
 

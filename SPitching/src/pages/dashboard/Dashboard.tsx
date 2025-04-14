@@ -2,17 +2,19 @@
 import RecentPractice from '../../components/practiceList/RecentPractice';
 import Navbar from '../../components/common/Navbar';
 import PracticeListCard from '../../components/dashboard/PracticeListCard';
-import { usePresentationList } from '@/hooks/useDashboard';
+// import { usePresentationList } from '@/hooks/useDashboard';
+import { presentationData } from '@/assets/mockData';
 
 const Dashboard = () => {
-  const { data, isLoading, isError } = usePresentationList();
+  const data = presentationData;
+  // const { data, isLoading, isError } = usePresentationList();
 
-  if (isLoading) {
-    console.log('로딩중');
-  }
-  if (isError) {
-    console.log('오류');
-  }
+  // if (isLoading) {
+  //   console.log('로딩중');
+  // }
+  // if (isError) {
+  //   console.log('오류');
+  // }
 
   return (
     <div className='flex h-screen flex-col items-center overflow-scroll'>
@@ -24,15 +26,17 @@ const Dashboard = () => {
             title={data.data[0].title}
             description={data.data[0].description}
             practice_count={data.data[0].practice_count}
+            last_practice={data.data[0].last_practice}
+            created_at={data.data[0].created_at}
           />
         )}
 
         <div className="absolute left-0 -z-1 h-full w-screen bg-[url('/assets/dashboard_bg.svg')] bg-left-top bg-no-repeat not-first:bg-cover"></div>
       </div>
       <div className='box-border flex w-8/12 flex-col items-center gap-2 pt-18'>
-        {data?.data.map((presentation) => (
+        {data?.data.map((presentation, i) => (
           <PracticeListCard
-            key={presentation.id}
+            key={i}
             title={presentation.title}
             description={presentation.description}
             practice_count={presentation.practice_count}
