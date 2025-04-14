@@ -6,25 +6,17 @@ interface FeedbackTabsProps {
   negativeFeedback: string[];
 }
 
-const FeedbackTabs = ({
-  positiveFeedback,
-  negativeFeedback,
-}: FeedbackTabsProps) => {
-  const [activeTab, setActiveTab] = useState<'positive' | 'negative'>(
-    'positive',
-  );
+const FeedbackTabs = ({ positiveFeedback, negativeFeedback }: FeedbackTabsProps) => {
+  const [activeTab, setActiveTab] = useState<'positive' | 'negative'>('positive');
 
-  const feedbackList =
-    activeTab === 'positive' ? positiveFeedback : negativeFeedback;
+  const feedbackList = activeTab === 'positive' ? positiveFeedback : negativeFeedback;
 
   return (
-    <div className='white-card col-span-7 col-start-5 row-span-3 row-start-7 flex flex-col gap-4'>
+    <div className='white-card col-span-7 col-start-5 row-span-3 row-start-8 flex flex-col gap-4'>
       <div className='flex gap-3'>
         <button
           className={`s2 flex items-center gap-2 rounded-full px-4 py-1.5 transition ${
-            activeTab === 'positive'
-              ? 'bg-avocado-400 text-gray-900'
-              : 'bg-gray-200 text-gray-700'
+            activeTab === 'positive' ? 'bg-avocado-400 text-gray-900' : 'bg-gray-200 text-gray-700'
           }`}
           onClick={() => setActiveTab('positive')}
         >
@@ -33,9 +25,7 @@ const FeedbackTabs = ({
         </button>
         <button
           className={`s2 rounded-full px-4 py-1.5 transition ${
-            activeTab === 'negative'
-              ? 'bg-rose-500 text-white'
-              : 'bg-gray-200 text-gray-700'
+            activeTab === 'negative' ? 'bg-rose-500 text-white' : 'bg-gray-200 text-gray-700'
           }`}
           onClick={() => setActiveTab('negative')}
         >

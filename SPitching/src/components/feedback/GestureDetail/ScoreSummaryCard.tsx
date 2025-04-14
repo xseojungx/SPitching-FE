@@ -19,7 +19,7 @@ const ScoreSummaryCard = ({
   straightScore,
 }: ScoreSummaryCardProps) => {
   return (
-    <div className='white-card col-span-3 col-start-2 row-span-8 flex flex-col items-start justify-start gap-4'>
+    <div className='white-card col-span-3 col-start-2 row-span-9 flex flex-col items-start justify-start gap-4'>
       <p className='s1 justify-self-start text-gray-900'>제스처 피드백</p>
       <div className='flex w-full items-center justify-between border-b-1 px-3'>
         <span className='h1 text-3xl text-gray-700'>총점</span>
