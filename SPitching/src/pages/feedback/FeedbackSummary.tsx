@@ -26,7 +26,7 @@ const FeedbackSummary = () => {
       faceScore: data.faceScore,
       explainScore: data.explainScore,
       straightScore: data.straightScore,
-      videoName: data.videoUrl,
+      videoUrl: data.videoUrl,
     }),
   );
 

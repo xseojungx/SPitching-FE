@@ -9,8 +9,15 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 
 const GestureDetailPage = () => {
-  const { gestureScore, crossedScore, raisedScore, faceScore, explainScore, straightScore } =
-    useSelector((state: RootState) => state.gestureFeedback);
+  const {
+    gestureScore,
+    crossedScore,
+    raisedScore,
+    faceScore,
+    explainScore,
+    straightScore,
+    videoUrl,
+  } = useSelector((state: RootState) => state.gestureFeedback);
 
   const { positiveFeedback, negativeFeedback } = getGestureFeedbackMessage({
     gestureScore,
@@ -43,7 +50,7 @@ const GestureDetailPage = () => {
         />
 
         {/* 분석 영상 */}
-        <GestureVideo videoUrl='/videos/gesture_sample.mp4' />
+        <GestureVideo videoUrl={videoUrl} />
 
         {/* 피드백 텍스트 탭 */}
         <FeedbackTabs
