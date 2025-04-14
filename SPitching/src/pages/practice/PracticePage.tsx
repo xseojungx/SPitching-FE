@@ -54,8 +54,6 @@ const PracticePage = () => {
       await new Promise((res) => setTimeout(res, 2000));
 
       navigate('/feedback/summary', { state: result });
-
-      alert('제스처 분석 완료!');
     } catch (err) {
       console.error('AI 서버 전송 오류:', err);
       alert('AI 분석 실패');
@@ -82,7 +80,7 @@ const PracticePage = () => {
         seconds={seconds}
       />
       {!isRecording && (
-        <div className='bg-opacity-70 fixed inset-0 z-50 flex h-screen w-screen items-center justify-center border-gray-200 bg-gray-700/20 backdrop-blur-sm'>
+        <div className='bg-opacity-70 fixed inset-0 z-1 flex h-screen w-screen items-center justify-center border-gray-200 bg-gray-700/20 backdrop-blur-sm'>
           <button
             className='bg-mint-500 h-20 w-64 rounded-lg border text-xl font-semibold text-gray-900 shadow-lg backdrop-blur-md transition hover:brightness-105'
             onClick={handleStart}
@@ -91,7 +89,6 @@ const PracticePage = () => {
           </button>
         </div>
       )}
-
       <div className='flex flex-1 items-center justify-center overflow-hidden'>
         <article className='relative flex h-full max-h-[1080px] min-h-50 w-10/12 max-w-screen-2xl gap-4'>
           <CameraRecorder
@@ -101,7 +98,6 @@ const PracticePage = () => {
           <PracticeContent />
         </article>
       </div>
-
       <ScriptViewer />
       {isLoading && <LoadingOverlay />}
     </div>

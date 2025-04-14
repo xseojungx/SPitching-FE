@@ -1,4 +1,4 @@
-import MockPPT from '@/assets/mock_ppt.png';
+import MockPPT from '@/assets/mock_ppt_2.png';
 
 const ScriptViewer = () => {
   return (

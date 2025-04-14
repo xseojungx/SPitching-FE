@@ -1,10 +1,10 @@
-import MockPPT from '@/assets/mock_ppt.png';
+import MockPPT from '@/assets/mock_ppt_1.png';
 import PracticeTag from './PracticeTag';
 
 const PracticeContent = () => {
   return (
-    <section className='flex flex-3/10 flex-col overflow-hidden'>
-      <div className='shadow-shadow-100 flex shrink-0 flex-col justify-center rounded-md shadow-2xl'>
+    <section className='flex flex-3/10 flex-col overflow-hidden p-2'>
+      <div className='shadow-shadow-200 flex shrink-0 flex-col justify-center rounded-md shadow-xl'>
         <img
           src={MockPPT}
           alt='PPT'
