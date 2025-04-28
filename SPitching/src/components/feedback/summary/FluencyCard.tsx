@@ -4,7 +4,7 @@ import FluencyBar from './FluencyBar';
 
 const FluencyCard = () => {
   return (
-    <div className='white-card col-span-4 col-start-5 row-span-4 row-start-7'>
+    <div className='white-card col-span-4 col-start-5 row-span-4 row-start-7 cursor-pointer transition duration-400 hover:-translate-y-1 hover:shadow-lg'>
       <p className='s1 justify-self-start text-gray-900'>발표 유창성</p>
 
       <div className='flex shrink-0 items-center justify-between self-stretch'>
@@ -12,7 +12,7 @@ const FluencyCard = () => {
           <span className='b2 text-gray-900'>높은 유사도입니다</span>
           <div className='c2 flex items-center whitespace-nowrap text-gray-700'>
             <TriangleIcon className='mr-1 text-rose-500' />
-            <span>유사도가&nbsp;</span>
+            <span>유창성이&nbsp;</span>
             <span className='c1 text-rose-500'>5%&nbsp;</span>
             <span>상승했습니다.</span>
           </div>

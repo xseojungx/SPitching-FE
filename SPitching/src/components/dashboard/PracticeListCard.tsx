@@ -2,12 +2,16 @@ interface PracticeListCardProps {
   title: string;
   description: string;
   practice_count: number;
+  created_at: string;
+  last_practice: string;
 }
 
 const PracticeListCard = ({
   title,
   description,
   practice_count,
+  created_at,
+  last_practice,
 }: PracticeListCardProps) => {
   return (
     <div className='white-card flex h-auto w-full flex-row gap-4 p-5'>
@@ -20,7 +24,7 @@ const PracticeListCard = ({
           {/* 제목 */}
           <div className='flex flex-row items-center justify-between'>
             <span className='s1 truncate text-gray-900'>{title}</span>
-            <span className='c2 text-gray-600'>2025.01.22</span>
+            <span className='c2 text-gray-600'>{created_at}</span>
           </div>
 
           {/* 설명 */}
@@ -32,8 +36,8 @@ const PracticeListCard = ({
           {/* 연습 정보 */}
           <div className='flex flex-wrap items-center gap-3 text-sm text-gray-600'>
             <span>전체 연습 {practice_count}번</span>
-            <span>마지막 연습 2025.01.23</span>
-            <span>점수 23점</span>
+            <span>마지막 연습 {last_practice}</span>
+            <span>점수 72점</span>
             <span className='flex items-center gap-1'>
               ✏️ <span>대본 편집</span>
             </span>

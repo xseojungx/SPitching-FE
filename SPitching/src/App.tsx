@@ -4,9 +4,12 @@ import Landing from './pages/landing/Landing'; // 새로운 시작 페이지
 import Dashboard from './pages/dashboard/Dashboard';
 import FeedbackSummary from './pages/feedback/FeedbackSummary';
 import LoginPage from './pages/auth/LoginPage';
+import PracticePage from './pages/practice/\bPracticePage';
 
-import PrivateRoute from '@/routes/PrivateRoute';
-import PublicOnlyRoute from '@/routes/PublicOnlyRoute';
+import GestureDetailPage from './pages/feedback/GestureDetailPage';
+
+// import PrivateRoute from '@/routes/PrivateRoute';
+// import PublicOnlyRoute from '@/routes/PublicOnlyRoute';
 function App() {
   // useEffect(() => {
   //   fetch('', {
@@ -33,27 +36,38 @@ function App() {
           <Route
             path='/login'
             element={
-              <PublicOnlyRoute>
-                <LoginPage />
-              </PublicOnlyRoute>
+              // <PublicOnlyRoute>
+              <LoginPage />
+              // </PublicOnlyRoute>
             }
           />
-
           <Route
             path='/dashboard'
             element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
+              // <PrivateRoute>
+              <Dashboard />
+              // </PrivateRoute>
             }
           />
           <Route
             path='/feedback/summary'
             element={
-              <PrivateRoute>
-                <FeedbackSummary />
-              </PrivateRoute>
+              // <PrivateRoute>
+              <FeedbackSummary />
+              // </PrivateRoute>
             }
+          />
+          <Route
+            path='/feedback/gesture'
+            element={
+              // <PrivateRoute>
+              <GestureDetailPage />
+              // </PrivateRoute>
+            }
+          />
+          <Route
+            path='/practice'
+            element={<PracticePage />}
           />
         </Routes>
       </Router>

@@ -1,21 +1,40 @@
-const GestureScoreCard = () => {
+import { useNavigate } from 'react-router-dom';
+
+const GestureScoreCard = ({
+  gestureScore,
+  crossedScore,
+  raisedScore,
+  faceScore,
+  explainScore,
+  straightScore,
+}: GestureFeedbackProps) => {
+  const navigate = useNavigate();
+
   return (
-    <article className='white-card col-span-3 col-start-9 row-span-4 row-start-4'>
+    <article className='group white-card relative col-span-3 col-start-9 row-span-4 row-start-4 transition duration-400 hover:-translate-y-1 hover:shadow-lg'>
       <p className='s1 justify-self-start text-gray-900'>제스처</p>
       <div className='flex w-full flex-1 flex-col items-center justify-center'>
         <div className='flex flex-1 flex-col items-center justify-center'>
           <p className='b2 text-gray-700'>총점</p>
           <p className='h1 bg-gradient-to-b from-[#255A9B] via-[#7AB7CE] to-[#A9EAD6] bg-clip-text text-transparent'>
-            75
+            {gestureScore}
           </p>
         </div>
 
         <DetailFeedback
-          gestureScore={89}
-          crossedScore={12}
-          raisedScore={8}
-          faceScore={11}
+          gestureScore={gestureScore}
+          crossedScore={crossedScore}
+          raisedScore={raisedScore}
+          faceScore={faceScore}
+          explainScore={explainScore}
+          straightScore={straightScore}
         />
+      </div>
+      <div
+        className='s2 absolute bottom-3 left-1/2 z-10 w-fit -translate-x-1/2 translate-y-2 cursor-pointer rounded-md bg-linear-to-r from-[rgba(76,154,207,1)] via-[rgba(120,192,210,1)] to-[rgba(169,234,214,1)] px-4 py-3 whitespace-nowrap text-white opacity-0 shadow-sm backdrop-blur-sm transition-all duration-400 group-hover:translate-y-0 group-hover:opacity-100'
+        onClick={() => navigate('/feedback/gesture')}
+      >
+        제스처 피드백 자세히 보러가기
       </div>
     </article>
   );
@@ -30,13 +49,17 @@ type GestureFeedbackProps = {
   crossedScore: number;
   raisedScore: number;
   faceScore: number;
+  explainScore: number;
+  straightScore: number;
 };
 
 const DetailFeedback = ({
-  gestureScore = 75,
-  crossedScore = 12,
-  raisedScore = 5,
-  faceScore = 10,
+  gestureScore,
+  crossedScore,
+  raisedScore,
+  faceScore,
+  explainScore,
+  straightScore,
 }: GestureFeedbackProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
 

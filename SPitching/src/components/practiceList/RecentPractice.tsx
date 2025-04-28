@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { recentPractice } from './mockdata';
 import ScoreLineChart from '../dashboard/ScoreLineChart';
 import ScorePieChart from '../common/ScorePieChart';
@@ -9,19 +10,28 @@ import SimilarityIcon from '../../assets/sim.svg?react';
 import MockPPT from '../../assets/mock_ppt.png';
 import FluencyIcon from '../../assets/fluency.svg?react';
 
+import { prevPracticeData } from '@/assets/mockData';
+
 type TagType = { page: number; count: number; notes: string[] };
 
 interface PracticeListCardProps {
   title: string;
   description: string;
   practice_count: number;
+  last_practice: string;
+  created_at: string;
 }
 
 const RecentPractice = ({
   title,
   description,
   practice_count,
+  last_practice,
+  created_at,
 }: PracticeListCardProps) => {
+  const navigate = useNavigate();
+  const data = prevPracticeData;
+
   const [tag, setTag] = useState<TagType[]>([]);
   const [openPages, setOpenPages] = useState<number[]>([]);
 
@@ -73,7 +83,7 @@ const RecentPractice = ({
         <div className='flex items-baseline gap-2'>
           <span className='h2 text-gray-900'>{title}</span>
           <span className='b2 text-gray-700'>{description}</span>
-          <span className='b2 text-gray-700'>{recentPractice.created}</span>
+          <span className='b2 text-gray-700'>{created_at}</span>
         </div>
       </div>
 
@@ -89,9 +99,7 @@ const RecentPractice = ({
         </div>
         <div className='flex flex-row items-center gap-2'>
           <span className='s2 text-gray-900'>최근 연습</span>
-          <span className='b2 text-gray-700'>
-            {recentPractice.metadata.lastPractice}
-          </span>
+          <span className='b2 text-gray-700'>{last_practice}</span>
         </div>
         <div className='flex flex-row items-center gap-3 text-xs'>
           <span className='s2 text-gray-900'>연습 횟수</span>
@@ -105,28 +113,26 @@ const RecentPractice = ({
           <span className='c2 text-gray-700'>
             {recentPractice.metadata.practiceCount.total}회차 연습 결과
           </span>
-          <span className='h1 text-gray-900'>
-            {recentPractice.graph.currentScore}점
-          </span>
+          <span className='h1 text-gray-900'>72점</span>
         </div>
         <div className='box-border w-full flex-3 pt-2'>
-          <ScoreLineChart />
+          <ScoreLineChart data={data} />
         </div>
         <div className='flex h-12 w-full flex-2'>
           <div className='relative flex-1'>
-            <ScorePieChart value={90} />
+            <ScorePieChart value={data[data.length - 1].eye} />
             <EyeIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
           </div>
           <div className='relative flex-1'>
-            <ScorePieChart value={56} />
+            <ScorePieChart value={data[data.length - 1].ges} />
             <GestureIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
           </div>
           <div className='relative flex-1'>
-            <ScorePieChart value={78} />
+            <ScorePieChart value={data[data.length - 1].sim} />
             <SimilarityIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
           </div>
           <div className='relative flex-1'>
-            <ScorePieChart value={36} />
+            <ScorePieChart value={data[data.length - 1].fluen} />
             <FluencyIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
           </div>
         </div>
@@ -135,9 +141,7 @@ const RecentPractice = ({
       {/* 우측 상자 */}
       <div className='white-card col-span-3 row-span-2 row-start-2 flex flex-col overflow-hidden'>
         <span className='s1 mb-2 text-gray-700'>태그</span>
-        <div className='min-h-0 flex-1 overflow-y-auto pr-1'>
-          {tag.map(renderTagItem)}
-        </div>
+        <div className='min-h-0 flex-1 overflow-y-auto pr-1'>{tag.map(renderTagItem)}</div>
         <div className='mt-4 space-y-2'>
           <button className='w-full rounded-md border border-gray-300 py-2 text-sm text-gray-700 transition hover:bg-gray-50'>
             ✏️ 대본 수정하기
@@ -154,7 +158,10 @@ const RecentPractice = ({
       <div className='col-span-7 col-start-1 row-span-1 row-start-3 flex flex-col'>
         <div className='flex w-full justify-between gap-3'>
           {/* 전체 연습 */}
-          <button className='flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4C9ACF] to-[#A9EAD6] px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:brightness-105'>
+          <button
+            onClick={() => navigate('/practice')}
+            className='flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4C9ACF] to-[#A9EAD6] px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:cursor-pointer hover:brightness-105'
+          >
             <span className='text-lg'>▶</span>
             전체 연습 시작하기
           </button>

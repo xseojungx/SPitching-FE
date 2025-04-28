@@ -1,32 +1,18 @@
-import {
-  Tooltip,
-  ResponsiveContainer,
-  TooltipProps,
-  AreaChart,
-  Area,
-  YAxis,
-} from 'recharts';
-import {
-  ValueType,
-  NameType,
-} from 'recharts/types/component/DefaultTooltipContent';
+import { Tooltip, ResponsiveContainer, TooltipProps, AreaChart, Area, YAxis } from 'recharts';
+import { ValueType, NameType } from 'recharts/types/component/DefaultTooltipContent';
 
-const data = [
-  { name: '1회차', score: 25 },
-  { name: '2회차', score: 35 },
-  { name: '3회차', score: 52 },
-  { name: '4회차', score: 43 },
-  { name: '5회차', score: 45 },
-  { name: '6회차', score: 62 },
-  { name: '7회차', score: 57 },
-  { name: '8회차', score: 72 },
-];
+interface PracticeScore {
+  name: string;
+  score: number;
+  ges: number;
+  eye: number;
+  sim: number;
+  fluen: number;
+}
+type ScoreLineChartProps = { data: PracticeScore[] };
 
-const ScoreLineChart = () => {
-  const CustomTooltip = ({
-    active,
-    payload,
-  }: TooltipProps<ValueType, NameType>) => {
+const ScoreLineChart = ({ data }: ScoreLineChartProps) => {
+  const CustomTooltip = ({ active, payload }: TooltipProps<ValueType, NameType>) => {
     if (active && payload && payload.length) {
       console.log(payload);
       return (
@@ -80,11 +66,7 @@ const ScoreLineChart = () => {
             dataKey='score'
             stroke='rgba(37, 90, 155, 1)'
             strokeWidth={1.5}
-            activeDot={{
-              r: 4,
-              fill: 'rgba(37, 90, 155, 1)',
-              stroke: 'rgba(37, 90, 155, 1)',
-            }}
+            activeDot={{ r: 4, fill: 'rgba(37, 90, 155, 1)', stroke: 'rgba(37, 90, 155, 1)' }}
             dot={{ strokeWidth: 1, fill: '#ffffff' }}
             fill='url(#colorScore)'
           />
