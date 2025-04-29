@@ -1,1 +1,9 @@
-{ "rewrites": [{ "source": "/(.*)", "destination": "/" }] }
+{
+  "rewrites": [
+    {
+      "source": "/login/oauth2/code/:path*",
+      "destination": "https://www.spitching.store/login/oauth2/code/:path*"
+    },
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}

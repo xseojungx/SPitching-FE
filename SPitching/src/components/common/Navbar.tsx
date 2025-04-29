@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-// import GoogleLoginButton from '../auth/GoogleLoginButton';
+import GoogleLoginButton from '../auth/GoogleLoginButton';
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
@@ -63,8 +63,8 @@ const Navbar = () => {
           {isLoggedIn ? (
             <button className='transition hover:text-[#255A9B]'>한서정 님</button>
           ) : (
-            // <GoogleLoginButton />
-            <button className='transition hover:text-[#255A9B]'>한서정 님</button>
+            <GoogleLoginButton />
+            // <button className='transition hover:text-[#255A9B]'>한서정 님</button>
           )}
         </div>
       </nav>
