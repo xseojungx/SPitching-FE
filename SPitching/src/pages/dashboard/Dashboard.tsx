@@ -9,20 +9,17 @@ import axios from 'axios';
 
 const Dashboard = () => {
   const data = presentationMockData;
-  // const { data, isLoading, isError } = usePresentationList();
-  const queryResult = usePresentationList();
-  const presentationList = queryResult.data;
+  const { data: presentationList, isLoading, isError } = usePresentationList();
 
   useEffect(() => {
     console.log('결과', presentationList);
-    console.log(queryResult);
   }, []);
-  // if (isLoading) {
-  //   console.log('로딩중');
-  // }
-  // if (isError) {
-  //   console.log('오류');
-  // }
+  if (isLoading) {
+    console.log('로딩중');
+  }
+  if (isError) {
+    console.log('오류');
+  }
   axios
     .get('https://api.spitching.store/api/v1/presentations/list', {
       withCredentials: true, // ← 세션 쿠키 포함 필수
