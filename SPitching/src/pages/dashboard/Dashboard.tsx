@@ -2,13 +2,19 @@
 import RecentPractice from '../../components/practiceList/RecentPractice';
 import Navbar from '../../components/common/Navbar';
 import PracticeListCard from '../../components/dashboard/PracticeListCard';
-// import { usePresentationList } from '@/hooks/useDashboard';
+import { usePresentationList } from '@/hooks/useDashboard';
 import { presentationMockData } from '@/assets/mockData';
+import { useEffect } from 'react';
 
 const Dashboard = () => {
   const data = presentationMockData;
   // const { data, isLoading, isError } = usePresentationList();
+  const queryResult = usePresentationList();
+  const presentationList = queryResult.data;
 
+  useEffect(() => {
+    console.log(presentationList);
+  }, []);
   // if (isLoading) {
   //   console.log('로딩중');
   // }
