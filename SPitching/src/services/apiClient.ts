@@ -1,15 +1,14 @@
-// src/services/apiClient.ts
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'https://api.spitching.store',
-  withCredentials: true, // 세션 쿠키 포함
+  baseURL: import.meta.env.VITE_API_BASE_URL, // 환경변수로 설정
+  withCredentials: true, // 세션 쿠키
   headers: { 'Content-Type': 'application/json' },
 });
 
-// 공통 응답 에러 처리
+// 공통 인터셉터 설정 (토큰 추가, 에러 처리 등)
 apiClient.interceptors.response.use(
-  (response) => response, // 또는 response.data 로도 설정 가능
+  (response) => response,
   (error) => {
     console.error('API Error:', error);
     return Promise.reject(error);
