@@ -9,4 +9,4 @@ export interface Presentation {
   deletedAt: string | null;
 }
 
-export const getPresentationList = () => apiClient.get('api/v1/presentations/list');
+export const getPresentationList = () => apiClient.get('/api/v1/presentations/list');
