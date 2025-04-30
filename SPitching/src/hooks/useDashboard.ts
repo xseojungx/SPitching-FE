@@ -1,4 +1,4 @@
-// src/hooks/usePresentation.ts
+// src/hooks/usePresentationList.ts
 import { useQuery } from '@tanstack/react-query';
 import { getPresentationList } from '@/services/dashboard.api';
 

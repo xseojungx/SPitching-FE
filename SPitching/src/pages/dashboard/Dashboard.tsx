@@ -12,8 +12,10 @@ const Dashboard = () => {
   const { data: presentationList, isLoading, isError } = usePresentationList();
 
   useEffect(() => {
-    console.log('결과', presentationList);
-  }, []);
+    if (presentationList) {
+      console.log('✅ 가져온 발표 목록:', presentationList);
+    }
+  }, [presentationList]);
   if (isLoading) {
     console.log('로딩중');
   }
