@@ -14,6 +14,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     console.log('결과', presentationList);
+    console.log(queryResult);
   }, []);
   // if (isLoading) {
   //   console.log('로딩중');
