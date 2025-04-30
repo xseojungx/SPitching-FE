@@ -13,7 +13,7 @@ const Dashboard = () => {
   const presentationList = queryResult.data;
 
   useEffect(() => {
-    console.log(presentationList);
+    console.log('결과', presentationList);
   }, []);
   // if (isLoading) {
   //   console.log('로딩중');
