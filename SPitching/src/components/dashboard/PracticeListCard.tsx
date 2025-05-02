@@ -1,3 +1,5 @@
+import { formatDate } from '@/utils/date';
+
 interface PracticeListCardProps {
   title: string;
   description: string;
@@ -24,7 +26,7 @@ const PracticeListCard = ({
           {/* 제목 */}
           <div className='flex flex-row items-center justify-between'>
             <span className='s1 truncate text-gray-900'>{title}</span>
-            <span className='c2 text-gray-600'>{created_at}</span>
+            <span className='c2 text-gray-600'>{formatDate(created_at)}</span>
           </div>
 
           {/* 설명 */}

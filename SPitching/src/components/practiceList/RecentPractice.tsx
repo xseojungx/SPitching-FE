@@ -11,6 +11,7 @@ import MockPPT from '../../assets/mock_ppt.png';
 import FluencyIcon from '../../assets/fluency.svg?react';
 
 import { prevPracticeData } from '@/assets/mockData';
+import { formatDate } from '@/utils/date';
 
 type TagType = { page: number; count: number; notes: string[] };
 
@@ -83,7 +84,7 @@ const RecentPractice = ({
         <div className='flex items-baseline gap-2'>
           <span className='h2 text-gray-900'>{title}</span>
           <span className='b2 text-gray-700'>{description}</span>
-          <span className='b2 text-gray-700'>{created_at}</span>
+          <span className='b2 text-gray-700'>{formatDate(created_at)}</span>
         </div>
       </div>
 
@@ -99,7 +100,7 @@ const RecentPractice = ({
         </div>
         <div className='flex flex-row items-center gap-2'>
           <span className='s2 text-gray-900'>최근 연습</span>
-          <span className='b2 text-gray-700'>{last_practice}</span>
+          <span className='b2 text-gray-700'>{formatDate(last_practice)}</span>
         </div>
         <div className='flex flex-row items-center gap-3 text-xs'>
           <span className='s2 text-gray-900'>연습 횟수</span>
