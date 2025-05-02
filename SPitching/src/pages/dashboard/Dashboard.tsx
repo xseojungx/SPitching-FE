@@ -3,13 +3,10 @@ import RecentPractice from '../../components/practiceList/RecentPractice';
 import Navbar from '../../components/common/Navbar';
 import PracticeListCard from '../../components/dashboard/PracticeListCard';
 import { usePresentationList } from '@/hooks/useDashboard';
-import { presentationMockData } from '@/assets/mockData';
-import { useEffect } from 'react';
+
 import axios from 'axios';
 
 const Dashboard = () => {
-  // const data = presentationMockData;
-  // const { data, isLoading, isError } = usePresentationList();
   const { data, isLoading, isError } = usePresentationList();
 
   if (isLoading) {
