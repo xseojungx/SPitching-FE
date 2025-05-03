@@ -95,7 +95,7 @@ const PracticeDetailsPage = () => {
           <button
             onClick={handleSubmit}
             disabled={!isValid || isSubmitting}
-            className={`b1 flex h-12 w-40 justify-center gap-2 rounded-xl px-6 py-3 text-base font-semibold text-white shadow-sm transition ${
+            className={`b1 flex h-12 w-40 justify-center gap-1 rounded-xl px-6 py-3 text-base font-semibold text-white shadow-sm transition ${
               isValid
                 ? 'bg-gradient-to-r from-[#4C9ACF] to-[#A9EAD6] hover:cursor-pointer hover:brightness-110'
                 : 'cursor-not-allowed bg-gray-300 text-gray-500'
