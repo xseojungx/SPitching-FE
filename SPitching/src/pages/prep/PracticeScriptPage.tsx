@@ -2,6 +2,7 @@ import { useState, ChangeEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePracticeCreation } from '@/contexts/PracticeCreationContext';
 import Navbar from '@/components/common/Navbar';
+import ScriptEditor from '@/components/prep/SingleScriptEditor';
 const PracticeScriptPage = () => {
   const navigate = useNavigate();
   const { practiceId, script, setScript } = usePracticeCreation();
@@ -38,19 +39,26 @@ const PracticeScriptPage = () => {
   const isValid = text.trim() !== '';
 
   return (
-    <div className='box-border flex h-screen w-screen flex-col pt-24'>
+    <div className='box-border flex h-screen w-screen flex-col overflow-scroll py-24'>
       <Navbar />
-
-      <article className='relative mx-auto flex w-8/12 max-w-screen-2xl flex-col space-y-8'>
+      <article className='relative mx-auto flex w-10/12 max-w-screen-2xl flex-col space-y-8'>
         <h1 className='text-2xl font-bold'>대본 입력</h1>
 
-        <textarea
+        {/* <textarea
           value={text}
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
           rows={10}
           placeholder='발표 대본을 입력하세요'
           className='w-full resize-none rounded-xl border border-gray-200 px-4 py-3 focus:ring-2 focus:ring-[#A9EAD6]'
-        />
+        /> */}
+        <div className='relative box-border flex w-full flex-col divide-y-1 divide-gray-500 bg-white/50 py-4'>
+          <div className='absolute top-0 right-0 -z-1 h-full w-8/10 bg-white/70' />
+          <ScriptEditor />
+          <ScriptEditor />
+          <ScriptEditor />
+          <ScriptEditor />
+          <ScriptEditor />
+        </div>
 
         <div className='flex justify-end'>
           <button
@@ -62,6 +70,7 @@ const PracticeScriptPage = () => {
           </button>
         </div>
       </article>
+      <div className="fixed top-0 left-0 -z-2 h-screen w-screen bg-[url('/assets/dashboard_bg.svg')] bg-left-top bg-no-repeat opacity-90 not-first:bg-cover"></div>
     </div>
   );
 };
