@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import { BookmarkPlus } from 'lucide-react';
 
 const TagInput = () => {
   const [isInputVisible, setIsInputVisible] = useState(false);
@@ -38,9 +39,9 @@ const TagInput = () => {
       )}
       <button
         onClick={handleAddClick}
-        className='from-coral-400 shadow-shadow-100 h-8 w-8 cursor-pointer rounded-full bg-gradient-to-r to-rose-500 text-white shadow-2xl transition'
+        className='from-coral-400 shadow-shadow-100 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r to-rose-500 text-white shadow-2xl transition'
       >
-        +
+        <BookmarkPlus className='h-5' />
       </button>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import PPTImage from '@/assets/mock_ppt_1.png';
 import TagInput from './TagInput';
+import SingleTag from './SingleTag';
 
 const ScriptEditor = () => {
   const [text, setText] = useState('');
@@ -40,12 +41,10 @@ const ScriptEditor = () => {
           />
         </div>
         {/* 태그 편집 부분 */}
-        <div className='mt-2 flex h-fit w-full items-start'>
+        <div className='mt-2 flex h-fit w-full flex-row-reverse items-start'>
           <TagInput />
-          <div className='ml-4 flex flex-wrap space-y-1 space-x-2'>
-            <div className='from-coral-400 b1 flex h-8 w-fit items-center rounded-full bg-gradient-to-br to-rose-500 px-8 text-white'>
-              태그
-            </div>
+          <div className='mr-4 flex flex-wrap space-y-1 space-x-2'>
+            <SingleTag />
           </div>
         </div>
       </div>
