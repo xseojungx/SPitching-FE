@@ -178,16 +178,6 @@ const RecentPractice = ({
           </button>
         </div>
       </div>
-
-      {/* 오른쪽: 부분 연습 + 피드백 리포트 (가로 배치, 미니멀) */}
-      {/* <div className='col-span-3 col-start-5 row-span-1 row-start-3 flex flex-row items-center justify-between gap-2 overflow-hidden'>
-        <button className='flex-1 rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800 transition hover:bg-gray-100'>
-          ✂️ 부분 연습
-        </button>
-        <button className='flex-1 rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800 transition hover:bg-gray-100'>
-          📄 피드백 보기
-        </button>
-      </div> */}
     </div>
   );
 };

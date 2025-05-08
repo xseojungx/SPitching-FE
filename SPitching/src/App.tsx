@@ -4,8 +4,10 @@ import Landing from './pages/landing/Landing'; // 새로운 시작 페이지
 import Dashboard from './pages/dashboard/Dashboard';
 import FeedbackSummary from './pages/feedback/FeedbackSummary';
 import LoginPage from './pages/auth/LoginPage';
-import PracticePage from './pages/practice/\bPracticePage';
-
+import PracticePage from './pages/practices/PracticePage';
+import PracticeDetailsPage from './pages/prep/PracticeDetailsPage';
+import PracticeScriptPage from './pages/prep/PracticeScriptPage';
+import PracticeFilePage from './pages/prep/PracticeFilePage';
 import GestureDetailPage from './pages/feedback/GestureDetailPage';
 
 // import PrivateRoute from '@/routes/PrivateRoute';
@@ -68,6 +70,18 @@ function App() {
           <Route
             path='/practice'
             element={<PracticePage />}
+          />
+          <Route
+            path='/practices/new/details'
+            element={<PracticeDetailsPage />}
+          />
+          <Route
+            path='/practices/new/file'
+            element={<PracticeFilePage />}
+          />
+          <Route
+            path='/practices/new/script'
+            element={<PracticeScriptPage />}
           />
         </Routes>
       </Router>
