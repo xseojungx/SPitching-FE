@@ -19,24 +19,22 @@ const PracticeScriptPage = () => {
   const handleSubmit = async () => {
     if (!practiceId) return;
     setSubmitting(true);
-    try {
-      // 백엔드에 대본 저장 요청
-      await fetch(`/api/v1/practices/${practiceId}/script`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ script: text }),
-      });
-      setScript(text);
-      navigate(`/practices/${practiceId}/edit`);
-    } catch (e) {
-      console.error(e);
-      alert('대본 저장에 실패했습니다.');
-    } finally {
-      setSubmitting(false);
-    }
+    // try {
+    //   // 백엔드에 대본 저장 요청
+    //   await fetch(`/api/v1/practices/${practiceId}/script`, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ script: text }),
+    //   });
+    //   setScript(text);
+    //   navigate(`/practices/${practiceId}/edit`);
+    // } catch (e) {
+    //   console.error(e);
+    //   alert('대본 저장에 실패했습니다.');
+    // } finally {
+    //   setSubmitting(false);
+    // }
   };
-
-  const isValid = text.trim() !== '';
 
   return (
     <div className='box-border flex h-screen w-screen flex-col overflow-scroll py-24'>
@@ -44,13 +42,6 @@ const PracticeScriptPage = () => {
       <article className='relative mx-auto flex w-10/12 max-w-screen-2xl flex-col space-y-8'>
         <h1 className='text-2xl font-bold'>대본 입력</h1>
 
-        {/* <textarea
-          value={text}
-          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
-          rows={10}
-          placeholder='발표 대본을 입력하세요'
-          className='w-full resize-none rounded-xl border border-gray-200 px-4 py-3 focus:ring-2 focus:ring-[#A9EAD6]'
-        /> */}
         <div className='relative box-border flex w-full flex-col divide-y-1 divide-gray-500 bg-white/50 py-4'>
           <div className='absolute top-0 right-0 -z-1 h-full w-8/10 bg-white/70' />
           <ScriptEditor />
