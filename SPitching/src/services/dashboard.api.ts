@@ -14,3 +14,8 @@ export const getPresentationList = async (): Promise<Presentation[]> => {
   const res = await apiClient.get('/api/v1/presentations/list');
   return res.data;
 };
+
+export const getPresentationDetail = async (presentationId: string): Promise<Presentation> => {
+  const res = await apiClient.get(`/api/v1/home/summary`);
+  return res.data;
+};

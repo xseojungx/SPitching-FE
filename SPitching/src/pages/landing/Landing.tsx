@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useAuth } from '@/hooks/useAuth';
 
 const Landing = () => {
+  const { isLoading } = useAuth();
+
+  if (isLoading) return <p>로딩중</p>;
+
   return (
     <div className='flex h-screen flex-col items-center justify-center bg-gray-50'>
       <h1 className='mb-8 text-3xl font-bold'>📍 임시 네비게이션 페이지</h1>

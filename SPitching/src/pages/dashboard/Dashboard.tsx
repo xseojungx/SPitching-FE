@@ -8,6 +8,7 @@ import axios from 'axios';
 
 const Dashboard = () => {
   const { data, isLoading, isError } = usePresentationList();
+  console.log('📄 Presentation list:', data);
 
   if (isLoading) {
     console.log('로딩중');
@@ -15,17 +16,6 @@ const Dashboard = () => {
   if (isError) {
     console.log('오류');
   }
-
-  axios
-    .get('http://localhost:8080/api/v1/presentations/list', {
-      withCredentials: true, // ← 세션 쿠키 포함 필수
-    })
-    .then((res) => {
-      console.log('📄 Presentation list:', res.data);
-    })
-    .catch((err) => {
-      console.error('❌ Axios error:', err);
-    });
 
   return (
     <div className='flex h-screen flex-col items-center overflow-scroll'>
