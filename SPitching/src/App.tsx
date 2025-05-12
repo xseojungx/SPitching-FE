@@ -10,7 +10,7 @@ import PracticeScriptPage from './pages/prep/PracticeScriptPage';
 import PracticeFilePage from './pages/prep/PracticeFilePage';
 import GestureDetailPage from './pages/feedback/GestureDetailPage';
 
-// import PrivateRoute from '@/routes/PrivateRoute';
+import PrivateRoute from '@/routes/PrivateRoute';
 // import PublicOnlyRoute from '@/routes/PublicOnlyRoute';
 function App() {
   // useEffect(() => {
@@ -46,9 +46,9 @@ function App() {
           <Route
             path='/dashboard'
             element={
-              // <PrivateRoute>
-              <Dashboard />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
             }
           />
           <Route
