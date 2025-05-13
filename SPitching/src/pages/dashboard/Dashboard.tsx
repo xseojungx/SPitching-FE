@@ -3,8 +3,10 @@ import RecentPractice from '../../components/practiceList/RecentPractice';
 import Navbar from '../../components/common/Navbar';
 import PracticeListCard from '../../components/dashboard/PracticeListCard';
 import { usePresentationList, useRecentPractice } from '@/hooks/useDashboard';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const { data: presentationListData, isLoading, isError } = usePresentationList();
   // const {data: recentPracticeData,isLoading,isError}=
   console.log('📄 Presentation list:', presentationListData);
@@ -44,7 +46,12 @@ const Dashboard = () => {
           />
         )}
         <button className='s1 absolute right-3 bottom-3 flex cursor-pointer items-center gap-2 rounded-full border-4 bg-[#4C9ACF] px-5 py-2 text-white shadow-md transition-all hover:bg-[#3b88c3]'>
-          <span className='text-sm font-semibold'>+ 발표 추가하기</span>
+          <span
+            className='text-sm font-semibold'
+            onClick={() => navigate('/practices/new/details')}
+          >
+            + 발표 추가하기
+          </span>
         </button>
 
         <div className="absolute left-0 -z-1 h-full w-screen bg-[url('/assets/dashboard_bg.svg')] bg-left-top bg-no-repeat not-first:bg-cover"></div>
