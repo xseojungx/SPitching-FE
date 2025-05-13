@@ -11,25 +11,23 @@ import MockPPT from '../../assets/mock_ppt.png';
 import FluencyIcon from '../../assets/fluency.svg?react';
 
 import { prevPracticeData } from '@/assets/mockData';
-import { formatDate } from '@/utils/date';
+import { formatDateWithTime } from '@/utils/date';
 
+import { RecentPractice as RecentPracticeProps } from '@/types/presentation.types';
 type TagType = { page: number; count: number; notes: string[] };
 
-interface PracticeListCardProps {
-  title: string;
-  description: string;
-  practice_count: number;
-  last_practice: string;
-  created_at: string;
-}
-
 const RecentPractice = ({
+  practiceId,
+  presentationId,
   title,
   description,
-  practice_count,
-  last_practice,
-  created_at,
-}: PracticeListCardProps) => {
+  practiceCount,
+  lastPractice,
+  created,
+  firstSlideImageUrl,
+  tags,
+  graph,
+}: RecentPracticeProps) => {
   const navigate = useNavigate();
   const data = prevPracticeData;
 
@@ -84,7 +82,7 @@ const RecentPractice = ({
         <div className='flex items-baseline gap-2'>
           <span className='h2 text-gray-900'>{title}</span>
           <span className='b2 text-gray-700'>{description}</span>
-          <span className='b2 text-gray-700'>{formatDate(created_at)}</span>
+          <span className='b2 text-gray-700'>{formatDateWithTime(created)}</span>
         </div>
       </div>
 
@@ -93,28 +91,26 @@ const RecentPractice = ({
         <div className='mb-3 aspect-[16/9] w-full overflow-hidden'>
           {/* 확대 삭제하기 */}
           <img
-            src={MockPPT}
+            src={firstSlideImageUrl ?? ''}
             alt='최근 연습 썸네일'
-            className='w-full scale-120 object-cover'
+            className='c1 w-full scale-120 bg-gray-100 object-cover text-gray-700'
           />
         </div>
         <div className='flex flex-row items-center gap-2'>
           <span className='s2 text-gray-900'>최근 연습</span>
-          <span className='b2 text-gray-700'>{formatDate(last_practice)}</span>
+          <span className='b2 text-gray-700'>{formatDateWithTime(lastPractice)}</span>
         </div>
         <div className='flex flex-row items-center gap-3 text-xs'>
           <span className='s2 text-gray-900'>연습 횟수</span>
-          <span className='b2 text-gray-700'>{practice_count}</span>
+          <span className='b2 text-gray-700'>{practiceCount}</span>
         </div>
       </div>
 
       {/* 중앙 요약 상자 */}
       <div className='white-card relative col-span-4 row-start-2'>
         <div className='absolute m-4 flex flex-col'>
-          <span className='c2 text-gray-700'>
-            {recentPractice.metadata.practiceCount.total}회차 연습 결과
-          </span>
-          <span className='h1 text-gray-900'>72점</span>
+          <span className='c2 text-gray-700'>{practiceCount}회차 연습 결과</span>
+          <span className='h1 text-gray-900'>{graph.currentScore}점</span>
         </div>
         <div className='box-border w-full flex-3 pt-2'>
           <ScoreLineChart data={data} />

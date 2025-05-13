@@ -61,6 +61,9 @@ body {
 }
 
 @layer components {
+  .gradient-mint-blue {
+    @apply bg-gradient-to-b from-[#255A9B] via-[#7AB7CE] to-[#A9EAD6] bg-clip-text;
+  }
   .h1 {
     @apply text-[24px] leading-[140%] font-bold tracking-[-0.01em];
   }

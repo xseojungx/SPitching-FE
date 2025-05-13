@@ -1,21 +1,13 @@
 // src/services/dashboard.api.ts
 import apiClient from './apiClient';
-
-export interface Presentation {
-  title: string;
-  description: string;
-  practiceCount: number;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string | null;
-}
+import { Practice, Slide, Presentation, RecentPractice } from '@/types/presentation.types';
 
 export const getPresentationList = async (): Promise<Presentation[]> => {
-  const res = await apiClient.get('/api/v1/presentations/list');
+  const res = await apiClient.get('api/v1/presentations/my');
   return res.data;
 };
 
-export const getPresentationDetail = async (presentationId: string): Promise<Presentation> => {
-  const res = await apiClient.get(`/api/v1/home/summary`);
+export const getRecentPractice = async (): Promise<RecentPractice> => {
+  const res = await apiClient.get(`api/v1/home/summary`);
   return res.data;
 };

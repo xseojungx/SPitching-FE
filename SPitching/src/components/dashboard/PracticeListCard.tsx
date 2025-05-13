@@ -38,7 +38,7 @@ const PracticeListCard = ({
           {/* 연습 정보 */}
           <div className='flex flex-wrap items-center gap-3 text-sm text-gray-600'>
             <span>전체 연습 {practice_count}번</span>
-            <span>마지막 연습 {last_practice}</span>
+            <span>마지막 연습 {formatDate(last_practice)}</span>
             <span>점수 72점</span>
             <span className='flex items-center gap-1'>
               ✏️ <span>대본 편집</span>
