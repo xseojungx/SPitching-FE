@@ -16,7 +16,7 @@ interface PracticeCreationContextValue {
   setPresentationId: (id: number) => void;
   setSlides: (slides: UploadSlidesResponse) => void;
   addTag: (slideId: number, tag: string, tagId: number) => void;
-  removeTag: (slideId: number, tag: string) => void;
+  removeTag: (tagId: number) => void;
 }
 
 const PracticeCreationContext = createContext<PracticeCreationContextValue | undefined>(undefined);

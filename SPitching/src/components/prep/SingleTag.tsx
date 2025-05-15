@@ -1,13 +1,11 @@
-import { usePracticeCreation } from '@/contexts/PracticeCreationContext';
 import { useDeleteTag } from '@/hooks/usePrep';
 import type { SingleTag } from '@/types/presentation.types';
 import { X } from 'lucide-react';
 interface SingleTagProps {
-  slideId: number;
   tag: SingleTag;
 }
 
-const SingleTag = ({ slideId, tag }: SingleTagProps) => {
+const SingleTag = ({ tag }: SingleTagProps) => {
   const { mutate: removeTagMutation } = useDeleteTag();
   return (
     <div className='b1 relative flex items-center justify-center gap-2 rounded-full py-1 pr-1 pl-4 text-white'>

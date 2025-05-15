@@ -1,16 +1,14 @@
 import { useState, ChangeEvent, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { usePracticeCreation } from '@/contexts/PracticeCreationContext';
 import Navbar from '@/components/common/Navbar';
 import ScriptEditor from '@/components/prep/SingleScriptEditor';
+import { usePutScript } from '@/hooks/usePrep';
 
 const PracticeScriptPage = () => {
-  const navigate = useNavigate();
   const { presentationId, setScript, slides, tagList } = usePracticeCreation();
-  const [isSubmitting, setSubmitting] = useState(false);
   console.log('slides', slides);
   console.log('tagList', tagList);
-
+  const { mutate: putScriptMutation } = usePutScript();
   // useEffect(() => {
   //   if (!practiceId) {
   // useEffect(() => {
@@ -22,7 +20,16 @@ const PracticeScriptPage = () => {
 
   const handleSubmit = async () => {
     if (!presentationId) return;
-    setSubmitting(true);
+
+    const formattedScript = slides.map((slide) => ({ slideId: slide.id, script: slide.script }));
+    console.log('formattedScript', formattedScript);
+
+    // putScriptMutation({
+    //   slideId: formattedScript.slideId,
+    //   script: formattedScript.script,
+    //   presentationId: presentationId,
+    // });
+
     // try {
     //   // 백엔드에 대본 저장 요청
     //   await fetch(`/api/v1/practices/${practiceId}/script`, {
@@ -63,10 +70,9 @@ const PracticeScriptPage = () => {
         <div className='flex justify-end'>
           <button
             onClick={handleSubmit}
-            disabled={isSubmitting}
             className='h-12 rounded-xl bg-[#255A9B] px-6 font-semibold text-gray-500 text-white shadow-md transition hover:brightness-110'
           >
-            다음
+            제출하기
           </button>
         </div>
       </article>

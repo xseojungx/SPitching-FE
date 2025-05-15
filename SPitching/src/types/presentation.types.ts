@@ -92,3 +92,5 @@ export type SlideTag = { slideId: number; content: SingleTag[] };
 export type NewTag = { slideId: number; content: string };
 
 export type TagsList = SlideTag[];
+
+export type Script = { slideId: number; script: string | null };

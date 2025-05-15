@@ -4,11 +4,13 @@ import {
   postTag,
   deleteTag,
   uploadPresentationFile,
+  putScript,
 } from '@/services/prep.api';
 import { usePracticeCreation } from '@/contexts/PracticeCreationContext';
 import type {
   CreatedPresentationResponse,
   NewTag,
+  Script,
   UploadPresentationParams,
   UploadSlidesResponse,
 } from '@/types/presentation.types';
@@ -92,6 +94,22 @@ export const useDeleteTag = () => {
     },
     onError: (error) => {
       console.error('❌ 태그 삭제 실패:', error);
+    },
+  });
+};
+
+export const usePutScript = () => {
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: (params: { formattedScript: Script[]; presentationId: number }) =>
+      putScript(params.formattedScript, params.presentationId),
+    onSuccess: (data, variables) => {
+      const { formattedScript, presentationId } = variables;
+      console.log('✅ 대본 저장 완료:', data);
+      navigate(`/dashboard`);
+    },
+    onError: (error) => {
+      console.error('❌ 대본 저장 실패:', error);
     },
   });
 };

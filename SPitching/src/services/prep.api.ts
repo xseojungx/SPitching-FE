@@ -3,6 +3,7 @@ import type {
   CreatedPresentationResponse,
   UploadPresentationParams,
   UploadSlidesResponse,
+  Script,
 } from '@/types/presentation.types';
 
 export const createPresentation = async (
@@ -39,5 +40,13 @@ export const postTag = async (slideId: number, content: string) => {
 
 export const deleteTag = async (tagId: number) => {
   const res = await apiClient.delete(`/api/v1/tags/${tagId}`);
+  return res.data;
+};
+
+export const putScript = async (formattedScript: Script[], presentationId: number) => {
+  const res = await apiClient.put(`/api/v1/presentations/${presentationId}/slides/script`, {
+    formattedScript,
+  });
+
   return res.data;
 };

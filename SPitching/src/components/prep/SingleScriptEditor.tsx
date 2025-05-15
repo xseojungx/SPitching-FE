@@ -56,7 +56,6 @@ const ScriptEditor = ({ slideId, script, setSlides, imageUrl, slideNumber }: Scr
             {(tagList.find((t) => t.slideId === slideId)?.content || []).map((tag) => (
               <SingleTag
                 key={tag.tagId} // ✅ 고유 tagId를 key로 사용
-                slideId={slideId}
                 tag={tag} // ✅ tag는 이제 { tagId, content }
               />
             ))}
