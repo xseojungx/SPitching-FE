@@ -3,6 +3,7 @@ import { usePracticeCreation } from '@/contexts/PracticeCreationContext';
 import Navbar from '@/components/common/Navbar';
 import ScriptEditor from '@/components/prep/SingleScriptEditor';
 import { usePutScript } from '@/hooks/usePrep';
+import { Script } from '@/types/presentation.types';
 
 const PracticeScriptPage = () => {
   const { presentationId, setScript, slides, tagList } = usePracticeCreation();
@@ -21,14 +22,12 @@ const PracticeScriptPage = () => {
   const handleSubmit = async () => {
     if (!presentationId) return;
 
-    const formattedScript = slides.map((slide) => ({ slideId: slide.id, script: slide.script }));
-    console.log('formattedScript', formattedScript);
+    const formattedScript: Script[] = slides.map((slide) => ({
+      slideId: slide.id,
+      script: slide.script,
+    }));
 
-    // putScriptMutation({
-    //   slideId: formattedScript.slideId,
-    //   script: formattedScript.script,
-    //   presentationId: presentationId,
-    // });
+    putScriptMutation({ formattedScript, presentationId: presentationId });
 
     // try {
     //   // 백엔드에 대본 저장 요청
