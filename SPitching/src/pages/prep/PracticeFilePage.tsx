@@ -29,9 +29,6 @@ const PracticeFilePage = () => {
     if (!isValid || !fileUpload) return;
     setSubmitting(true);
 
-    // 백엔드에 FormData로 전송
-    const form = new FormData();
-
     uploadFile({ presentationId: presentationId!, file: fileUpload });
   };
 

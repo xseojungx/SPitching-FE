@@ -1,14 +1,18 @@
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePracticeCreation } from '@/contexts/PracticeCreationContext';
 import Navbar from '@/components/common/Navbar';
 import ScriptEditor from '@/components/prep/SingleScriptEditor';
+
 const PracticeScriptPage = () => {
   const navigate = useNavigate();
-  const { practiceId, script, setScript } = usePracticeCreation();
-  const [text, setText] = useState(script);
+  const { presentationId, setScript, slides, tagList } = usePracticeCreation();
   const [isSubmitting, setSubmitting] = useState(false);
+  console.log('slides', slides);
+  console.log('tagList', tagList);
 
+  // useEffect(() => {
+  //   if (!practiceId) {
   // useEffect(() => {
   //   if (!practiceId) {
   //     // Direct 진입 방지
@@ -17,7 +21,7 @@ const PracticeScriptPage = () => {
   // }, [practiceId]);
 
   const handleSubmit = async () => {
-    if (!practiceId) return;
+    if (!presentationId) return;
     setSubmitting(true);
     // try {
     //   // 백엔드에 대본 저장 요청
@@ -44,18 +48,23 @@ const PracticeScriptPage = () => {
 
         <div className='relative box-border flex w-full flex-col divide-y-1 divide-gray-500 bg-white/50 py-4'>
           <div className='absolute top-0 right-0 -z-1 h-full w-8/10 bg-white/70' />
-          <ScriptEditor />
-          <ScriptEditor />
-          <ScriptEditor />
-          <ScriptEditor />
-          <ScriptEditor />
+          {slides.map((slide) => (
+            <ScriptEditor
+              key={slide.id}
+              slideId={slide.id}
+              script={slide.script}
+              setSlides={setScript}
+              imageUrl={slide.imageUrl}
+              slideNumber={slide.slideNumber}
+            />
+          ))}
         </div>
 
         <div className='flex justify-end'>
           <button
             onClick={handleSubmit}
-            disabled={!isValid || isSubmitting}
-            className={`$ (isValid ? 'bg-[#255A9B] hover:brightness-110' : 'bg-gray-300 cursor-not-allowed') h-12 rounded-xl px-6 font-semibold text-gray-500 text-white shadow-md transition`}
+            disabled={isSubmitting}
+            className='h-12 rounded-xl bg-[#255A9B] px-6 font-semibold text-gray-500 text-white shadow-md transition hover:brightness-110'
           >
             다음
           </button>

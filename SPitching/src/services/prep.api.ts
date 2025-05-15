@@ -31,3 +31,13 @@ export const uploadPresentationFile = async ({
 
   return res.data;
 };
+
+export const postTag = async (slideId: number, content: string) => {
+  const res = await apiClient.post(`/api/v1/tags`, { content }, { params: { slideId } });
+  return res.data;
+};
+
+export const deleteTag = async (slideId: number) => {
+  const res = await apiClient.delete(`/api/v1/tags`, { params: { slideId } });
+  return res.data;
+};

@@ -85,3 +85,8 @@ interface UploadedSlide {
 }
 
 export type UploadSlidesResponse = UploadedSlide[];
+
+export type Tag = { id: number; slideId: number; content: string[] };
+export type NewTag = { slideId: number; content: string };
+
+export type TagsList = Tag[];
