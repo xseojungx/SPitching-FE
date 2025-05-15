@@ -10,7 +10,6 @@ const TagInput = ({ slideId }: TagInputProps) => {
   const [isInputVisible, setIsInputVisible] = useState(false);
   const [tagText, setTagText] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const { addTag } = usePracticeCreation();
   const { mutate: addTagMutation } = usePostTag();
 
   // 자동 너비 조절
@@ -38,6 +37,7 @@ const TagInput = ({ slideId }: TagInputProps) => {
       console.log('tagText', tagText);
       addTagMutation({ slideId, content: tagText.trim() });
       setTagText('');
+      setIsInputVisible(false);
     }
   };
 

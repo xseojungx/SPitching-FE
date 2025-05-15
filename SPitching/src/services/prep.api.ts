@@ -37,7 +37,7 @@ export const postTag = async (slideId: number, content: string) => {
   return res.data;
 };
 
-export const deleteTag = async (slideId: number) => {
-  const res = await apiClient.delete(`/api/v1/tags`, { params: { slideId } });
+export const deleteTag = async (tagId: number) => {
+  const res = await apiClient.delete(`/api/v1/tags/${tagId}`);
   return res.data;
 };

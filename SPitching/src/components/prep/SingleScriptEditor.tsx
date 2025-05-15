@@ -55,9 +55,9 @@ const ScriptEditor = ({ slideId, script, setSlides, imageUrl, slideNumber }: Scr
           <div className='mr-4 flex flex-wrap space-y-1 space-x-2'>
             {(tagList.find((t) => t.slideId === slideId)?.content || []).map((tag) => (
               <SingleTag
-                key={tag}
+                key={tag.tagId} // ✅ 고유 tagId를 key로 사용
                 slideId={slideId}
-                tag={tag}
+                tag={tag} // ✅ tag는 이제 { tagId, content }
               />
             ))}
           </div>

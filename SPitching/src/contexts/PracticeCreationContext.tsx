@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { TagsList, UploadSlidesResponse, Tag } from '@/types/presentation.types';
+import { SingleTag, TagsList, UploadSlidesResponse } from '@/types/presentation.types';
 
 // 연습 생성 컨텍스트 타입
 interface PracticeCreationContextValue {
@@ -15,7 +15,7 @@ interface PracticeCreationContextValue {
   setScript: ({ slideId, text }: { slideId: number; text: string }) => void;
   setPresentationId: (id: number) => void;
   setSlides: (slides: UploadSlidesResponse) => void;
-  addTag: (slideId: number, tag: string, id: number) => void;
+  addTag: (slideId: number, tag: string, tagId: number) => void;
   removeTag: (slideId: number, tag: string) => void;
 }
 
@@ -58,30 +58,33 @@ export const PracticeCreationProvider = ({ children }: { children: ReactNode }) 
     setSlidesState(slides);
   };
 
-  const addTag = (slideId: number, newTag: string, id: number) => {
+  const addTag = (slideId: number, tag: string, tagId: number) => {
     setTagListState((prev) => {
       const found = prev.find((t) => t.slideId === slideId);
+
+      const newTag: SingleTag = { tagId, content: tag }; // ✅ 구조 변경
+
       if (found) {
-        if (found.content.includes(newTag)) return prev;
         return prev.map((t) =>
-          t.slideId === slideId ? { ...t, content: [...t.content, newTag], id: id } : t,
+          t.slideId === slideId ? { ...t, content: [...t.content, newTag] } : t,
         );
       } else {
-        return [...prev, { slideId, content: [newTag], id: id }];
+        return [...prev, { slideId, content: [newTag] }];
       }
     });
   };
 
-  const removeTag = (slideId: number, tagToRemove: string) => {
-    setTagListState((prev) =>
+  const removeTag = (tagId: number) => {
+    setTagListState((prev: TagsList) =>
       prev
-        .map((t) =>
-          t.slideId === slideId
-            ? { ...t, content: t.content.filter((tag) => tag !== tagToRemove) }
-            : t,
+        .map((slideTags) =>
+          slideTags.content.find((tag) => tag.tagId === tagId)
+            ? { ...slideTags, content: slideTags.content.filter((tag) => tag.tagId !== tagId) }
+            : slideTags,
         )
-        .filter((t) => t.content.length > 0),
+        .filter((slideTags) => slideTags.content.length > 0),
     );
+    console.log('tagList', tagList);
   };
 
   return (

@@ -83,5 +83,15 @@ export const usePostTag = () => {
 };
 
 export const useDeleteTag = () => {
-  return useMutation({ mutationFn: (slideId: number) => deleteTag(slideId) });
+  const { removeTag } = usePracticeCreation();
+  return useMutation({
+    mutationFn: (params: { tagId: number }) => deleteTag(params.tagId),
+    onSuccess: (data, variables) => {
+      const { tagId } = variables;
+      removeTag(tagId);
+    },
+    onError: (error) => {
+      console.error('❌ 태그 삭제 실패:', error);
+    },
+  });
 };
