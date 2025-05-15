@@ -1,44 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FileUploader from '@/components/prep/FileUploader';
 import { usePracticeCreation } from '@/contexts/PracticeCreationContext';
 import Navbar from '@/components/common/Navbar';
 import ProgressBar from '@/components/prep/ProgressBar';
 import { ChevronsRightIcon } from 'lucide-react';
+import { useUploadPresentation } from '@/hooks/usePrep';
 
 const PracticeFilePage = () => {
   const navigate = useNavigate();
   const { setFile } = usePracticeCreation();
+  const { presentationId } = usePracticeCreation();
 
   const [fileUpload, setFileUpload] = useState<File | null>(null);
   const [isSubmitting, setSubmitting] = useState(false);
 
   const isValid = fileUpload !== null;
+  console.log('presentationId', presentationId);
+
+  const { mutate: uploadFile, isPending } = useUploadPresentation();
+
+  useEffect(() => {
+    console.log(fileUpload);
+  }, [fileUpload]);
 
   const handleSubmit = async () => {
+    console.log(isValid);
     if (!isValid || !fileUpload) return;
     setSubmitting(true);
 
     // 백엔드에 FormData로 전송
     const form = new FormData();
 
-    form.append('file', fileUpload);
-
-    // try {
-    //   const res = await fetch('/api/v1/practices', { method: 'POST', body: form });
-    //   if (!res.ok) throw new Error(res.statusText);
-    //   const data = await res.json();
-    //   // practiceId 리턴 받음
-    //   //   setPracticeId(data.id);
-    setFile(fileUpload);
-    //   navigate('/practices/new/script');
-    // } catch (e) {
-    //   console.error(e);
-    //   alert('연습 생성에 실패했습니다.');
-    // } finally {
-    //   setSubmitting(false);
-    // }
-    navigate('/practices/new/script');
+    uploadFile({ presentationId: presentationId!, file: fileUpload });
   };
 
   return (

@@ -1,47 +1,24 @@
 import { useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { usePracticeCreation } from '@/contexts/PracticeCreationContext';
 import Navbar from '@/components/common/Navbar';
 import ProgressBar from '@/components/prep/ProgressBar';
 import { ChevronsRightIcon } from 'lucide-react';
+import { useCreatePresentation } from '@/hooks/usePrep';
 const PracticeDetailsPage = () => {
   const navigate = useNavigate();
-  const { setDetails, setPracticeId } = usePracticeCreation();
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState('');
   const [isSubmitting, setSubmitting] = useState(false);
 
+  const { mutate: createPresentation, isPending } = useCreatePresentation();
   const isValid = title.trim() !== '' && description.trim() !== '' && duration.trim() !== '';
 
   const handleSubmit = async () => {
     if (!isValid) return;
     setSubmitting(true);
-
-    // 백엔드에 FormData로 전송
-    const form = new FormData();
-    form.append('title', title);
-    form.append('description', description);
-    form.append('duration', duration);
-
-    // try {
-    //   const res = await fetch('/api/v1/practices', { method: 'POST', body: form });
-    //   if (!res.ok) throw new Error(res.statusText);
-    //   const data = await res.json();
-    //   // practiceId 리턴 받음
-    //   setPracticeId(data.id);
-    //   setDetails({ title, description, duration });
-    //   navigate('/practices/new/script');
-    // } catch (e) {
-    //   console.error(e);
-    //   alert('연습 생성에 실패했습니다.');
-    // } finally {
-    //   setSubmitting(false);
-    // }
-
-    setDetails({ title, description, duration });
-    navigate('/practices/new/file');
+    createPresentation({ title, description, duration });
   };
 
   return (

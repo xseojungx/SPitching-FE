@@ -54,3 +54,34 @@ export interface PracticeGraph {
   sttScore: number | null;
   previousScores: number[];
 }
+export interface CreatedPresentationResponse {
+  id: number;
+  title: string;
+  description: string;
+  duration: string; // "00:03:00" 형태
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+  practiceCount: number | null;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+    role: 'USER' | 'ADMIN'; // 역할이 enum이라면 이렇게 지정
+    picture: string; // URL
+  };
+}
+export interface UploadPresentationParams {
+  presentationId: number;
+  file: File; // 업로드할 파일 (video, audio 등)
+}
+
+interface UploadedSlide {
+  id: number;
+  slideNumber: number;
+  imageUrl: string;
+  script: string | null;
+  createdAt: string;
+}
+
+export type UploadSlidesResponse = UploadedSlide[];

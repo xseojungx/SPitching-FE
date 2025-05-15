@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 // 연습 생성 컨텍스트 타입
 interface PracticeCreationContextValue {
-  practiceId: number | null;
+  presentationId: number | null;
   title: string;
   description: string;
   file: File | null;
@@ -11,13 +11,13 @@ interface PracticeCreationContextValue {
   setDetails: (details: { title: string; description: string; duration: string }) => void;
   setFile: (file: File) => void;
   setScript: (script: string) => void;
-  setPracticeId: (id: number) => void;
+  setPresentationId: (id: number) => void;
 }
 
 const PracticeCreationContext = createContext<PracticeCreationContextValue | undefined>(undefined);
 
 export const PracticeCreationProvider = ({ children }: { children: ReactNode }) => {
-  const [practiceId, setPracticeIdState] = useState<number | null>(null);
+  const [presentationId, setPracticeIdState] = useState<number | null>(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [file, setFileState] = useState<File | null>(null);
@@ -38,14 +38,14 @@ export const PracticeCreationProvider = ({ children }: { children: ReactNode }) 
     setScriptState(text);
   };
 
-  const setPracticeId = (id: number) => {
+  const setPresentationId = (id: number) => {
     setPracticeIdState(id);
   };
 
   return (
     <PracticeCreationContext.Provider
       value={{
-        practiceId,
+        presentationId,
         title,
         description,
         file,
@@ -54,7 +54,7 @@ export const PracticeCreationProvider = ({ children }: { children: ReactNode }) 
         setDetails,
         setFile,
         setScript,
-        setPracticeId,
+        setPresentationId,
       }}
     >
       {children}
