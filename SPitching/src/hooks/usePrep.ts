@@ -5,6 +5,7 @@ import {
   deleteTag,
   uploadPresentationFile,
   putScript,
+  putSingleScript,
 } from '@/services/prep.api';
 import { usePracticeCreation } from '@/contexts/PracticeCreationContext';
 import type {
@@ -105,6 +106,21 @@ export const usePutScript = () => {
       putScript(params.formattedScript, params.presentationId),
     onSuccess: (data, variables) => {
       const { formattedScript, presentationId } = variables;
+      console.log('✅ 대본 저장 완료:', data);
+      navigate(`/dashboard`);
+    },
+    onError: (error) => {
+      console.error('❌ 대본 저장 실패:', error);
+    },
+  });
+};
+export const usePutSingleScript = () => {
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: (params: { script: string | null; slideNumber: number; presentationId: number }) =>
+      putSingleScript(params.script, params.slideNumber, params.presentationId),
+    onSuccess: (data, variables) => {
+      const { script, slideNumber, presentationId } = variables;
       console.log('✅ 대본 저장 완료:', data);
       navigate(`/dashboard`);
     },

@@ -50,3 +50,15 @@ export const putScript = async (formattedScript: Script[], presentationId: numbe
 
   return res.data;
 };
+export const putSingleScript = async (
+  script: string | null,
+  slideNumber: number,
+  presentationId: number,
+) => {
+  const res = await apiClient.put(
+    `/api/v1/presentations/${presentationId}/slides/${slideNumber}/script`,
+    { script },
+  );
+
+  return res.data;
+};

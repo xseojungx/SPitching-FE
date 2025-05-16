@@ -31,7 +31,9 @@ const PracticeFilePage = () => {
 
     uploadFile({ presentationId: presentationId!, file: fileUpload });
   };
-
+  if (isPending) {
+    return <div>대기중</div>;
+  }
   return (
     <div className='box-border flex h-screen w-screen flex-col justify-center py-24'>
       <Navbar />

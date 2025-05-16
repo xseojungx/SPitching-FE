@@ -2,14 +2,26 @@ import { useState, ChangeEvent, useEffect, useCallback } from 'react';
 import { usePracticeCreation } from '@/contexts/PracticeCreationContext';
 import Navbar from '@/components/common/Navbar';
 import ScriptEditor from '@/components/prep/SingleScriptEditor';
-import { usePutScript } from '@/hooks/usePrep';
+import { usePutScript, usePutSingleScript } from '@/hooks/usePrep';
 import { Script } from '@/types/presentation.types';
 
 const PracticeScriptPage = () => {
   const { presentationId, setScript, slides, tagList } = usePracticeCreation();
   console.log('slides', slides);
   console.log('tagList', tagList);
-  const { mutate: putScriptMutation } = usePutScript();
+  // ------ 전체 스크립트 넣는 api--------
+  // const { mutate: putScriptMutation } = usePutScript();
+  // const handleSubmit = async () => {
+  //   if (!presentationId) return;
+
+  //   const formattedScript: Script[] = slides.map((slide) => ({
+  //     slideId: slide.id,
+  //     script: slide.script,
+  //   }));
+
+  //   putScriptMutation({ formattedScript, presentationId: presentationId });
+
+  // };
   // useEffect(() => {
   //   if (!practiceId) {
   // useEffect(() => {
@@ -18,32 +30,19 @@ const PracticeScriptPage = () => {
   //     navigate('/practices/new/details');
   //   }
   // }, [practiceId]);
+  // ----------------------------------
 
-  const handleSubmit = async () => {
+  const { mutate: putSingleScriptMutation } = usePutSingleScript();
+  const handleSubmit = () => {
     if (!presentationId) return;
 
-    const formattedScript: Script[] = slides.map((slide) => ({
-      slideId: slide.id,
-      script: slide.script,
-    }));
-
-    putScriptMutation({ formattedScript, presentationId: presentationId });
-
-    // try {
-    //   // 백엔드에 대본 저장 요청
-    //   await fetch(`/api/v1/practices/${practiceId}/script`, {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ script: text }),
-    //   });
-    //   setScript(text);
-    //   navigate(`/practices/${practiceId}/edit`);
-    // } catch (e) {
-    //   console.error(e);
-    //   alert('대본 저장에 실패했습니다.');
-    // } finally {
-    //   setSubmitting(false);
-    // }
+    slides.forEach((slide) => {
+      putSingleScriptMutation({
+        script: slide.script,
+        slideNumber: slide.slideNumber,
+        presentationId: presentationId,
+      });
+    });
   };
 
   return (
