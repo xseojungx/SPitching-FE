@@ -39,14 +39,21 @@ export const useAuth = () => {
     select: (res) => res.data,
   });
 
-  // 유저 정보가 성공적으로 로드되면 Redux에 로그인 처리
+  // ✅ 세션 인증 상태만으로도 로그인 상태 설정
+  useEffect(() => {
+    if (sessionStatus?.authenticated && sessionStatus?.active) {
+      dispatch(login(null)); // userId는 이후에 별도로 설정
+    }
+  }, [sessionStatus, dispatch]);
+
+  // ✅ userId가 도착했을 때 userId만 업데이트
   useEffect(() => {
     if (user?.userId) {
       dispatch(login(user.userId));
     }
   }, [user, dispatch]);
 
-  // 세션 비정상일 경우 강제 로그아웃
+  // ✅ 세션이 비정상이면 로그아웃 처리
   useEffect(() => {
     if (sessionStatus && (!sessionStatus.authenticated || !sessionStatus.active)) {
       dispatch(logoutAction());
