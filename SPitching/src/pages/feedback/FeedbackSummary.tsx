@@ -10,7 +10,7 @@ import SimilarityCard from '../../components/feedback/summary/SimilarityCard';
 import { useLocation } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import { setGestureFeedback } from '@/redux/slices/gestureFeedbackSlice';
+import { setGestureFeedback } from '@/redux/slices/gestureFeedback.slice';
 import { presentationMockData } from '@/assets/mockData';
 
 const FeedbackSummary = () => {
