@@ -53,8 +53,8 @@ const RecentPractice = ({
           )}
         </div>
         <div className='mt-2 flex flex-row items-center gap-2'>
-          <span className='b1 font-semibold text-gray-900'>최근 연습</span>
-          <span className='b1 text-gray-700'>{formatDateWithTime(lastPractice)}</span>
+          <span className='b1 truncate font-semibold text-gray-900'>최근 연습</span>
+          <span className='b1 truncate text-gray-700'>{formatDateWithTime(lastPractice)}</span>
         </div>
         <div className='flex flex-row items-center gap-3 text-xs'>
           <span className='b1 font-semibold text-gray-900'>연습 횟수</span>
