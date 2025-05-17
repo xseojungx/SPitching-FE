@@ -29,80 +29,43 @@ const RecentPractice = ({
   const navigate = useNavigate();
   const data = prevPracticeData;
 
-  const [openPages, setOpenPages] = useState<number[]>([]);
-
-  const togglePage = (page: number) => {
-    setOpenPages((prev) =>
-      prev.includes(page) ? prev.filter((p) => p !== page) : [...prev, page],
-    );
-  };
-
-  // const renderTagItem = (data: TagType) => {
-  //   const isOpen = openPages.includes(data.page);
-
-  //   return (
-  //     <div key={data.page}>
-  //       <div
-  //         className='flex cursor-pointer items-center gap-1'
-  //         onClick={() => togglePage(data.page)}
-  //       >
-  //         <span className='b1 text-blue-500'>{isOpen ? '▼' : '▶'}</span>
-  //         <span className='b1 text-gray-700'>{data.page} 페이지</span>
-  //         <div className='text-cream-50 c1 flex h-3 w-3 items-center justify-center rounded-full bg-rose-500 text-[0.625rem] font-normal'>
-  //           {data.count}
-  //         </div>
-  //       </div>
-
-  //       {isOpen && data.notes.length > 0 && (
-  //         <ul className='b2 mt-2 list-disc pl-6 font-normal tracking-[0.06px] text-gray-700'>
-  //           {data.notes.map((note, idx) => (
-  //             <li key={idx}>{note}</li>
-  //           ))}
-  //           <p className='mt-2 cursor-pointer text-right text-blue-500'>
-  //             → {data.page}페이지 부분 연습하러 가기
-  //           </p>
-  //         </ul>
-  //       )}
-  //     </div>
-  //   );
-  // };
-
   return (
     <div className='max-h-600px mx-auto grid h-3/4 w-10/12 max-w-screen-xl grid-cols-10 grid-rows-[auto_1fr_auto] gap-4 px-4 py-6'>
       {/* 상단 제목 */}
       <div className='col-span-10 row-start-1 flex flex-col'>
-        <span className='c2 text-gray-700'>최근 연습</span>
+        <span className='c1 text-gray-700'>최근 연습</span>
         <div className='flex items-baseline gap-2'>
           <span className='h2 text-gray-900'>{title}</span>
-          <span className='b2 text-gray-700'>{description}</span>
-          <span className='b2 text-gray-700'>{formatDateWithTime(created)}</span>
+          <span className='b1 text-gray-700'>{description}</span>
+          <span className='b1 text-gray-700'>{formatDateWithTime(created)}</span>
         </div>
       </div>
 
       {/* 좌측 요약 상자 */}
       <div className='white-card col-span-3 row-start-2 gap-1'>
-        <div className='mb-3 aspect-[16/9] w-full overflow-hidden'>
-          {/* 확대 삭제하기 */}
-          <img
-            src={firstSlideImageUrl ?? ''}
-            alt='최근 연습 썸네일'
-            className='c1 w-full scale-120 bg-gray-100 object-cover text-gray-700'
-          />
+        <div className='aspect-video w-full flex-shrink-0 rounded-lg bg-gray-200'>
+          {firstSlideImageUrl && (
+            <img
+              src={firstSlideImageUrl}
+              alt='썸네일'
+              className='w-full rounded-lg border-1 border-gray-200 object-cover'
+            />
+          )}
         </div>
-        <div className='flex flex-row items-center gap-2'>
-          <span className='s2 text-gray-900'>최근 연습</span>
-          <span className='b2 text-gray-700'>{formatDateWithTime(lastPractice)}</span>
+        <div className='mt-2 flex flex-row items-center gap-2'>
+          <span className='b1 font-semibold text-gray-900'>최근 연습</span>
+          <span className='b1 text-gray-700'>{formatDateWithTime(lastPractice)}</span>
         </div>
         <div className='flex flex-row items-center gap-3 text-xs'>
-          <span className='s2 text-gray-900'>연습 횟수</span>
-          <span className='b2 text-gray-700'>{practiceCount}</span>
+          <span className='b1 font-semibold text-gray-900'>연습 횟수</span>
+          <span className='b1 text-gray-700'>{practiceCount}</span>
         </div>
       </div>
 
       {/* 중앙 요약 상자 */}
-      <div className='white-card relative col-span-4 row-start-2'>
+      <div className='white-card relative col-span-4 row-start-2 justify-between'>
         <div className='absolute m-4 flex flex-col'>
-          <span className='c2 text-gray-700'>{practiceCount}회차 연습 결과</span>
+          <span className='b2 text-gray-700'>{practiceCount}회차 연습 결과</span>
           <span className='h1 text-gray-900'>{graph.currentScore}점</span>
         </div>
         <div className='box-border w-full flex-3 pt-2'>

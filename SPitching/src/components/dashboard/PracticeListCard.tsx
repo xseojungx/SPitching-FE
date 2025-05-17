@@ -25,12 +25,12 @@ const PracticeListCard = ({
   return (
     <div className='white-card flex h-auto w-full flex-row gap-4 overflow-clip p-5'>
       {/* 썸네일 */}
-      <div className='aspect-video w-40 flex-shrink-0 rounded-lg bg-gray-200'>
+      <div className='aspect-video h-full w-40 flex-shrink-0 rounded-lg bg-gray-200'>
         {firstSlideImageUrl && (
           <img
             src={firstSlideImageUrl}
             alt='썸네일'
-            className='h-full w-full object-cover'
+            className='h-full w-full rounded-lg border-1 border-gray-200 object-cover'
           />
         )}
       </div>

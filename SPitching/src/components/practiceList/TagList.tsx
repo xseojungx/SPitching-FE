@@ -25,9 +25,9 @@ const TagList = ({ tags }: TagListProps) => {
               onClick={() => togglePage(tag.page)}
               className='flex w-full items-center justify-between px-1 focus:ring-0 focus:outline-none'
             >
-              <div className='flex items-center gap-2'>
+              <div className='flex cursor-pointer items-center gap-2'>
                 <span className='text-blue-500'>{isOpen ? '▼' : '▶'}</span>
-                <span className='b1 text-gray-800'>페이지 {tag.page}</span>
+                <span className='b1 text-gray-900'>페이지 {tag.page}</span>
               </div>
               <span className='flex h-5 w-5 items-center justify-center rounded-full bg-rose-500 text-[0.625rem] font-normal text-white'>
                 {tag.count}

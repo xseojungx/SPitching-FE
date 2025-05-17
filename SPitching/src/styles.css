@@ -66,31 +66,31 @@ body {
     @apply bg-gradient-to-b from-[#255A9B] via-[#7AB7CE] to-[#A9EAD6] bg-clip-text;
   }
   .h1 {
-    @apply text-[24px] leading-[140%] font-bold tracking-[-0.01em];
+    @apply text-[28px] leading-snug font-bold tracking-tight;
   }
 
   .h2 {
-    @apply text-[20px] leading-[140%] font-semibold tracking-[-0.01em];
+    @apply text-[24px] leading-snug font-semibold tracking-normal;
   }
 
   .s1 {
-    @apply text-[16px] leading-[140%] font-semibold tracking-[0em];
+    @apply text-[20px] leading-normal font-semibold tracking-normal;
   }
 
   .s2 {
-    @apply text-[14px] leading-[140%] font-semibold tracking-[0.0025em];
+    @apply text-[18px] leading-relaxed font-semibold tracking-normal;
   }
 
   .b1 {
-    @apply text-[16px] leading-[150%] font-normal tracking-[0em];
+    @apply text-[16px] leading-relaxed font-normal tracking-normal;
   }
 
   .b2 {
-    @apply text-[14px] leading-[150%] font-normal tracking-[0.0025em];
+    @apply text-[14px] leading-relaxed font-normal tracking-normal;
   }
 
   .c1 {
-    @apply text-[12px] leading-[140%] font-medium tracking-[0.005em];
+    @apply text-[12px] leading-snug font-normal tracking-wide;
   }
 
   .c2 {
