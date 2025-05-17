@@ -98,7 +98,7 @@ const RecentPractice = ({
           <TagList tags={tags} />
         </div>
         <div className='mt-4 flex w-full items-center justify-center px-4'>
-          <button className='s2 bg-navy-700 flex flex-1 cursor-pointer items-center justify-center rounded-md border border-gray-300 py-2 text-white transition hover:brightness-120'>
+          <button className='b1 bg-navy-700 flex flex-1 cursor-pointer items-center justify-center rounded-md border border-gray-300 py-2 font-semibold text-white transition hover:brightness-120'>
             <SquarePen className='mr-2 h-4 w-4' />
             대본 / 태그 수정하기
           </button>
@@ -113,7 +113,7 @@ const RecentPractice = ({
           {/* 전체 연습 */}
           <button
             onClick={() => navigate('/practice')}
-            className='h2 flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4C9ACF] to-[#A9EAD6] px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:cursor-pointer hover:brightness-105'
+            className='s2 flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4C9ACF] to-[#A9EAD6] px-6 py-3 text-white shadow-sm transition hover:cursor-pointer hover:brightness-105'
           >
             <Play className='h-4 w-4 fill-white stroke-4' />
             전체 연습 시작하기
