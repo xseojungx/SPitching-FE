@@ -31,6 +31,16 @@ export interface Presentation {
   slides: Slide[];
 }
 
+export interface Tag {
+  page: number;
+  count: number;
+  notes: string[];
+}
+
+export interface TagListProps {
+  tags: Tag[];
+}
+
 // 최근 연습이 포함된 요약형 발표 데이터 (대시보드 등에서 사용)
 export interface RecentPractice {
   presentationId: number;
@@ -41,7 +51,7 @@ export interface RecentPractice {
   lastPractice: string; // 마지막 연습 일시
   practiceCount: number;
   firstSlideImageUrl: string | null;
-  tags: string[];
+  tags: Tag[];
   graph: PracticeGraph;
 }
 

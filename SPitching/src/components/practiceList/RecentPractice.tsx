@@ -3,18 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { recentPractice } from './mockdata';
 import ScoreLineChart from '../dashboard/ScoreLineChart';
 import ScorePieChart from '../common/ScorePieChart';
-
+import TagList from './TagList';
 import EyeIcon from '../../assets/eye.svg?react';
 import GestureIcon from '../../assets/gesture.svg?react';
 import SimilarityIcon from '../../assets/sim.svg?react';
-import MockPPT from '../../assets/mock_ppt.png';
 import FluencyIcon from '../../assets/fluency.svg?react';
-
+import { SquarePen, Play } from 'lucide-react';
 import { prevPracticeData } from '@/assets/mockData';
 import { formatDateWithTime } from '@/utils/date';
 
 import { RecentPractice as RecentPracticeProps } from '@/types/presentation.types';
-type TagType = { page: number; count: number; notes: string[] };
 
 const RecentPractice = ({
   practiceId,
@@ -31,12 +29,7 @@ const RecentPractice = ({
   const navigate = useNavigate();
   const data = prevPracticeData;
 
-  const [tag, setTag] = useState<TagType[]>([]);
   const [openPages, setOpenPages] = useState<number[]>([]);
-
-  useEffect(() => {
-    setTag(recentPractice.tags);
-  }, []);
 
   const togglePage = (page: number) => {
     setOpenPages((prev) =>
@@ -44,35 +37,35 @@ const RecentPractice = ({
     );
   };
 
-  const renderTagItem = (data: TagType) => {
-    const isOpen = openPages.includes(data.page);
+  // const renderTagItem = (data: TagType) => {
+  //   const isOpen = openPages.includes(data.page);
 
-    return (
-      <div key={data.page}>
-        <div
-          className='flex cursor-pointer items-center gap-1'
-          onClick={() => togglePage(data.page)}
-        >
-          <span className='b1 text-blue-500'>{isOpen ? '▼' : '▶'}</span>
-          <span className='b1 text-gray-700'>{data.page} 페이지</span>
-          <div className='text-cream-50 c1 flex h-3 w-3 items-center justify-center rounded-full bg-rose-500 text-[0.625rem] font-normal'>
-            {data.count}
-          </div>
-        </div>
+  //   return (
+  //     <div key={data.page}>
+  //       <div
+  //         className='flex cursor-pointer items-center gap-1'
+  //         onClick={() => togglePage(data.page)}
+  //       >
+  //         <span className='b1 text-blue-500'>{isOpen ? '▼' : '▶'}</span>
+  //         <span className='b1 text-gray-700'>{data.page} 페이지</span>
+  //         <div className='text-cream-50 c1 flex h-3 w-3 items-center justify-center rounded-full bg-rose-500 text-[0.625rem] font-normal'>
+  //           {data.count}
+  //         </div>
+  //       </div>
 
-        {isOpen && data.notes.length > 0 && (
-          <ul className='b2 mt-2 list-disc pl-6 font-normal tracking-[0.06px] text-gray-700'>
-            {data.notes.map((note, idx) => (
-              <li key={idx}>{note}</li>
-            ))}
-            <p className='mt-2 cursor-pointer text-right text-blue-500'>
-              → {data.page}페이지 부분 연습하러 가기
-            </p>
-          </ul>
-        )}
-      </div>
-    );
-  };
+  //       {isOpen && data.notes.length > 0 && (
+  //         <ul className='b2 mt-2 list-disc pl-6 font-normal tracking-[0.06px] text-gray-700'>
+  //           {data.notes.map((note, idx) => (
+  //             <li key={idx}>{note}</li>
+  //           ))}
+  //           <p className='mt-2 cursor-pointer text-right text-blue-500'>
+  //             → {data.page}페이지 부분 연습하러 가기
+  //           </p>
+  //         </ul>
+  //       )}
+  //     </div>
+  //   );
+  // };
 
   return (
     <div className='max-h-600px mx-auto grid h-3/4 w-10/12 max-w-screen-xl grid-cols-10 grid-rows-[auto_1fr_auto] gap-4 px-4 py-6'>
@@ -117,34 +110,34 @@ const RecentPractice = ({
         </div>
         <div className='flex h-12 w-full flex-2'>
           <div className='relative flex-1'>
-            <ScorePieChart value={data[data.length - 1].eye} />
+            <ScorePieChart value={graph.eyeScore || 0} />
             <EyeIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
           </div>
           <div className='relative flex-1'>
-            <ScorePieChart value={data[data.length - 1].ges} />
+            <ScorePieChart value={graph.gestureScore || 0} />
             <GestureIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
           </div>
           <div className='relative flex-1'>
-            <ScorePieChart value={data[data.length - 1].sim} />
+            <ScorePieChart value={graph.cosineSimilarity || 0} />
             <SimilarityIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
           </div>
           <div className='relative flex-1'>
-            <ScorePieChart value={data[data.length - 1].fluen} />
+            <ScorePieChart value={graph.sttScore || 0} />
             <FluencyIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
           </div>
         </div>
       </div>
 
       {/* 우측 상자 */}
-      <div className='white-card col-span-3 row-span-2 row-start-2 flex flex-col overflow-hidden'>
-        <span className='s1 mb-2 text-gray-700'>태그</span>
-        <div className='min-h-0 flex-1 overflow-y-auto pr-1'>{tag.map(renderTagItem)}</div>
-        <div className='mt-4 space-y-2'>
-          <button className='w-full rounded-md border border-gray-300 py-2 text-sm text-gray-700 transition hover:bg-gray-50'>
-            ✏️ 대본 수정하기
-          </button>
-          <button className='w-full rounded-md border border-gray-300 py-2 text-sm text-gray-700 transition hover:bg-gray-50'>
-            🏷️ 태그 수정하기
+      <div className='white-card col-span-3 row-span-2 row-start-2 flex flex-col overflow-hidden px-2'>
+        <span className='s1 mb-2 px-3 text-black'>태그</span>
+        <div className='scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400 min-h-0 w-full flex-1 overflow-y-auto'>
+          <TagList tags={tags} />
+        </div>
+        <div className='mt-4 flex w-full items-center justify-center px-4'>
+          <button className='s2 bg-navy-700 flex flex-1 cursor-pointer items-center justify-center rounded-md border border-gray-300 py-2 text-white transition hover:brightness-120'>
+            <SquarePen className='mr-2 h-4 w-4' />
+            대본 / 태그 수정하기
           </button>
         </div>
       </div>
@@ -157,9 +150,9 @@ const RecentPractice = ({
           {/* 전체 연습 */}
           <button
             onClick={() => navigate('/practice')}
-            className='flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4C9ACF] to-[#A9EAD6] px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:cursor-pointer hover:brightness-105'
+            className='h2 flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4C9ACF] to-[#A9EAD6] px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:cursor-pointer hover:brightness-105'
           >
-            <span className='text-lg'>▶</span>
+            <Play className='h-4 w-4 fill-white stroke-4' />
             전체 연습 시작하기
           </button>
 
