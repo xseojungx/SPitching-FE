@@ -4,32 +4,10 @@ import ScriptEditor from '@/components/prep/SingleScriptEditor';
 import { usePutScript, usePutSingleScript } from '@/hooks/usePrep';
 import { Script } from '@/types/presentation.types';
 
-const PracticeScriptPage = () => {
+const EditScriptPage = () => {
   const { presentationId, setScript, slides, tagList } = usePracticeCreation();
   console.log('slides', slides);
   console.log('tagList', tagList);
-  // ------ 전체 스크립트 넣는 api--------
-  // const { mutate: putScriptMutation } = usePutScript();
-  // const handleSubmit = async () => {
-  //   if (!presentationId) return;
-
-  //   const formattedScript: Script[] = slides.map((slide) => ({
-  //     slideId: slide.id,
-  //     script: slide.script,
-  //   }));
-
-  //   putScriptMutation({ formattedScript, presentationId: presentationId });
-
-  // };
-  // useEffect(() => {
-  //   if (!practiceId) {
-  // useEffect(() => {
-  //   if (!practiceId) {
-  //     // Direct 진입 방지
-  //     navigate('/practices/new/details');
-  //   }
-  // }, [practiceId]);
-  // ----------------------------------
 
   const { mutate: putSingleScriptMutation } = usePutSingleScript();
   const handleSubmit = () => {
@@ -78,4 +56,4 @@ const PracticeScriptPage = () => {
   );
 };
 
-export default PracticeScriptPage;
+export default EditScriptPage;
