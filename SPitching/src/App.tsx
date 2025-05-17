@@ -9,6 +9,7 @@ import PracticeDetailsPage from './pages/prep/PracticeDetailsPage';
 import PracticeScriptPage from './pages/prep/PracticeScriptPage';
 import PracticeFilePage from './pages/prep/PracticeFilePage';
 import GestureDetailPage from './pages/feedback/GestureDetailPage';
+import EditScriptPage from './pages/prep/EditScriptPage';
 
 import PrivateRoute from '@/routes/PrivateRoute';
 // import PublicOnlyRoute from '@/routes/PublicOnlyRoute';
@@ -82,6 +83,10 @@ function App() {
           <Route
             path='/practices/new/script'
             element={<PracticeScriptPage />}
+          />
+          <Route
+            path='/practices/script/edit'
+            element={<EditScriptPage />}
           />
         </Routes>
       </Router>

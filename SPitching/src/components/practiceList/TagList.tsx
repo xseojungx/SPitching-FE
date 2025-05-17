@@ -11,7 +11,7 @@ const TagList = ({ tags }: TagListProps) => {
   };
 
   return (
-    <div className='space-y-4'>
+    <div className='space-y-1'>
       {tags.map((tag) => {
         const isOpen = openPages.includes(tag.page);
 
