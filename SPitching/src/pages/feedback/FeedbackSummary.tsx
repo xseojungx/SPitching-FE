@@ -108,7 +108,7 @@ const FeedbackSummary = () => {
             straightScore={gestureData.straightScore}
           />
         )}
-        {fluencyData && <FluencyCard />}
+        {fluencyData && <FluencyCard fluencyData={fluencyData} />}
         {eyeContactData && <EyeContactCard eyeContactData={eyeContactData} />}
       </main>
     </div>

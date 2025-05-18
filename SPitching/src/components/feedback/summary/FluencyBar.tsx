@@ -1,22 +1,12 @@
 type Segment = { label: string; count: number; color: string };
 
-type Props = {
-  title: string;
-  total: number;
-  segments: Segment[];
-  unit?: string;
-};
+type Props = { title: string; total: number; segments: Segment[]; unit?: string };
 
-export default function FluencyBar({
-  title,
-  total,
-  segments,
-  unit = '회',
-}: Props) {
+export default function FluencyBar({ title, total, segments, unit = '회' }: Props) {
   return (
     <div className='w-full space-y-3'>
       {/* 제목 */}
-      <p className='s2 text-gray-900'>{title}</p>
+      <p className='b1 font-semibold text-gray-900'>{title}</p>
 
       {/* 막대 그래프 */}
       <div className='relative flex h-4 w-full overflow-hidden rounded-full bg-[#ECEEEC]'>
@@ -32,10 +22,8 @@ export default function FluencyBar({
                 backgroundColor: segment.color,
                 borderTopLeftRadius: idx === 0 ? '9999px' : 0,
                 borderBottomLeftRadius: idx === 0 ? '9999px' : 0,
-                borderTopRightRadius:
-                  idx === segments.length - 1 ? '9999px' : 0,
-                borderBottomRightRadius:
-                  idx === segments.length - 1 ? '9999px' : 0,
+                borderTopRightRadius: idx === segments.length - 1 ? '9999px' : 0,
+                borderBottomRightRadius: idx === segments.length - 1 ? '9999px' : 0,
               }}
             />
           );
