@@ -53,7 +53,7 @@ function App() {
             }
           />
           <Route
-            path='/feedback/summary'
+            path='/feedback/summary/:practiceId'
             element={
               // <PrivateRoute>
               <FeedbackSummary />
@@ -69,7 +69,11 @@ function App() {
             }
           />
           <Route
-            path='/practice'
+            path='/practice/:presentationId'
+            element={<PracticePage />}
+          />
+          <Route
+            path='/full-practice/:presentationId'
             element={<PracticePage />}
           />
           <Route

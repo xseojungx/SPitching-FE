@@ -1,8 +1,6 @@
-// import ScorePieChart from '../../common/ScorePieChart';
+import type { EyeContactScore } from '@/types/feedback.types';
 
-type EyeContactCardProps = { eyecontactScore: number };
-
-const EyeContactCard = ({ eyecontactScore }: EyeContactCardProps) => {
+const EyeContactCard = ({ eyeContactData }: { eyeContactData: EyeContactScore }) => {
   // 점수에 따라 메시지 반환
   const getMessage = (score: number): string => {
     if (score <= 25) return '시선을 자주 피했어요. 청중과의 연결이 약해 보여요.';
@@ -12,7 +10,7 @@ const EyeContactCard = ({ eyecontactScore }: EyeContactCardProps) => {
     return '훌륭해요! 자신감 있고 전문적인 시선 처리를 보여줬어요.';
   };
 
-  const message = getMessage(eyecontactScore);
+  const message = getMessage(eyeContactData.eyecontactScore);
 
   return (
     <div className='white-card col-span-3 col-start-9 row-span-3 row-start-8 cursor-pointer transition duration-400 hover:-translate-y-1 hover:shadow-lg'>
@@ -20,7 +18,7 @@ const EyeContactCard = ({ eyecontactScore }: EyeContactCardProps) => {
       <p className='s1 text-gray-900'>시선</p>
       <div className='flex w-full flex-1 flex-col items-start gap-2'>
         <span className='h1 bg-gradient-to-b from-[#255A9B] via-[#7AB7CE] to-[#A9EAD6] bg-clip-text text-transparent'>
-          75점
+          {eyeContactData.eyecontactScore}점
         </span>
 
         {/* 피드백 메시지 */}

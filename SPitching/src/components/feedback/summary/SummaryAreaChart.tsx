@@ -11,8 +11,9 @@ import {
 import { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import { RecentPractice } from '@/types/presentation.types';
 
-const SummaryAreaChart = () => {
+const SummaryAreaChart = ({ recentPracticeData }: { recentPracticeData: RecentPractice }) => {
   const { gestureScore } = useSelector((state: RootState) => state.gestureFeedback);
 
   const data = [

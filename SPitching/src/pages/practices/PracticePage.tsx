@@ -1,20 +1,37 @@
-// PracticePage.tsx
-import ScriptViewer from '@/components/practice/ScriptViewer';
-import PracticeContent from '@/components/practice/PracticeContent';
-import PracticeHeader from '../../components/practice/PracticeHeader';
-import { useRef, useState } from 'react';
 import CameraRecorder, { CameraRecorderHandle } from '@/components/practice/CameraRecorder';
-import { useNavigate } from 'react-router-dom';
 import LoadingOverlay from '@/components/common/LoadingOverlay';
+import PracticeContent from '@/components/practice/PracticeContent';
+import PracticeHeader from '@/components/practice/PracticeHeader';
+import ScriptViewer from '@/components/practice/ScriptViewer';
+
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { clearPracticeId, setPracticeId } from '@/redux/slices/practice.slice';
+import { RootState } from '@/redux/store';
 
 const PracticePage = () => {
+  const { presentationId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const recorderRef = useRef<CameraRecorderHandle>(null);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const practiceId = useSelector((state: RootState) => state.practice.practiceId);
+
+  // practiceId 초기화 및 새로 할당
+  useEffect(() => {
+    if (practiceId) {
+      dispatch(clearPracticeId());
+    }
+    // TODO: api 호출 후 받은 practiceId 할당
+    const newPracticeId = 5;
+    dispatch(setPracticeId(newPracticeId));
+  }, [practiceId, dispatch]);
 
   const startTimer = () => {
     if (!timerRef.current) {
@@ -36,24 +53,24 @@ const PracticePage = () => {
     const formData = new FormData();
     formData.append('file', blob, 'practice_video');
     formData.append('userId', '5');
-    formData.append('presentationId', '55');
+    formData.append('presentationId', presentationId || '');
     formData.append('practiceId', '4');
     console.log(formData);
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/feedback/gesture', {
-        method: 'POST',
-        body: formData,
-      });
+      // const response = await fetch('http://localhost:8000/api/v1/feedback/gesture', {
+      //   method: 'POST',
+      //   body: formData,
+      // });
 
-      if (!response.ok) {
-        throw new Error(`분석 실패: ${response.status}`);
-      }
+      // if (!response.ok) {
+      //   throw new Error(`분석 실패: ${response.status}`);
+      // }
 
-      const result = await response.json();
+      // const result = await response.json();
       await new Promise((res) => setTimeout(res, 2000));
 
-      navigate('/feedback/summary', { state: result });
+      navigate(`/feedback/summary/${practiceId}`);
     } catch (err) {
       console.error('AI 서버 전송 오류:', err);
       alert('AI 분석 실패');

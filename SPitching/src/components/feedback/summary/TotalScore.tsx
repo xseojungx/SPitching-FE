@@ -28,7 +28,6 @@ const TotalScore = () => {
   //메모 처리하기
   const CustomTooltip = ({ active, payload }: TooltipProps<ValueType, NameType>) => {
     if (active && payload && payload.length) {
-      console.log(payload);
       return (
         <div className='rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-[#333] shadow-md'>
           <p>{`${payload[0].value}점`}</p>

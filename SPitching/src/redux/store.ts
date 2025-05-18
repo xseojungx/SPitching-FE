@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import authReducer from './slices/auth.slice';
 import gestureFeedbackReducer from './slices/gestureFeedback.slice';
 import practiceReducer from './slices/practice.slice';
+import feedbackReducer from './slices/feedback.slice';
 
 import { combineReducers } from 'redux';
 
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   gestureFeedback: gestureFeedbackReducer,
   practice: persistReducer(practicePersistConfig, practiceReducer),
+  feedback: feedbackReducer,
 });
 
 export const store = configureStore({

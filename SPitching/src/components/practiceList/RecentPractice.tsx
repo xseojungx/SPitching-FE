@@ -112,7 +112,7 @@ const RecentPractice = ({
         <div className='flex w-full justify-between gap-3'>
           {/* 전체 연습 */}
           <button
-            onClick={() => navigate('/practice')}
+            onClick={() => navigate(`/full-practice/${presentationId}`)}
             className='s2 flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4C9ACF] to-[#A9EAD6] px-6 py-3 text-white shadow-sm transition hover:cursor-pointer hover:brightness-105'
           >
             <Play className='h-4 w-4 fill-white stroke-4' />
