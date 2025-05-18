@@ -1,5 +1,6 @@
 import { formatDate } from '@/utils/date';
 import { SquarePen, Play } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface PracticeListCardProps {
   title: string;
@@ -10,6 +11,7 @@ interface PracticeListCardProps {
   firstSlideImageUrl: string;
   totalScore: number;
   updatedAt: string;
+  presentationId: number;
 }
 
 const PracticeListCard = ({
@@ -21,7 +23,12 @@ const PracticeListCard = ({
   firstSlideImageUrl,
   totalScore,
   updatedAt,
+  presentationId,
 }: PracticeListCardProps) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/full-practice/${presentationId}`);
+  };
   return (
     <div className='white-card flex h-auto w-full flex-row gap-4 overflow-clip p-5'>
       {/* 좌측 썸네일 */}
@@ -64,7 +71,10 @@ const PracticeListCard = ({
               <SquarePen className='h-4 w-4' />
               <span>대본 편집</span>
             </button>
-            <button className='bg-navy-700 b2 flex items-center gap-2 truncate rounded-md px-4 py-2 font-semibold text-white transition hover:brightness-110'>
+            <button
+              className='bg-navy-700 b2 flex items-center gap-2 truncate rounded-md px-4 py-2 font-semibold text-white transition hover:brightness-110'
+              onClick={handleClick}
+            >
               <Play className='h-4 w-4' />
               전체 연습
             </button>
