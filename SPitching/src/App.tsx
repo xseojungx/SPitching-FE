@@ -12,6 +12,8 @@ import GestureDetailPage from './pages/feedback/GestureDetailPage';
 import EditScriptPage from './pages/prep/EditScriptPage';
 
 import PrivateRoute from '@/routes/PrivateRoute';
+import FluencyDetailPage from './pages/feedback/FluencyDetailPage';
+import EyeContactDetailPage from './pages/feedback/EyeContactDetailPage';
 // import PublicOnlyRoute from '@/routes/PublicOnlyRoute';
 function App() {
   // useEffect(() => {
@@ -53,7 +55,7 @@ function App() {
             }
           />
           <Route
-            path='/feedback/summary'
+            path='/feedback/:practiceId/summary'
             element={
               // <PrivateRoute>
               <FeedbackSummary />
@@ -61,7 +63,7 @@ function App() {
             }
           />
           <Route
-            path='/feedback/gesture'
+            path='/feedback/:practiceId/gesture'
             element={
               // <PrivateRoute>
               <GestureDetailPage />
@@ -69,7 +71,19 @@ function App() {
             }
           />
           <Route
-            path='/practice'
+            path='/feedback/:practiceId/fluency'
+            element={<FluencyDetailPage />}
+          />
+          <Route
+            path='/feedback/:practiceId/eyecontact'
+            element={<EyeContactDetailPage />}
+          />
+          <Route
+            path='/practice/:presentationId'
+            element={<PracticePage />}
+          />
+          <Route
+            path='/full-practice/:presentationId'
             element={<PracticePage />}
           />
           <Route
