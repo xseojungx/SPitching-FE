@@ -82,7 +82,7 @@ const FluencyCard = ({
         className='s2 absolute bottom-3 left-1/2 z-10 w-fit -translate-x-1/2 translate-y-2 cursor-pointer rounded-md bg-linear-to-r from-[rgba(76,154,207,1)] via-[rgba(120,192,210,1)] to-[rgba(169,234,214,1)] px-4 py-3 whitespace-nowrap text-white opacity-0 shadow-sm backdrop-blur-sm transition-all duration-400 group-hover:translate-y-0 group-hover:opacity-100'
         onClick={() => navigate(`/feedback/${practiceId}/fluency`)}
       >
-        제스처 피드백 자세히 보러가기
+        발표 유창성 피드백 자세히 보러가기
       </div>
     </div>
   );
