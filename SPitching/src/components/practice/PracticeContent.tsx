@@ -9,7 +9,8 @@ const PracticeContent = ({
   slideList: UploadSlidesResponse;
   currentIndex: number;
 }) => {
-  const { data: tagList } = useGetTagFromSlide(slideList[currentIndex].id);
+  console.log(slideList);
+  const { data: tagList } = useGetTagFromSlide(slideList[currentIndex].id) || [];
 
   console.log(tagList);
   return (

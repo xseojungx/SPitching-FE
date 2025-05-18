@@ -1,5 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getSlideList, getTagFromSlide, postNewPractice } from '@/services/practice.api';
+import {
+  getSlideList,
+  getTagFromSlide,
+  postNewPractice,
+  postQAStart,
+  postQuestion,
+} from '@/services/practice.api';
 import { setPracticeId } from '@/redux/slices/practice.slice';
 import { useDispatch } from 'react-redux';
 
@@ -30,5 +36,21 @@ export const useGetTagFromSlide = (slideId: number) => {
     queryFn: () => getTagFromSlide(slideId),
     select: (data) => data,
     enabled: !!slideId,
+  });
+};
+
+export const usePostQAStart = () => {
+  return useMutation({
+    mutationFn: (presentationId: number) => postQAStart(presentationId),
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+};
+
+export const usePostQuestion = () => {
+  return useMutation({
+    mutationFn: ({ presentationId, content }: { presentationId: number; content: string }) =>
+      postQuestion({ presentationId, content }),
   });
 };

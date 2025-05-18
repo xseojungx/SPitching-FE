@@ -43,3 +43,28 @@ export const getTagFromSlide = async (slideId: number): Promise<PracticeTag[]> =
   const res = await apiClient.get(`/api/v1/tags`, { params: { slideId } });
   return res.data;
 };
+
+export const postQAStart = async (presentationId: number) => {
+  const res = await apiClient.post(`/api/v1/presentations/${presentationId}/qa-session/start`);
+  return res.data;
+};
+
+export const postQuestion = async ({
+  presentationId,
+  content,
+}: {
+  presentationId: number;
+  content: string;
+}): Promise<PostQuestionResponse> => {
+  const res = await apiClient.post(
+    `/api/v1/presentations/${presentationId}/qa-session/generate-question`,
+    { role: 'user', content, timestamp: new Date().toISOString() },
+  );
+  return res.data;
+};
+
+interface PostQuestionResponse {
+  role: string;
+  content: string;
+  timestamp: string;
+}

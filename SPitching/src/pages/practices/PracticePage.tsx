@@ -3,29 +3,54 @@ import LoadingOverlay from '@/components/common/LoadingOverlay';
 import PracticeContent from '@/components/practice/PracticeContent';
 import PracticeHeader from '@/components/practice/PracticeHeader';
 import ScriptViewer from '@/components/practice/ScriptViewer';
+import QAModal from '@/components/practice/QAModal/QAModal';
 
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { clearPracticeId, setPracticeId } from '@/redux/slices/practice.slice';
 import { RootState } from '@/redux/store';
-import { usePostNewPractice, useGetSlideList } from '@/hooks/usePractice';
+import {
+  usePostNewPractice,
+  useGetSlideList,
+  usePostQAStart,
+  usePostQuestion,
+} from '@/hooks/usePractice';
+
+type Message = { role: 'user' | 'assistant'; content: string };
 
 const PracticePage = () => {
-  const { mutate: postNewPractice } = usePostNewPractice();
   const { presentationId } = useParams();
-  const { data: slideList } = useGetSlideList(Number(presentationId));
+  const pid = Number(presentationId);
+  const { mutate: postNewPractice } = usePostNewPractice();
+  const { mutate: startQASession } = usePostQAStart();
+  const { mutateAsync: sendQuestion } = usePostQuestion();
+  const { data: slideList } = useGetSlideList(pid);
+
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [seconds, setSeconds] = useState(0);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const [qaModalOpen, setQaModalOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [qaLoading, setQaLoading] = useState(false);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [isQAFinished, setIsQAFinished] = useState(false);
+
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const recorderRef = useRef<CameraRecorderHandle>(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const practiceId = useSelector((state: RootState) => state.practice.practiceId);
+
+  const stopTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  };
 
   // practiceId 초기화 및 새로 할당
   const handlePracticeStart = () => {
@@ -45,40 +70,32 @@ const PracticePage = () => {
   const handlePrevSlide = () => {
     setCurrentSlideIndex((prev) => Math.max(prev - 1, 0));
   };
+
   const handleNextSlide = () => {
     setCurrentSlideIndex((prev) => (slideList ? Math.min(prev + 1, slideList.length - 1) : prev));
   };
 
-  const stopTimer = () => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-  };
-
   const handleRecordingComplete = async (blob: Blob) => {
     setIsLoading(true);
-    const formData = new FormData();
-    formData.append('file', blob, 'practice_video');
-    formData.append('userId', '5');
-    formData.append('presentationId', presentationId || '');
-    formData.append('practiceId', '4');
-    console.log(formData);
 
     try {
-      // const response = await fetch('http://localhost:8000/api/v1/feedback/gesture', {
-      //   method: 'POST',
-      //   body: formData,
-      // });
+      const formData = new FormData();
+      formData.append('file', blob, 'recording.webm'); // 이름은 서버가 기대하는 값으로 설정
+      formData.append('userId', String(2));
+      formData.append('presentationId', String(pid));
+      formData.append('practiceId', String(practiceId));
 
-      // if (!response.ok) {
-      //   throw new Error(`분석 실패: ${response.status}`);
-      // }
+      const response = await fetch('http://0.0.0.0:8000/api/v1/feedback', {
+        method: 'POST',
+        body: formData,
+      });
 
-      // const result = await response.json();
+      if (!response.ok) {
+        throw new Error(`분석 실패: ${response.status}`);
+      }
+
+      const result = await response.json();
       await new Promise((res) => setTimeout(res, 2000));
-
-      navigate(`/feedback/summary/${practiceId}`);
     } catch (err) {
       console.error('AI 서버 전송 오류:', err);
       alert('AI 분석 실패');
@@ -87,9 +104,36 @@ const PracticePage = () => {
     }
   };
 
+  useEffect(() => {
+    if (isQAFinished) {
+      navigate(`/feedback/summary/${practiceId}`);
+    }
+  }, [isQAFinished]);
+
   const handleFinish = () => {
     recorderRef.current?.stopRecording();
     stopTimer();
+    // QA 세션 시작
+    startQASession(pid, {
+      onSuccess: () => {
+        setQaModalOpen(true);
+        // 첫 프롬프트 전송
+        (async () => {
+          setQaLoading(true);
+          const res = await sendQuestion({ presentationId: pid, content: '제 발표를 본 소감은?' });
+          setMessages([{ role: 'assistant', content: res.content }]);
+          setQaLoading(false);
+        })();
+      },
+    });
+  };
+
+  const handleUserSend = async (text: string) => {
+    setMessages((prev) => [...prev, { role: 'user', content: text }]);
+    setQaLoading(true);
+    const res = await sendQuestion({ presentationId: pid, content: text });
+    setMessages((prev) => [...prev, { role: 'assistant', content: res.content }]);
+    setQaLoading(false);
   };
 
   return (
@@ -131,6 +175,16 @@ const PracticePage = () => {
         />
       )}
       {isLoading && <LoadingOverlay />}
+      <QAModal
+        isOpen={qaModalOpen}
+        onClose={() => {
+          setQaModalOpen(false);
+          setIsQAFinished(true);
+        }}
+        messages={messages}
+        onSend={handleUserSend}
+        loading={qaLoading}
+      />
     </div>
   );
 };

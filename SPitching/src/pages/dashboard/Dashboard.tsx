@@ -67,6 +67,7 @@ const Dashboard = () => {
               firstSlideImageUrl={presentationListData.firstSlideImageUrl || ''}
               totalScore={presentationListData.totalScore || 0}
               updatedAt={presentationListData.updatedAt}
+              presentationId={presentationListData.id}
             />
           ))}
       </div>
