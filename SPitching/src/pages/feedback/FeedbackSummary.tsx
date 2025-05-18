@@ -96,8 +96,7 @@ const FeedbackSummary = () => {
             <TotalScore recentPracticeData={recentPracticeData} />
           </>
         )}
-
-        <SimilarityCard />
+        {similarityData && <SimilarityCard similarityData={similarityData} />}
         <DurationCard />
         {gestureData && (
           <GestureScoreCard
