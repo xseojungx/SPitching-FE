@@ -15,6 +15,10 @@ import {
   useGetSlideList,
   usePostQAStart,
   usePostQuestion,
+  usePostSttFeedback,
+  usePostEyeFeedback,
+  usePostGestureFeedback,
+  useGraphPolling,
 } from '@/hooks/usePractice';
 
 type Message = { role: 'user' | 'assistant'; content: string };
@@ -27,6 +31,8 @@ const PracticePage = () => {
   const { mutateAsync: sendQuestion } = usePostQuestion();
   const { data: slideList } = useGetSlideList(pid);
 
+  const practiceId = useSelector((state: RootState) => state.practice.practiceId) || 0;
+
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [qaModalOpen, setQaModalOpen] = useState(false);
@@ -35,12 +41,15 @@ const PracticePage = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isQAFinished, setIsQAFinished] = useState(false);
 
+  const [pollStart, setPollStart] = useState(false);
+
+  const graphReady = useGraphPolling(practiceId, pollStart);
+
   const recorderRef = useRef<CameraRecorderHandle>(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const practiceId = useSelector((state: RootState) => state.practice.practiceId);
+  const userId = useSelector((state: RootState) => state.auth.userId);
 
   // practiceId 초기화 및 새로 할당
   const handlePracticeStart = () => {
@@ -60,26 +69,23 @@ const PracticePage = () => {
     setCurrentSlideIndex((prev) => (slideList ? Math.min(prev + 1, slideList.length - 1) : prev));
   };
 
+  // 녹화 완료 시 처리
+  const { mutate: analyzeStt, isPending: sttLoading } = usePostSttFeedback();
+  const { mutate: analyzeEye, isPending: eyeLoading } = usePostEyeFeedback();
+  const { mutate: analyzeGesture, isPending: gestureLoading } = usePostGestureFeedback();
+
   const handleRecordingComplete = async (blob: Blob) => {
     setIsLoading(true);
 
     try {
-      const formData = new FormData();
-      formData.append('file', blob, 'recording.webm'); // 이름은 서버가 기대하는 값으로 설정
-      formData.append('userId', String(2));
-      formData.append('presentationId', String(pid));
-      formData.append('practiceId', String(practiceId));
-
-      const response = await fetch('http://0.0.0.0:8000/api/v1/feedback', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error(`분석 실패: ${response.status}`);
+      if (practiceId && blob && userId) {
+        analyzeStt({ file: blob, userId, presentationId: pid, practiceId });
+        analyzeEye({ file: blob, userId, presentationId: pid, practiceId });
+        analyzeGesture({ file: blob, userId, presentationId: pid, practiceId });
+      } else {
+        throw new Error('유효하지 않습니다.');
       }
-
-      const result = await response.json();
+      setPollStart(true);
       await new Promise((res) => setTimeout(res, 2000));
     } catch (err) {
       console.error('AI 서버 전송 오류:', err);
@@ -90,10 +96,10 @@ const PracticePage = () => {
   };
 
   useEffect(() => {
-    if (isQAFinished) {
+    if (isQAFinished && graphReady) {
       navigate(`/feedback/summary/${practiceId}`);
     }
-  }, [isQAFinished]);
+  }, [isQAFinished, graphReady]);
 
   const handleFinish = () => {
     recorderRef.current?.stopRecording();

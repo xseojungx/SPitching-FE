@@ -10,12 +10,13 @@ import { combineReducers } from 'redux';
 
 // persist 설정 (practice 슬라이스만 persist)
 const practicePersistConfig = { key: 'practice', storage, whitelist: ['practiceId'] };
+const authPersistConfig = { key: 'auth', storage, whitelist: ['userId'] };
 
 const rootReducer = combineReducers({
-  auth: authReducer,
-  gestureFeedback: gestureFeedbackReducer,
+  auth: persistReducer(authPersistConfig, authReducer),
   practice: persistReducer(practicePersistConfig, practiceReducer),
   feedback: feedbackReducer,
+  gestureFeedback: gestureFeedbackReducer,
 });
 
 export const store = configureStore({

@@ -1,29 +1,7 @@
 // src/services/practice.api.ts
 import apiClient from './apiClient';
 import type { PracticeTag, SlideTag, UploadSlidesResponse } from '@/types/presentation.types';
-export const postGestureFeedback = async (
-  blob: Blob,
-  userId: number,
-  presentationId: number,
-  practiceId: number,
-): Promise<any> => {
-  const formData = new FormData();
-  formData.append('file', blob, 'practice_video.webm');
-  formData.append('userId', String(userId));
-  formData.append('presentationId', String(presentationId));
-  formData.append('practiceId', String(practiceId));
-
-  const response = await fetch('http://localhost:8000/api/v1/feedback/gesture', {
-    method: 'POST',
-    body: formData,
-  });
-
-  if (!response.ok) {
-    throw new Error(`AI 분석 실패: ${response.status}`);
-  }
-
-  return await response.json();
-};
+import aiApiClient from './aiApiClient';
 
 export const postNewPractice = async (presentationId: number): Promise<number> => {
   const res = await apiClient.post(
@@ -68,3 +46,61 @@ interface PostQuestionResponse {
   content: string;
   timestamp: string;
 }
+
+export const postGestureFeedback = async (
+  file: Blob,
+  userId: number,
+  presentationId: number,
+  practiceId: number,
+) => {
+  const formData = new FormData();
+  formData.append('file', file, 'recording.webm');
+  formData.append('userId', String(userId));
+  formData.append('presentationId', String(presentationId));
+  formData.append('practiceId', String(practiceId));
+
+  const res = await aiApiClient.post('/api/v1/feedback/gesture', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    withCredentials: true,
+  });
+
+  return res.data;
+};
+export const postSttFeedback = async (
+  file: Blob,
+  userId: number,
+  presentationId: number,
+  practiceId: number,
+) => {
+  const formData = new FormData();
+  formData.append('file', file, 'recording.webm');
+  formData.append('userId', String(userId));
+  formData.append('presentationId', String(presentationId));
+  formData.append('practiceId', String(practiceId));
+
+  const res = await aiApiClient.post('/api/v1/feedback/stt', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    withCredentials: true,
+  });
+
+  return res.data;
+};
+export const postEyeFeedback = async (
+  file: Blob,
+  userId: number,
+  presentationId: number,
+  practiceId: number,
+) => {
+  const formData = new FormData();
+  formData.append('file', file, 'recording.webm');
+  formData.append('userId', String(userId));
+  formData.append('presentationId', String(presentationId));
+  formData.append('practiceId', String(practiceId));
+
+  const res = await aiApiClient.post('/api/v1/feedback/eyecontact', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    withCredentials: true,
+  });
+
+  return res.data;
+};
