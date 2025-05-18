@@ -12,6 +12,7 @@ import GestureDetailPage from './pages/feedback/GestureDetailPage';
 import EditScriptPage from './pages/prep/EditScriptPage';
 
 import PrivateRoute from '@/routes/PrivateRoute';
+import FluencyDetailPage from './pages/feedback/FluencyDetailPage';
 // import PublicOnlyRoute from '@/routes/PublicOnlyRoute';
 function App() {
   // useEffect(() => {
@@ -67,6 +68,10 @@ function App() {
               <GestureDetailPage />
               // </PrivateRoute>
             }
+          />
+          <Route
+            path='/feedback/:practiceId/fluency'
+            element={<FluencyDetailPage />}
           />
           <Route
             path='/practice/:presentationId'

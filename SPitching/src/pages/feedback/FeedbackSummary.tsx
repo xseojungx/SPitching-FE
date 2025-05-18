@@ -95,7 +95,12 @@ const FeedbackSummary = () => {
             practiceId={practiceId}
           />
         )}
-        {fluencyData && <FluencyCard fluencyData={fluencyData} />}
+        {fluencyData && (
+          <FluencyCard
+            fluencyData={fluencyData}
+            practiceId={practiceId}
+          />
+        )}
         {eyeContactData && <EyeContactCard eyeContactData={eyeContactData} />}
       </main>
     </div>

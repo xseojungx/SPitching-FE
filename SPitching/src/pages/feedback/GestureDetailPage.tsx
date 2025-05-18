@@ -18,7 +18,6 @@ const GestureDetailPage = () => {
   const { practiceId } = useParams();
   const { gesture } = useSelector((state: RootState) => state.feedback);
   const recentPractice = useSelector((state: RootState) => state.feedback.recentPractice);
-  console.log('recentPractice', recentPractice);
   const navigate = useNavigate();
 
   const {
