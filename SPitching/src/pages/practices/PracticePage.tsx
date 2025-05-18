@@ -29,14 +29,11 @@ const PracticePage = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
-  const [seconds, setSeconds] = useState(0);
   const [qaModalOpen, setQaModalOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [qaLoading, setQaLoading] = useState(false);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isQAFinished, setIsQAFinished] = useState(false);
-
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const recorderRef = useRef<CameraRecorderHandle>(null);
 
@@ -44,13 +41,6 @@ const PracticePage = () => {
   const dispatch = useDispatch();
 
   const practiceId = useSelector((state: RootState) => state.practice.practiceId);
-
-  const stopTimer = () => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-  };
 
   // practiceId 초기화 및 새로 할당
   const handlePracticeStart = () => {
@@ -60,11 +50,6 @@ const PracticePage = () => {
     postNewPractice(Number(presentationId));
     recorderRef.current?.startRecording();
     setIsRecording(true);
-    if (!timerRef.current) {
-      timerRef.current = setInterval(() => {
-        setSeconds((prev) => prev + 1);
-      }, 1000);
-    }
   };
 
   const handlePrevSlide = () => {
@@ -112,7 +97,7 @@ const PracticePage = () => {
 
   const handleFinish = () => {
     recorderRef.current?.stopRecording();
-    stopTimer();
+    setIsRecording(false);
     // QA 세션 시작
     startQASession(pid, {
       onSuccess: () => {
@@ -140,7 +125,7 @@ const PracticePage = () => {
     <div className='box-border flex h-screen w-screen flex-col pt-24 [background:linear-gradient(114deg,#F6FCEF_0%,#E6EFF4_100%)]'>
       <PracticeHeader
         onFinish={handleFinish}
-        seconds={seconds}
+        isRecording={isRecording}
       />
       {!isRecording && (
         <div className='bg-opacity-70 fixed inset-0 z-1 flex h-screen w-screen items-center justify-center border-gray-200 bg-gray-700/20 backdrop-blur-sm'>
