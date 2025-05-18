@@ -33,7 +33,7 @@ const FeedbackTabs = ({ positiveFeedback, negativeFeedback }: FeedbackTabsProps)
         </button>
       </div>
 
-      <ul className='b1 list-disc space-y-1 pl-6 text-gray-900'>
+      <ul className='b1 list-disc space-y-1 overflow-y-auto pl-6 text-wrap break-keep text-gray-900'>
         {feedbackList.length > 0 ? (
           feedbackList.map((line, index) => <li key={index}>{line}</li>)
         ) : (

@@ -53,7 +53,7 @@ function App() {
             }
           />
           <Route
-            path='/feedback/summary/:practiceId'
+            path='/feedback/:practiceId/summary'
             element={
               // <PrivateRoute>
               <FeedbackSummary />
@@ -61,7 +61,7 @@ function App() {
             }
           />
           <Route
-            path='/feedback/gesture'
+            path='/feedback/:practiceId/gesture'
             element={
               // <PrivateRoute>
               <GestureDetailPage />

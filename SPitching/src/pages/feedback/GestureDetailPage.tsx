@@ -5,54 +5,83 @@ import GestureVideo from '@/components/feedback/GestureDetail/GestureVideo';
 import FeedbackTabs from '@/components/feedback/GestureDetail/FeedbackTabs';
 import { getGestureFeedbackMessage } from '@/utils/getGestureFeedback';
 
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/redux/store';
+import { ArrowLeft } from 'lucide-react';
+import { useFeedbackGesture } from '@/hooks/useFeedback';
+import { useNavigate, useParams } from 'react-router-dom';
+import { setGesture } from '@/redux/slices/feedback.slice';
+import { useEffect, useState } from 'react';
 
 const GestureDetailPage = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { practiceId } = useParams();
+  const { gesture } = useSelector((state: RootState) => state.feedback);
+  const recentPractice = useSelector((state: RootState) => state.feedback.recentPractice);
+  console.log('recentPractice', recentPractice);
+  const navigate = useNavigate();
+
   const {
-    gestureScore,
-    crossedScore,
-    raisedScore,
-    faceScore,
-    explainScore,
-    straightScore,
-    videoUrl,
-  } = useSelector((state: RootState) => state.gestureFeedback);
+    data: gestureData,
+    isLoading,
+    isError: fetchError,
+  } = useFeedbackGesture(Number(practiceId));
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    if (!gesture && gestureData) {
+      dispatch(setGesture(gestureData));
+    }
+
+    if (!gesture && !gestureData && !isLoading && fetchError) {
+      setIsError(true);
+    }
+  }, [gesture, gestureData, isLoading, fetchError, dispatch]);
+
+  if (isError) {
+    return <div>제스처 데이터 없음</div>;
+  }
 
   const { positiveFeedback, negativeFeedback } = getGestureFeedbackMessage({
-    gestureScore,
-    crossedScore,
-    raisedScore,
-    faceScore,
-    explainScore,
-    straightScore,
+    gestureScore: gesture?.gestureScore || 0,
+    crossedScore: gesture?.crossedScore || 0,
+    raisedScore: gesture?.raisedScore || 0,
+    faceScore: gesture?.faceScore || 0,
+    explainScore: gesture?.explainScore || 0,
+    straightScore: gesture?.straightScore || 0,
   });
 
   return (
     <div className='box-border flex h-screen w-screen flex-col pt-24 pb-8 [background:linear-gradient(112deg,#E9F4F1_2.32%,#E6EFF4_99.22%)] lg:pb-10 xl:pb-14'>
       <Navbar />
-
       <main className='grid-layout h-full w-full grid-rows-[auto_repeat(9,1fr)] pt-0'>
-        {/* col-span은 grid-layout 기준에 맞춰서 조정 */}
         <div className='col-span-0 md:col-span-1' />
+        <div className='col-span-10 flex w-full items-center justify-between gap-3'>
+          <div className='flex items-end gap-2'>
+            <span className='h1 text-gray-900'>{recentPractice?.title}</span>
+            <span className='s2 text-gray-900'>제스처 피드백</span>
+          </div>
+          <button
+            onClick={() => navigate(`/feedback/${practiceId}/summary`)}
+            className='flex cursor-pointer items-center gap-1 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm text-gray-700 shadow-sm transition hover:bg-gray-50'
+          >
+            <ArrowLeft size={16} />
+            전체 피드백으로 돌아가기
+          </button>
+        </div>
 
-        {/* 제목 + 날짜 + 돌아가기 버튼 */}
-        <HeaderSection title='기후 변화와 글로벌 경제: 지속 가능한 미래를 위한 대응 전략' />
-
-        {/* 제스처 점수 카드 */}
         <ScoreSummaryCard
-          gestureScore={gestureScore}
-          crossedScore={crossedScore}
-          raisedScore={raisedScore}
-          faceScore={faceScore}
-          explainScore={explainScore}
-          straightScore={straightScore}
+          gestureScore={gesture?.gestureScore || 0}
+          crossedScore={gesture?.crossedScore || 0}
+          raisedScore={gesture?.raisedScore || 0}
+          faceScore={gesture?.faceScore || 0}
+          explainScore={gesture?.explainScore || 0}
+          straightScore={gesture?.straightScore || 0}
         />
+        {gesture?.videoUrl && gesture.videoUrl.length > 0 && (
+          <GestureVideo videoUrl={gesture.videoUrl} />
+        )}
 
-        {/* 분석 영상 */}
-        <GestureVideo videoUrl={videoUrl} />
-
-        {/* 피드백 텍스트 탭 */}
         <FeedbackTabs
           positiveFeedback={positiveFeedback}
           negativeFeedback={negativeFeedback}

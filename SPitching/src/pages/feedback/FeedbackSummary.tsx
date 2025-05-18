@@ -26,11 +26,14 @@ import {
 
 import { useRecentPractice } from '@/hooks/useDashboard';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 const FeedbackSummary = () => {
-  const practiceId = useSelector((state: RootState) => state.practice.practiceId);
+  const dispatch = useDispatch<AppDispatch>();
+  const { practiceId: paramPracticeId } = useParams<{ practiceId: string }>();
 
-  if (!practiceId) return <div>분석 결과 없음</div>;
+  const practiceId = Number(paramPracticeId);
+
   const { data: summaryData } = useFeedbackSummary(practiceId);
   const { data: eyeContactData } = useFeedbackEyeContact(practiceId);
   const { data: fluencyData } = useFeedbackFluency(practiceId);
@@ -41,43 +44,27 @@ const FeedbackSummary = () => {
   // const gesture = useSelector((state: RootState) => state.feedback.gesture);
   // console.log('제스처', gesture);
 
-  const dispatch = useDispatch<AppDispatch>();
+  // 4. Redux에 저장
   useEffect(() => {
-    if (recentPracticeData) {
-      console.log('recentPracticeData dispatch', recentPracticeData);
-      dispatch(setRecentPractice(recentPracticeData));
-    }
-  }, [recentPracticeData, dispatch]);
-  useEffect(() => {
-    if (summaryData) {
-      console.log('summaryData dispatch', summaryData);
-      dispatch(setSummary(summaryData));
-    }
-  }, [summaryData, dispatch]);
-  useEffect(() => {
-    if (eyeContactData) {
-      console.log('eyeContactData dispatch', eyeContactData);
-      dispatch(setEyeContact(eyeContactData));
-    }
-  }, [eyeContactData, dispatch]);
-  useEffect(() => {
-    if (fluencyData) {
-      console.log('fluencyData dispatch', fluencyData);
-      dispatch(setFluency(fluencyData));
-    }
-  }, [fluencyData, dispatch]);
-  useEffect(() => {
-    if (gestureData) {
-      console.log('gestureData dispatch', gestureData);
-      dispatch(setGesture(gestureData));
-    }
-  }, [gestureData, dispatch]);
-  useEffect(() => {
-    if (similarityData) {
-      console.log('similarityData dispatch', similarityData);
-      dispatch(setSimilarity(similarityData));
-    }
-  }, [similarityData, dispatch]);
+    if (recentPracticeData) dispatch(setRecentPractice(recentPracticeData));
+    if (summaryData) dispatch(setSummary(summaryData));
+    if (eyeContactData) dispatch(setEyeContact(eyeContactData));
+    if (fluencyData) dispatch(setFluency(fluencyData));
+    if (gestureData) dispatch(setGesture(gestureData));
+    if (similarityData) dispatch(setSimilarity(similarityData));
+  }, [
+    recentPracticeData,
+    summaryData,
+    eyeContactData,
+    fluencyData,
+    gestureData,
+    similarityData,
+    dispatch,
+  ]);
+
+  if (!practiceId) {
+    return <div>분석 결과 없음 (practiceId 없음)</div>;
+  }
 
   return (
     <div className='box-border flex h-screen w-screen flex-col pt-24 pb-8 [background:linear-gradient(112deg,#E9F4F1_2.32%,#E6EFF4_99.22%)] lg:pb-10 xl:pb-14'>
@@ -105,6 +92,7 @@ const FeedbackSummary = () => {
             faceScore={gestureData.faceScore}
             explainScore={gestureData.explainScore}
             straightScore={gestureData.straightScore}
+            practiceId={practiceId}
           />
         )}
         {fluencyData && <FluencyCard fluencyData={fluencyData} />}
