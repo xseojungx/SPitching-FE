@@ -19,15 +19,14 @@ const QAModal: React.FC<Props> = ({ isOpen, onClose, messages, onSend, loading }
     onClose={onClose}
     className='fixed inset-0 z-50 flex items-center justify-center'
   >
-    <DialogPanel className='fixed inset-0 bg-black opacity-30' />
-    <div className='relative flex h-[70vh] w-full max-w-md flex-col rounded bg-white shadow-lg'>
+    <div className='relative z-1 flex h-[70vh] w-full max-w-4xl flex-col rounded bg-white shadow-lg'>
       <div className='flex items-center justify-between border-b p-4'>
         <DialogTitle className='text-lg font-semibold'>Q&A 세션</DialogTitle>
         <button
           onClick={onClose}
-          className='text-gray-500 hover:text-gray-900'
+          className='b2 rounded-lg bg-gray-100 px-4 py-1 text-gray-700 hover:bg-gray-200 hover:text-gray-900'
         >
-          ✕
+          질문 세션 끝내기 ✕
         </button>
       </div>
       <ChatWindow messages={messages} />
@@ -36,6 +35,7 @@ const QAModal: React.FC<Props> = ({ isOpen, onClose, messages, onSend, loading }
         disabled={loading}
       />
     </div>
+    <div className='bg-opacity-70 fixed inset-0 z-0 flex items-center justify-center bg-gray-700/20 backdrop-blur-sm' />
   </Dialog>
 );
 

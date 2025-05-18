@@ -13,7 +13,7 @@ const ChatWindow: React.FC<Props> = ({ messages }) => {
   }, [messages]);
 
   return (
-    <div className='flex-1 overflow-y-auto p-4'>
+    <div className='flex-1 space-y-1 overflow-y-auto px-6 py-4'>
       {messages.map((msg, idx) => (
         <ChatBubble
           key={idx}

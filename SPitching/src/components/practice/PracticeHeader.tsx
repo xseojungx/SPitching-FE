@@ -11,7 +11,7 @@ const PracticeHeader = memo(({ onFinish, seconds }: PracticeHeaderProps) => {
   };
 
   return (
-    <header className='fixed top-0 left-0 z-50 flex h-16 w-full items-center justify-between bg-white px-6 shadow'>
+    <header className='fixed top-0 left-0 z-60 flex h-16 w-full items-center justify-between bg-white px-6 shadow'>
       <div className='text-xl font-bold text-[#255A9B]'>SPitching</div>
 
       <div className='flex items-center gap-6 text-sm text-gray-700'>
