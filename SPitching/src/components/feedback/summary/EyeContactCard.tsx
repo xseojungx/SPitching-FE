@@ -15,14 +15,14 @@ const EyeContactCard = ({ eyeContactData }: { eyeContactData: EyeContactScore })
   return (
     <div className='white-card col-span-3 col-start-9 row-span-3 row-start-8 cursor-pointer transition duration-400 hover:-translate-y-1 hover:shadow-lg'>
       {/* 제목 */}
-      <p className='s1 text-gray-900'>시선</p>
-      <div className='flex w-full flex-1 flex-col items-start gap-2'>
+      <p className='s2 text-gray-900'>시선</p>
+      <div className='flex w-full flex-1 flex-col items-start gap-1'>
         <span className='h1 bg-gradient-to-b from-[#255A9B] via-[#7AB7CE] to-[#A9EAD6] bg-clip-text text-transparent'>
           {eyeContactData.eyecontactScore}점
         </span>
 
         {/* 피드백 메시지 */}
-        <div className='b2 flex-1 text-gray-700'>{message}</div>
+        <div className='b1 text-gray-900'>{message}</div>
       </div>
 
       {/* 영상 미리보기 영역 */}

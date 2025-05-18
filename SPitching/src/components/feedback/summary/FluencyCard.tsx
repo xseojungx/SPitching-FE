@@ -7,7 +7,7 @@ const FluencyCard = ({ fluencyData }: { fluencyData: FluencyScore }) => {
   const message = fluencyData.fluencyScore > 70 ? '높은 유창성입니다.' : '낮은 유창성입니다.';
   return (
     <div className='white-card col-span-4 col-start-5 row-span-4 row-start-7 cursor-pointer justify-between transition duration-400 hover:-translate-y-1 hover:shadow-lg'>
-      <p className='s1 justify-self-start text-gray-900'>발표 유창성</p>
+      <p className='s2 justify-self-start text-gray-900'>발표 유창성</p>
       {/* 상단 요약 정보 및 파이 차트 */}
       <div className='flex shrink-0 items-center justify-between self-stretch'>
         <div className='flex flex-col items-start gap-1'>

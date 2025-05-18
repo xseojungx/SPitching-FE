@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
+import { TriangleAlertIcon, CircleCheckIcon } from 'lucide-react';
 
 const GestureScoreCard = ({
   gestureScore,
@@ -11,15 +10,14 @@ const GestureScoreCard = ({
   straightScore,
 }: GestureFeedbackProps) => {
   const navigate = useNavigate();
-  const { gesture } = useSelector((state: RootState) => state.feedback);
   return (
     <article className='group white-card relative col-span-3 col-start-9 row-span-4 row-start-4 transition duration-400 hover:-translate-y-1 hover:shadow-lg'>
-      <p className='s1 justify-self-start text-gray-900'>제스처</p>
+      <p className='s2 justify-self-start text-gray-900'>제스처</p>
       <div className='flex w-full flex-1 flex-col items-center justify-center'>
         <div className='flex flex-1 flex-col items-center justify-center'>
-          <p className='b2 text-gray-700'>총점</p>
+          <p className='c1 text-gray-700'>총점</p>
           <p className='h1 bg-gradient-to-b from-[#255A9B] via-[#7AB7CE] to-[#A9EAD6] bg-clip-text text-transparent'>
-            {gestureScore}
+            {gestureScore}점
           </p>
         </div>
 
@@ -92,8 +90,14 @@ const DetailFeedback = ({
     <div className='gap flex w-full flex-3 flex-col space-y-3'>
       {positives.length > 0 && (
         <div>
-          <p className='s2 text-navy-700 mb-1'>✅ 잘한 점</p>
-          <ul className='b2 space-y-1 text-gray-700'>
+          <div className='b1 mt-3 mb-1 flex items-center gap-1'>
+            <CircleCheckIcon
+              className='text-navy-700'
+              size={18}
+            />
+            <p className='font-semibold text-gray-900'>잘한 점</p>
+          </div>
+          <ul className='b2 space-y-0.5 leading-tight text-gray-700'>
             {positives.map((msg, i) => (
               <li key={i}>• {msg}</li>
             ))}
@@ -103,8 +107,14 @@ const DetailFeedback = ({
 
       {negatives.length > 0 && (
         <div>
-          <p className='s2 mt-3 mb-1 text-rose-500'>⚠️ 개선이 필요한 점</p>
-          <ul className='b2 space-y-1 text-gray-700'>
+          <div className='b1 mt-3 mb-1 flex items-center gap-1'>
+            <TriangleAlertIcon
+              className='text-rose-500'
+              size={18}
+            />
+            <p className='font-semibold text-gray-900'>개선이 필요한 점</p>
+          </div>
+          <ul className='b2 space-y-0.5 leading-[1.4] text-gray-700'>
             {negatives.map((msg, i) => (
               <li key={i}>• {msg}</li>
             ))}

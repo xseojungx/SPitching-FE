@@ -13,7 +13,6 @@ import {
   useFeedbackSummary,
   useFeedbackSimilarity,
 } from '@/hooks/useFeedback';
-import { presentationMockData } from '@/assets/mockData';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store';
 import {
@@ -88,7 +87,7 @@ const FeedbackSummary = () => {
         <div className='col-span-0 md:col-span-1' />
         <div className='col-span-10 flex w-full items-end gap-3'>
           <span className='h1 text-gray-900'>{recentPracticeData?.title}</span>
-          <span className='b2 text-gray-700'>{recentPracticeData?.description}</span>
+          <span className='s2 text-gray-700'>{recentPracticeData?.description}</span>
         </div>
         {recentPracticeData && (
           <>

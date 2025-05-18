@@ -9,7 +9,7 @@ export default function FluencyBar({ title, total, segments, unit = '회' }: Pro
       <p className='b1 font-semibold text-gray-900'>{title}</p>
 
       {/* 막대 그래프 */}
-      <div className='relative flex h-4 w-full overflow-hidden rounded-full bg-[#ECEEEC]'>
+      <div className='relative flex h-3.5 w-full overflow-hidden rounded-full bg-[#ECEEEC]'>
         {segments.map((segment, idx) => {
           const width = (segment.count / total) * 100;
 

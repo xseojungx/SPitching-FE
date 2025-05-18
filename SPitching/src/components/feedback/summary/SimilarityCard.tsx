@@ -7,11 +7,11 @@ const SimilarityCard = ({ similarityData }: { similarityData: SimilarityScore })
 
   return (
     <article className='white-card col-span-3 col-start-2 row-span-2 row-start-7 cursor-pointer transition duration-400 hover:-translate-y-1 hover:shadow-lg'>
-      <p className='s1 justify-self-start text-gray-900'>대본 유사도</p>
+      <p className='s2 justify-self-start text-gray-900'>대본 유사도</p>
 
       <div className='flex flex-1 shrink-0 items-center justify-between self-stretch'>
         <div className='flex flex-col items-start gap-1'>
-          <span className='b2 text-gray-900'>{message}</span>
+          <span className='b1 text-gray-900'>{message}</span>
           <div className='c2 flex flex-wrap items-center wrap-anywhere text-gray-700'>
             <TriangleIcon className='mr-1 rotate-180 text-rose-500' />
             <span className='whitespace-nowrap'>유사도가&nbsp;</span>
