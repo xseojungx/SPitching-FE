@@ -101,7 +101,12 @@ const FeedbackSummary = () => {
             practiceId={practiceId}
           />
         )}
-        {eyeContactData && <EyeContactCard eyeContactData={eyeContactData} />}
+        {eyeContactData && (
+          <EyeContactCard
+            eyeContactData={eyeContactData}
+            practiceId={practiceId}
+          />
+        )}
       </main>
     </div>
   );
