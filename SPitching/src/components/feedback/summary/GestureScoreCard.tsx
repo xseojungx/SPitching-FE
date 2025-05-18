@@ -12,7 +12,6 @@ const GestureScoreCard = ({
 }: GestureFeedbackProps) => {
   const navigate = useNavigate();
   const { gesture } = useSelector((state: RootState) => state.feedback);
-  console.log('gestureScore', gesture);
   return (
     <article className='group white-card relative col-span-3 col-start-9 row-span-4 row-start-4 transition duration-400 hover:-translate-y-1 hover:shadow-lg'>
       <p className='s1 justify-self-start text-gray-900'>제스처</p>

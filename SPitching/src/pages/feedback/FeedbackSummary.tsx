@@ -30,7 +30,7 @@ import { useEffect } from 'react';
 
 const FeedbackSummary = () => {
   const practiceId = useSelector((state: RootState) => state.practice.practiceId);
-  console.log('practiceId', practiceId);
+
   if (!practiceId) return <div>분석 결과 없음</div>;
   const { data: summaryData } = useFeedbackSummary(practiceId);
   const { data: eyeContactData } = useFeedbackEyeContact(practiceId);
@@ -38,42 +38,44 @@ const FeedbackSummary = () => {
   const { data: gestureData } = useFeedbackGesture(practiceId);
   const { data: similarityData } = useFeedbackSimilarity(practiceId);
   const { data: recentPracticeData } = useRecentPractice();
-  console.log('recentPracticeData', recentPracticeData);
-  console.log('summaryData', summaryData);
-  console.log('eyeContactData', eyeContactData);
-  console.log('fluencyData', fluencyData);
-  console.log('gestureData', gestureData);
-  console.log('similarityData', similarityData);
-  console.log('presentationData', recentPracticeData);
+
+  // const gesture = useSelector((state: RootState) => state.feedback.gesture);
+  // console.log('제스처', gesture);
 
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     if (recentPracticeData) {
+      console.log('recentPracticeData dispatch', recentPracticeData);
       dispatch(setRecentPractice(recentPracticeData));
     }
   }, [recentPracticeData, dispatch]);
   useEffect(() => {
     if (summaryData) {
+      console.log('summaryData dispatch', summaryData);
       dispatch(setSummary(summaryData));
     }
   }, [summaryData, dispatch]);
   useEffect(() => {
     if (eyeContactData) {
+      console.log('eyeContactData dispatch', eyeContactData);
       dispatch(setEyeContact(eyeContactData));
     }
   }, [eyeContactData, dispatch]);
   useEffect(() => {
     if (fluencyData) {
+      console.log('fluencyData dispatch', fluencyData);
       dispatch(setFluency(fluencyData));
     }
   }, [fluencyData, dispatch]);
   useEffect(() => {
     if (gestureData) {
+      console.log('gestureData dispatch', gestureData);
       dispatch(setGesture(gestureData));
     }
   }, [gestureData, dispatch]);
   useEffect(() => {
     if (similarityData) {
+      console.log('similarityData dispatch', similarityData);
       dispatch(setSimilarity(similarityData));
     }
   }, [similarityData, dispatch]);
@@ -88,8 +90,13 @@ const FeedbackSummary = () => {
           <span className='h1 text-gray-900'>{recentPracticeData?.title}</span>
           <span className='b2 text-gray-700'>{recentPracticeData?.description}</span>
         </div>
-        {recentPracticeData && <SummaryGraph recentPracticeData={recentPracticeData} />}
-        <TotalScore />
+        {recentPracticeData && (
+          <>
+            <SummaryGraph recentPracticeData={recentPracticeData} />
+            <TotalScore recentPracticeData={recentPracticeData} />
+          </>
+        )}
+
         <SimilarityCard />
         <DurationCard />
         {gestureData && (
