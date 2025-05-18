@@ -7,7 +7,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleGoogleLogin = () => {
-    window.location.href = import.meta.env.VITE_API_BASE_URL + 'oauth2/authorization/google';
+    window.location.href = import.meta.env.VITE_API_BASE_URL + '/oauth2/authorization/google';
   };
 
   return (
