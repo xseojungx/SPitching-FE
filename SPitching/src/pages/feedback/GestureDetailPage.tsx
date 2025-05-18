@@ -1,5 +1,4 @@
 import Navbar from '@/components/common/Navbar';
-import HeaderSection from '@/components/feedback/GestureDetail/HeaderSection';
 import ScoreSummaryCard from '@/components/feedback/GestureDetail/ScoreSummaryCard';
 import GestureVideo from '@/components/feedback/GestureDetail/GestureVideo';
 import FeedbackTabs from '@/components/feedback/GestureDetail/FeedbackTabs';

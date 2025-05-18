@@ -1,6 +1,14 @@
 import type { EyeContactScore } from '@/types/feedback.types';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const EyeContactCard = ({ eyeContactData }: { eyeContactData: EyeContactScore }) => {
+const EyeContactCard = ({
+  eyeContactData,
+  practiceId,
+}: {
+  eyeContactData: EyeContactScore;
+  practiceId: number;
+}) => {
+  const navigate = useNavigate();
   // 점수에 따라 메시지 반환
   const getMessage = (score: number): string => {
     if (score <= 25) return '시선을 자주 피했어요. 청중과의 연결이 약해 보여요.';
@@ -13,7 +21,7 @@ const EyeContactCard = ({ eyeContactData }: { eyeContactData: EyeContactScore })
   const message = getMessage(eyeContactData.eyecontactScore);
 
   return (
-    <div className='white-card col-span-3 col-start-9 row-span-3 row-start-8 cursor-pointer transition duration-400 hover:-translate-y-1 hover:shadow-lg'>
+    <div className='white-card group relative col-span-3 col-start-9 row-span-3 row-start-8 cursor-pointer transition duration-400 hover:-translate-y-1 hover:shadow-lg'>
       {/* 제목 */}
       <p className='s2 text-gray-900'>시선</p>
       <div className='flex w-full flex-1 flex-col items-start gap-1'>
@@ -28,6 +36,12 @@ const EyeContactCard = ({ eyeContactData }: { eyeContactData: EyeContactScore })
       {/* 영상 미리보기 영역 */}
       <div className='flex h-40 w-full items-center justify-center rounded-lg bg-[#ECEEEC] text-sm text-gray-500'>
         영상 미리보기
+      </div>
+      <div
+        className='s2 absolute bottom-3 left-1/2 z-10 w-fit -translate-x-1/2 translate-y-2 cursor-pointer rounded-md bg-linear-to-r from-[rgba(76,154,207,1)] via-[rgba(120,192,210,1)] to-[rgba(169,234,214,1)] px-4 py-3 whitespace-nowrap text-white opacity-0 shadow-sm backdrop-blur-sm transition-all duration-400 group-hover:translate-y-0 group-hover:opacity-100'
+        onClick={() => navigate(`/feedback/${practiceId}/eyecontact`)}
+      >
+        시선 피드백 자세히 보러가기
       </div>
     </div>
   );

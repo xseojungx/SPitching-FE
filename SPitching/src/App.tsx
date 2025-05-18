@@ -13,6 +13,7 @@ import EditScriptPage from './pages/prep/EditScriptPage';
 
 import PrivateRoute from '@/routes/PrivateRoute';
 import FluencyDetailPage from './pages/feedback/FluencyDetailPage';
+import EyeContactDetailPage from './pages/feedback/EyeContactDetailPage';
 // import PublicOnlyRoute from '@/routes/PublicOnlyRoute';
 function App() {
   // useEffect(() => {
@@ -72,6 +73,10 @@ function App() {
           <Route
             path='/feedback/:practiceId/fluency'
             element={<FluencyDetailPage />}
+          />
+          <Route
+            path='/feedback/:practiceId/eyecontact'
+            element={<EyeContactDetailPage />}
           />
           <Route
             path='/practice/:presentationId'
