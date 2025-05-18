@@ -106,3 +106,5 @@ export type TagsList = SlideTag[];
 export type Script = { slideId: number; script: string | null };
 
 export type SingleScript = { script: string | null; slideNumber: number; presentationId: number };
+
+export type PracticeTag = { content: string; createdAt: string };

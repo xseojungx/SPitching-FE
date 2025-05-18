@@ -1,8 +1,9 @@
 import { Timer } from 'lucide-react';
+import React, { memo } from 'react';
 
 type PracticeHeaderProps = { onFinish: () => void; seconds: number };
 
-const PracticeHeader = ({ onFinish, seconds }: PracticeHeaderProps) => {
+const PracticeHeader = memo(({ onFinish, seconds }: PracticeHeaderProps) => {
   const formatTime = (totalSeconds: number) => {
     const mins = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
     const secs = String(totalSeconds % 60).padStart(2, '0');
@@ -28,6 +29,6 @@ const PracticeHeader = ({ onFinish, seconds }: PracticeHeaderProps) => {
       </div>
     </header>
   );
-};
+});
 
 export default PracticeHeader;

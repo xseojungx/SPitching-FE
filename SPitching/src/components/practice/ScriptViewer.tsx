@@ -1,30 +1,67 @@
-import MockPPT from '@/assets/mock_ppt_2.png';
+// src/components/practice/ScriptViewer.tsx
+import { UploadSlidesResponse } from '@/types/presentation.types';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const ScriptViewer = () => {
+const ScriptViewer = ({
+  slideList,
+  currentIndex,
+  onPrev,
+  onNext,
+}: {
+  slideList: UploadSlidesResponse;
+  currentIndex: number;
+  onPrev: () => void;
+  onNext: () => void;
+}) => {
+  const currentSlide = slideList?.[currentIndex];
+  const nextSlide = slideList?.[currentIndex + 1];
+  if (!currentSlide) return null;
+
   return (
-    <div className='shadow-shadow-100 bg-box-white relative mt-8 flex max-h-80 min-h-[160px] w-full justify-center overflow-auto rounded-2xl border border-[rgba(64,80,98,0.10)] px-[10vw] py-4 shadow-sm'>
+    <div className='bg-box-white shadow-navy-700 relative mt-8 flex max-h-80 min-h-[160px] w-full justify-center overflow-auto border-t border-[rgba(64,80,98,0.60)] px-[10vw] py-4 shadow-xl'>
+      {/* 좌우 화살표 */}
+      <button
+        className='bg-navy-700 hover:bg-navy-600 absolute top-1/2 left-4 -translate-y-1/2 rounded-full p-2 text-white shadow'
+        onClick={onPrev}
+        disabled={currentIndex === 0}
+      >
+        <ChevronLeft size={20} />
+      </button>
+
+      <button
+        className='bg-navy-700 hover:bg-navy-600 absolute top-1/2 right-4 -translate-y-1/2 rounded-full p-2 text-white shadow'
+        onClick={onNext}
+        disabled={currentIndex === slideList.length - 1}
+      >
+        <ChevronRight size={20} />
+      </button>
+
       {/* 콘텐츠 wrapper */}
       <div className='flex w-full gap-6'>
         {/* 스크립트 영역 */}
         <div className='flex-1 overflow-auto pr-4 leading-relaxed text-gray-900'>
-          <p className='b1 text-xl'>
-            제스처 분석을 중점적으로 보여드리겠습니다.
-            <br />
-            우선 긍정적인 제스처는 총 2가지가 있는데요, 설명을 돕는 손동작과 바른 자세가 있습니다.
-            <br />
-            반면 부정적인 제스처는 총 3가지로 팔짱을 끼는 행동, 팔을 갑자기 들어올리는 행동, 그리고
-            손을 얼굴 근처에 가져가는 행동으로 분류됩니다.
+          <p className='b1 text-xl whitespace-pre-line'>
+            {currentSlide.script || '스크립트가 없습니다.'}
           </p>
         </div>
 
         {/* 이미지 영역 */}
-        <div className='box-border flex h-30 shrink-0 flex-col justify-center rounded-md bg-gray-200 p-3'>
-          <p className='b2'>다음 페이지</p>
-          <img
-            src={MockPPT}
-            alt='PPT'
-            className='h-full w-full rounded-md object-cover'
-          />
+
+        <div className='flex h-44 w-50 flex-col items-center justify-start gap-2 rounded-xl border border-gray-200 bg-gray-100 p-3 shadow-sm'>
+          {nextSlide ? (
+            <span className='b2 text-gray-700'>다음: 슬라이드 {nextSlide.slideNumber}</span>
+          ) : (
+            <span className='b2 text-gray-700'>다음 슬라이드가 없습니다</span>
+          )}
+          <div className='relative aspect-[4/3] w-full overflow-hidden rounded-md bg-gray-100 shadow-md'>
+            {nextSlide && (
+              <img
+                src={nextSlide.imageUrl}
+                alt={`슬라이드 ${nextSlide.slideNumber + 1}`}
+                className='h-full w-full object-cover transition-transform duration-300 hover:scale-105'
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

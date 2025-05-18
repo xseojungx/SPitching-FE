@@ -9,13 +9,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { clearPracticeId, setPracticeId } from '@/redux/slices/practice.slice';
 import { RootState } from '@/redux/store';
+import { usePostNewPractice, useGetSlideList } from '@/hooks/usePractice';
 
 const PracticePage = () => {
+  const { mutate: postNewPractice } = usePostNewPractice();
   const { presentationId } = useParams();
+  const { data: slideList } = useGetSlideList(Number(presentationId));
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const recorderRef = useRef<CameraRecorderHandle>(null);
 
@@ -24,21 +28,25 @@ const PracticePage = () => {
   const practiceId = useSelector((state: RootState) => state.practice.practiceId);
 
   // practiceId 초기화 및 새로 할당
-  useEffect(() => {
+  const handlePracticeStart = () => {
     if (practiceId) {
       dispatch(clearPracticeId());
     }
-    // TODO: api 호출 후 받은 practiceId 할당
-    const newPracticeId = 5;
-    dispatch(setPracticeId(newPracticeId));
-  }, [practiceId, dispatch]);
-
-  const startTimer = () => {
+    postNewPractice(Number(presentationId));
+    recorderRef.current?.startRecording();
+    setIsRecording(true);
     if (!timerRef.current) {
       timerRef.current = setInterval(() => {
         setSeconds((prev) => prev + 1);
       }, 1000);
     }
+  };
+
+  const handlePrevSlide = () => {
+    setCurrentSlideIndex((prev) => Math.max(prev - 1, 0));
+  };
+  const handleNextSlide = () => {
+    setCurrentSlideIndex((prev) => (slideList ? Math.min(prev + 1, slideList.length - 1) : prev));
   };
 
   const stopTimer = () => {
@@ -79,12 +87,6 @@ const PracticePage = () => {
     }
   };
 
-  const handleStart = () => {
-    recorderRef.current?.startRecording();
-    setIsRecording(true);
-    startTimer();
-  };
-
   const handleFinish = () => {
     recorderRef.current?.stopRecording();
     stopTimer();
@@ -100,7 +102,7 @@ const PracticePage = () => {
         <div className='bg-opacity-70 fixed inset-0 z-1 flex h-screen w-screen items-center justify-center border-gray-200 bg-gray-700/20 backdrop-blur-sm'>
           <button
             className='bg-mint-500 h-20 w-64 rounded-lg border text-xl font-semibold text-gray-900 shadow-lg backdrop-blur-md transition hover:brightness-105'
-            onClick={handleStart}
+            onClick={handlePracticeStart}
           >
             🎬 연습 시작하기
           </button>
@@ -112,10 +114,22 @@ const PracticePage = () => {
             ref={recorderRef}
             onRecordingComplete={handleRecordingComplete}
           />
-          <PracticeContent />
+          {slideList && (
+            <PracticeContent
+              slideList={slideList}
+              currentIndex={currentSlideIndex}
+            />
+          )}
         </article>
       </div>
-      <ScriptViewer />
+      {slideList && (
+        <ScriptViewer
+          slideList={slideList}
+          currentIndex={currentSlideIndex}
+          onPrev={handlePrevSlide}
+          onNext={handleNextSlide}
+        />
+      )}
       {isLoading && <LoadingOverlay />}
     </div>
   );
