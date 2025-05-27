@@ -14,8 +14,6 @@ import { RootState } from '@/redux/store';
 import { RecentPractice } from '@/types/presentation.types';
 
 const SummaryAreaChart = ({ recentPracticeData }: { recentPracticeData: RecentPractice }) => {
-  const { gestureScore } = useSelector((state: RootState) => state.gestureFeedback);
-
   const data = [
     { name: '1회차', ges: 45, eye: 60, sim: 50, fluen: 55 },
     { name: '2회차', ges: 52, eye: 58, sim: 65, fluen: 62 },
@@ -23,8 +21,15 @@ const SummaryAreaChart = ({ recentPracticeData }: { recentPracticeData: RecentPr
     { name: '4회차', ges: 65, eye: 72, sim: 66, fluen: 74 },
     { name: '5회차', ges: 58, eye: 78, sim: 73, fluen: 70 },
     { name: '6회차', ges: 70, eye: 65, sim: 80, fluen: 75 },
-    { name: '7회차', ges: gestureScore, eye: 85, sim: 68, fluen: 80 },
+    {
+      name: '7회차',
+      ges: recentPracticeData.graph.gestureScore,
+      eye: recentPracticeData.graph.eyeScore,
+      sim: recentPracticeData.graph.cosineSimilarity,
+      fluen: recentPracticeData.graph.sttScore,
+    },
   ];
+  console.log(recentPracticeData.graph);
 
   // 1. 모든 값 중 Y값만 평탄화해서 한 배열로
   const allValues = useMemo(() => {
@@ -33,8 +38,8 @@ const SummaryAreaChart = ({ recentPracticeData }: { recentPracticeData: RecentPr
 
   // 2. domain 계산
   const { domainMin, domainMax, ticks } = useMemo(() => {
-    const rawMin = Math.min(...allValues);
-    const rawMax = Math.max(...allValues);
+    const rawMin = Math.min(...allValues.filter((value) => value !== null));
+    const rawMax = Math.max(...allValues.filter((value) => value !== null));
 
     const domainMin = Math.floor((rawMin - 10 > 0 ? rawMin - 5 : 0) / 10) * 10;
     const domainMax = Math.ceil((rawMax + 10 < 100 ? rawMax + 5 : 100) / 10) * 10;

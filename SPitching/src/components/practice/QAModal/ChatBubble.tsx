@@ -5,7 +5,7 @@ type Props = { role: 'user' | 'assistant'; content: string };
 const ChatBubble: React.FC<Props> = ({ role, content }) => {
   const isUser = role === 'user';
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-2`}>
+    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} my-2`}>
       <div
         className={`b1 max-w-[80%] rounded-2xl border-gray-300 p-3 shadow-sm ${
           isUser
