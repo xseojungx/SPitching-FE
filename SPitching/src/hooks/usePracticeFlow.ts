@@ -91,6 +91,8 @@ export const usePracticeFlow = (
   return {
     isRecording,
     isLoading,
+    isQAFinished,
+    graphReady,
     startPractice,
     completeRecording,
     finishPractice,

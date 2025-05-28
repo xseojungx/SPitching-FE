@@ -7,8 +7,10 @@ import {
   postQuestion,
   postAIFeedback,
 } from '@/services/practice.api';
+import { getFeedbackSummary } from '@/services/feedback.api';
 import { setPracticeId } from '@/redux/slices/practice.slice';
 import { useDispatch } from 'react-redux';
+import { ScoreDetails } from '@/types/feedback.types';
 
 export const usePostNewPractice = () => {
   const dispatch = useDispatch();
@@ -76,7 +78,6 @@ export const useAIFeedback = () => {
 
 import { useState, useEffect, useRef } from 'react';
 import apiClient from '@/services/apiClient';
-import type { RecentPractice } from '@/types/presentation.types';
 
 export const useGraphPolling = (practiceId: number, start: boolean): boolean => {
   const [completed, setCompleted] = useState(false);
@@ -86,15 +87,27 @@ export const useGraphPolling = (practiceId: number, start: boolean): boolean => 
 
     const fetchAndCheck = async () => {
       try {
-        const res = await apiClient.get<RecentPractice>('/api/v1/home/summary', {
-          params: { practiceId },
-        });
-        const graph = res.data.graph;
-        console.log('그래프', graph);
-        if (!graph) return; // <- 여기 추가
+        const res = await apiClient.get<ScoreDetails>(
+          `api/v1/feedback/practice/${practiceId}/score-details`,
+        );
+        const graph = res.data;
+        // if (!res.data) return;
 
-        const allNonNull = Object.values(graph).every((v) => v !== null);
-        if (allNonNull) {
+        // if (res.data.eyeScore && res.data.fluencyScore && res.data.gestureScore) {
+        //   setCompleted(true);
+        //   if (intervalRef.current) {
+        //     clearInterval(intervalRef.current);
+        //   }
+        // }
+
+        console.log('그래프', graph);
+        const scores = [res.data.eyeScore, res.data.fluencyScore, res.data.gestureScore];
+
+        const allNotNull = scores.every((v) => v != null);
+        console.log('상태', allNotNull);
+        if (!res.data) return;
+
+        if (allNotNull) {
           setCompleted(true);
           if (intervalRef.current) {
             clearInterval(intervalRef.current);
@@ -106,7 +119,7 @@ export const useGraphPolling = (practiceId: number, start: boolean): boolean => 
     };
 
     fetchAndCheck();
-    intervalRef.current = window.setInterval(fetchAndCheck, 15000);
+    intervalRef.current = window.setInterval(fetchAndCheck, 10000);
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
