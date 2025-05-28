@@ -1,18 +1,17 @@
 import PracticeTag from './PracticeTag';
 import { UploadSlidesResponse } from '@/types/presentation.types';
 import { useGetTagFromSlide } from '@/hooks/usePractice';
+import { memo } from 'react';
 
-const PracticeContent = ({
+function PracticeContentComponent({
   slideList,
   currentIndex,
 }: {
   slideList: UploadSlidesResponse;
   currentIndex: number;
-}) => {
-  console.log(slideList);
+}) {
   const { data: tagList } = useGetTagFromSlide(slideList[currentIndex].id) || [];
 
-  console.log(tagList);
   return (
     <section className='flex flex-3/10 flex-col overflow-hidden p-2'>
       <div className='shadow-shadow-200 flex shrink-0 flex-col justify-center rounded-md shadow-xl'>
@@ -32,5 +31,5 @@ const PracticeContent = ({
       </div>
     </section>
   );
-};
-export default PracticeContent;
+}
+export const PracticeContent = memo(PracticeContentComponent);

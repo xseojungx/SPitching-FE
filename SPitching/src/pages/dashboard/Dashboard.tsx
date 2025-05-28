@@ -66,7 +66,6 @@ const Dashboard = () => {
               created_at={presentationListData.createdAt}
               firstSlideImageUrl={presentationListData.firstSlideImageUrl || ''}
               totalScore={presentationListData.totalScore || 0}
-              updatedAt={presentationListData.updatedAt}
               presentationId={presentationListData.id}
             />
           ))}

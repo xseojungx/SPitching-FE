@@ -44,15 +44,15 @@ export interface TagListProps {
 // 최근 연습이 포함된 요약형 발표 데이터 (대시보드 등에서 사용)
 export interface RecentPractice {
   presentationId: number;
-  practiceId: number;
+  practiceId: number | null;
   title: string;
   description: string;
   created: string; // 발표 생성일
-  lastPractice: string; // 마지막 연습 일시
+  lastPractice: string | null; // 마지막 연습 일시
   practiceCount: number;
   firstSlideImageUrl: string | null;
   tags: Tag[];
-  graph: PracticeGraph;
+  graph: PracticeGraph | null;
 }
 
 // 연습 관련 점수 그래프 정보

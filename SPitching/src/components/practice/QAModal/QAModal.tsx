@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
+import { Dialog, DialogTitle } from '@headlessui/react';
 import ChatWindow from './ChatWindow';
 import ChatInput from './ChatInput';
 
