@@ -1,6 +1,6 @@
 // src/services/practice.api.ts
 import apiClient from './apiClient';
-import type { PracticeTag, SlideTag, UploadSlidesResponse } from '@/types/presentation.types';
+import type { PracticeTag, UploadSlidesResponse } from '@/types/presentation.types';
 import aiApiClient from './aiApiClient';
 
 export const postNewPractice = async (presentationId: number): Promise<number> => {
@@ -47,7 +47,65 @@ interface PostQuestionResponse {
   timestamp: string;
 }
 
-export const postGestureFeedback = async (
+// export const postGestureFeedback = async (
+//   file: Blob,
+//   userId: number,
+//   presentationId: number,
+//   practiceId: number,
+// ) => {
+//   const formData = new FormData();
+//   formData.append('file', file, 'recording.webm');
+//   formData.append('userId', String(userId));
+//   formData.append('presentationId', String(presentationId));
+//   formData.append('practiceId', String(practiceId));
+
+//   const res = await aiApiClient.post('/api/v1/feedback/gesture', formData, {
+//     headers: { 'Content-Type': 'multipart/form-data' },
+//     withCredentials: true,
+//   });
+
+//   return res.data;
+// };
+// export const postSttFeedback = async (
+//   file: Blob,
+//   userId: number,
+//   presentationId: number,
+//   practiceId: number,
+// ) => {
+//   const formData = new FormData();
+//   formData.append('file', file, 'recording.webm');
+//   formData.append('userId', String(userId));
+//   formData.append('presentationId', String(presentationId));
+//   formData.append('practiceId', String(practiceId));
+
+//   const res = await aiApiClient.post('/api/v1/feedback/stt', formData, {
+//     headers: { 'Content-Type': 'multipart/form-data' },
+//     withCredentials: true,
+//   });
+
+//   return res.data;
+// };
+// export const postEyeFeedback = async (
+//   file: Blob,
+//   userId: number,
+//   presentationId: number,
+//   practiceId: number,
+// ) => {
+//   const formData = new FormData();
+//   formData.append('file', file, 'recording.webm');
+//   formData.append('userId', String(userId));
+//   formData.append('presentationId', String(presentationId));
+//   formData.append('practiceId', String(practiceId));
+
+//   const res = await aiApiClient.post('/api/v1/feedback/eyecontact', formData, {
+//     headers: { 'Content-Type': 'multipart/form-data' },
+//     withCredentials: true,
+//   });
+
+//   return res.data;
+// };
+
+export const postAIFeedback = async (
   file: Blob,
   userId: number,
   presentationId: number,
@@ -59,47 +117,8 @@ export const postGestureFeedback = async (
   formData.append('presentationId', String(presentationId));
   formData.append('practiceId', String(practiceId));
 
-  const res = await aiApiClient.post('/api/v1/feedback/gesture', formData, {
+  const res = await aiApiClient.post('/api/v1/feedback', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
-    withCredentials: true,
-  });
-
-  return res.data;
-};
-export const postSttFeedback = async (
-  file: Blob,
-  userId: number,
-  presentationId: number,
-  practiceId: number,
-) => {
-  const formData = new FormData();
-  formData.append('file', file, 'recording.webm');
-  formData.append('userId', String(userId));
-  formData.append('presentationId', String(presentationId));
-  formData.append('practiceId', String(practiceId));
-
-  const res = await aiApiClient.post('/api/v1/feedback/stt', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-    withCredentials: true,
-  });
-
-  return res.data;
-};
-export const postEyeFeedback = async (
-  file: Blob,
-  userId: number,
-  presentationId: number,
-  practiceId: number,
-) => {
-  const formData = new FormData();
-  formData.append('file', file, 'recording.webm');
-  formData.append('userId', String(userId));
-  formData.append('presentationId', String(presentationId));
-  formData.append('practiceId', String(practiceId));
-
-  const res = await aiApiClient.post('/api/v1/feedback/eyecontact', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-    withCredentials: true,
   });
 
   return res.data;
