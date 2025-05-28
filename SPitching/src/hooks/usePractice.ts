@@ -7,7 +7,6 @@ import {
   postQuestion,
   postAIFeedback,
 } from '@/services/practice.api';
-import { getFeedbackSummary } from '@/services/feedback.api';
 import { setPracticeId } from '@/redux/slices/practice.slice';
 import { useDispatch } from 'react-redux';
 import { ScoreDetails } from '@/types/feedback.types';

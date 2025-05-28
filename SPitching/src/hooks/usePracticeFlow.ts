@@ -30,7 +30,7 @@ export const usePracticeFlow = (
   const graphReady = useGraphPolling(practiceIdRef.current ?? 0, pollStart);
 
   const { mutate: postNewPractice } = usePostNewPractice();
-  const { mutate: analyzeAi } = useAIFeedback();
+  const { mutateAsync: analyzeAiAsync } = useAIFeedback();
   const { mutate: startQASession } = usePostQAStart();
   const { mutateAsync: sendQuestion } = usePostQuestion();
 
@@ -52,7 +52,7 @@ export const usePracticeFlow = (
     setIsLoading(true);
     try {
       if (userId && practiceIdRef.current) {
-        await analyzeAi({
+        await analyzeAiAsync({
           file: blob,
           userId,
           presentationId: pid,
