@@ -1,14 +1,11 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useNavigate } from 'react-router-dom';
+import GoogleLoginButton from '../auth/GoogleLoginButton';
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const navigate = useNavigate();
-
-  const handleGoogleLogin = () => {
-    window.location.href = import.meta.env.VITE_API_BASE_URL + '/oauth2/authorization/google';
-  };
 
   return (
     <header className='fixed top-0 left-0 z-50 flex h-16 w-full items-center justify-between bg-white px-6 shadow'>
@@ -28,12 +25,7 @@ const Navbar = () => {
           {isLoggedIn ? (
             <button className='transition hover:text-[#255A9B]'>한서정 님</button>
           ) : (
-            <button
-              onClick={() => handleGoogleLogin()}
-              className='transition hover:text-[#255A9B]'
-            >
-              로그인하기
-            </button>
+            <GoogleLoginButton />
           )}
         </div>
       </nav>
