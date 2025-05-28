@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { recentPractice } from './mockdata';
 import ScoreLineChart from '../dashboard/ScoreLineChart';
 import ScorePieChart from '../common/ScorePieChart';
 import TagList from './TagList';
@@ -30,7 +28,7 @@ const RecentPractice = ({
   const data = prevPracticeData;
 
   return (
-    <div className='max-h-600px mx-auto grid h-3/4 w-10/12 max-w-screen-xl grid-cols-10 grid-rows-[auto_1fr_auto] gap-4 px-4 py-6'>
+    <div className='mx-auto grid h-3/4 max-h-[600px] min-h-fit w-10/12 max-w-screen-2xl grid-cols-10 grid-rows-[auto_1fr_auto] gap-4 px-4 py-6'>
       {/* 상단 제목 */}
       <div className='col-span-10 row-start-1 flex flex-col'>
         <span className='c1 text-gray-700'>최근 연습</span>
@@ -43,20 +41,22 @@ const RecentPractice = ({
 
       {/* 좌측 요약 상자 */}
       <div className='white-card col-span-3 row-start-2 gap-1'>
-        <div className='aspect-video w-full flex-shrink-0 rounded-lg bg-gray-200'>
+        <div className='mb-4 aspect-4/3 w-full flex-shrink-0 overflow-hidden rounded-lg border-1 border-gray-200 bg-gray-200 shadow-xl shadow-gray-400/20'>
           {firstSlideImageUrl && (
             <img
               src={firstSlideImageUrl}
               alt='썸네일'
-              className='w-full rounded-lg border-1 border-gray-200 object-cover'
+              className='w-full object-cover'
             />
           )}
         </div>
-        <div className='mt-2 flex flex-row items-center gap-2'>
-          <span className='b1 truncate font-semibold text-gray-900'>최근 연습</span>
-          <span className='b1 truncate text-gray-700'>{formatDateWithTime(lastPractice)}</span>
-        </div>
-        <div className='flex flex-row items-center gap-3 text-xs'>
+        {lastPractice && (
+          <div className='mt-2 flex flex-row items-center gap-2'>
+            <span className='b1 truncate font-semibold text-gray-900'>최근 연습</span>
+            <span className='b1 truncate text-gray-700'>{formatDateWithTime(lastPractice)}</span>
+          </div>
+        )}
+        <div className='mb-2 flex flex-row items-center gap-3 text-xs'>
           <span className='b1 font-semibold text-gray-900'>연습 횟수</span>
           <span className='b1 text-gray-700'>{practiceCount}</span>
         </div>
@@ -64,28 +64,35 @@ const RecentPractice = ({
 
       {/* 중앙 요약 상자 */}
       <div className='white-card relative col-span-4 row-start-2 justify-between'>
-        <div className='absolute m-4 flex flex-col'>
-          <span className='b2 text-gray-700'>{practiceCount}회차 연습 결과</span>
-          <span className='h1 text-gray-900'>{graph.currentScore}점</span>
-        </div>
+        {graph ? (
+          <div className='absolute m-4 flex flex-col'>
+            <span className='b2 text-gray-700'>{practiceCount}회차 연습 결과</span>
+            <span className='h1 text-gray-900'>{graph.currentScore}점</span>
+          </div>
+        ) : (
+          <div className='absolute top-0 left-0 z-1 flex h-full w-full flex-col items-center justify-center rounded-2xl bg-gray-600/40 backdrop-blur-xs'>
+            <span className='s1 text-gray-900'>첫 연습을 시작해보세요!</span>
+          </div>
+        )}
+
         <div className='box-border w-full flex-3 pt-2'>
           <ScoreLineChart data={data} />
         </div>
         <div className='flex h-12 w-full flex-2'>
           <div className='relative flex-1'>
-            <ScorePieChart value={graph.eyeScore || 0} />
+            <ScorePieChart value={graph?.eyeScore || 0} />
             <EyeIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
           </div>
           <div className='relative flex-1'>
-            <ScorePieChart value={graph.gestureScore || 0} />
+            <ScorePieChart value={graph?.gestureScore || 0} />
             <GestureIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
           </div>
           <div className='relative flex-1'>
-            <ScorePieChart value={graph.cosineSimilarity || 0} />
+            <ScorePieChart value={graph?.cosineSimilarity || 0} />
             <SimilarityIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
           </div>
           <div className='relative flex-1'>
-            <ScorePieChart value={graph.sttScore || 0} />
+            <ScorePieChart value={graph?.sttScore || 0} />
             <FluencyIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
           </div>
         </div>
@@ -120,14 +127,19 @@ const RecentPractice = ({
           </button>
 
           {/* 부분 연습 */}
-          <button className='flex items-center justify-center gap-1 rounded-xl border border-[#C2E59C] bg-white px-5 py-2.5 text-sm text-[#5A5F5C] transition hover:bg-[#f8faf5]'>
+          <button className='flex cursor-not-allowed items-center justify-center gap-1 rounded-xl border border-[#C2E59C] bg-white px-5 py-2.5 text-sm text-[#5A5F5C] transition hover:bg-[#f8faf5]'>
             ✂️ 부분 연습
           </button>
 
           {/* 피드백 보기 */}
-          <button className='flex items-center justify-center gap-1 rounded-xl border border-[#DADADA] bg-white px-5 py-2.5 text-sm text-[#5A5F5C] transition hover:bg-[#f1f1f1]'>
-            📄 피드백 보기
-          </button>
+          {lastPractice && (
+            <button
+              className='flex items-center justify-center gap-1 rounded-xl border border-[#DADADA] bg-white px-5 py-2.5 text-sm text-[#5A5F5C] transition hover:bg-[#f1f1f1]'
+              onClick={() => navigate(`/feedback/${practiceId}/summary`)}
+            >
+              📄 피드백 보기
+            </button>
+          )}
         </div>
       </div>
     </div>

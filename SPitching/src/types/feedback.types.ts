@@ -1,4 +1,12 @@
 // 전체 요약 점수
+export interface ScoreDetails {
+  scriptSimilarity: number | null;
+  gestureScore: number | null;
+  eyeScore: number | null;
+  fluencyScore: number | null;
+  allScoresAvailable: boolean | null;
+}
+
 export interface FeedbackSummary {
   practiceId: number;
   totalScore: number;

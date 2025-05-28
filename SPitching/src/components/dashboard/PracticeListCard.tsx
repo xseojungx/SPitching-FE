@@ -10,7 +10,6 @@ interface PracticeListCardProps {
   last_practice: string;
   firstSlideImageUrl: string;
   totalScore: number;
-  updatedAt: string;
   presentationId: number;
 }
 
@@ -22,7 +21,6 @@ const PracticeListCard = ({
   last_practice,
   firstSlideImageUrl,
   totalScore,
-  updatedAt,
   presentationId,
 }: PracticeListCardProps) => {
   const navigate = useNavigate();
@@ -32,7 +30,7 @@ const PracticeListCard = ({
   return (
     <div className='white-card flex h-auto w-full flex-row gap-4 overflow-clip p-5'>
       {/* 좌측 썸네일 */}
-      <div className='flex aspect-video h-full w-40 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-200'>
+      <div className='flex aspect-4/3 h-auto w-40 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border-1 border-gray-200 bg-gray-200 shadow-md shadow-gray-400/20'>
         {firstSlideImageUrl && (
           <img
             src={firstSlideImageUrl}
