@@ -9,8 +9,7 @@ import {
   Legend,
 } from 'recharts';
 import { useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
+
 import { RecentPractice } from '@/types/presentation.types';
 
 const SummaryAreaChart = ({ recentPracticeData }: { recentPracticeData: RecentPractice }) => {
@@ -21,13 +20,7 @@ const SummaryAreaChart = ({ recentPracticeData }: { recentPracticeData: RecentPr
     { name: '4회차', ges: 65, eye: 72, sim: 66, fluen: 74 },
     { name: '5회차', ges: 58, eye: 78, sim: 73, fluen: 70 },
     { name: '6회차', ges: 70, eye: 65, sim: 80, fluen: 75 },
-    {
-      name: '7회차',
-      ges: recentPracticeData.graph.gestureScore,
-      eye: recentPracticeData.graph.eyeScore,
-      sim: recentPracticeData.graph.cosineSimilarity,
-      fluen: recentPracticeData.graph.sttScore,
-    },
+    { name: '7회차', ges: 70, eye: 65, sim: 80, fluen: 75 },
   ];
   console.log(recentPracticeData.graph);
 
