@@ -7,6 +7,3 @@ export const usePresentationList = () =>
 
 export const useRecentPractice = () =>
   useQuery({ queryKey: ['recentPractice'], queryFn: getRecentPractice });
-
-export const useRecentSummary = () =>
-  useQuery({ queryKey: ['recentPractice'], queryFn: getRecentPractice });
