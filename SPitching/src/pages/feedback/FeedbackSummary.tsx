@@ -12,9 +12,10 @@ import {
   useFeedbackFluency,
   useFeedbackSummary,
   useFeedbackSimilarity,
+  useRecentSummary,
 } from '@/hooks/useFeedback';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/redux/store';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/redux/store';
 import {
   setSummary,
   setEyeContact,
@@ -24,7 +25,6 @@ import {
   setRecentPractice,
 } from '@/redux/slices/feedback.slice';
 
-import { useRecentPractice } from '@/hooks/useDashboard';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -39,7 +39,7 @@ const FeedbackSummary = () => {
   const { data: fluencyData } = useFeedbackFluency(practiceId);
   const { data: gestureData } = useFeedbackGesture(practiceId);
   const { data: similarityData } = useFeedbackSimilarity(practiceId);
-  const { data: recentPracticeData } = useRecentPractice();
+  const { data: recentPracticeData } = useRecentSummary();
 
   // const gesture = useSelector((state: RootState) => state.feedback.gesture);
   // console.log('제스처', gesture);
@@ -62,7 +62,7 @@ const FeedbackSummary = () => {
     dispatch,
   ]);
 
-  if (!practiceId) {
+  if (!practiceId || !recentPracticeData?.graph) {
     return <div>분석 결과 없음 (practiceId 없음)</div>;
   }
 
@@ -76,7 +76,7 @@ const FeedbackSummary = () => {
           <span className='h1 text-gray-900'>{recentPracticeData?.title}</span>
           <span className='s2 text-gray-700'>{recentPracticeData?.description}</span>
         </div>
-        {recentPracticeData && (
+        {recentPracticeData && recentPracticeData.graph && (
           <>
             <SummaryGraph recentPracticeData={recentPracticeData} />
             <TotalScore recentPracticeData={recentPracticeData} />

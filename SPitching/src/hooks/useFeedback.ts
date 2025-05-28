@@ -5,6 +5,7 @@ import {
   getFluencyScore,
   getGestureScore,
   getSimilarityScore,
+  getRecentSummary,
 } from '@/services/feedback.api';
 import {
   FeedbackSummary,
@@ -58,3 +59,6 @@ export const useFeedbackSimilarity = (practiceId: number) =>
     retry: false,
     enabled: !!practiceId,
   });
+
+export const useRecentSummary = () =>
+  useQuery({ queryKey: ['recentPractice'], queryFn: getRecentSummary });

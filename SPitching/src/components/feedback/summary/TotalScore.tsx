@@ -11,9 +11,9 @@ import {
 } from 'recharts';
 import { ValueType, NameType } from 'recharts/types/component/DefaultTooltipContent';
 
-import { RecentPractice } from '@/types/presentation.types';
+import { RecentPracticeNotNull } from '@/types/presentation.types';
 
-const TotalScore = ({ recentPracticeData }: { recentPracticeData: RecentPractice }) => {
+const TotalScore = ({ recentPracticeData }: { recentPracticeData: RecentPracticeNotNull }) => {
   //메모 처리하기
   const CustomTooltip = ({ active, payload }: TooltipProps<ValueType, NameType>) => {
     if (active && payload && payload.length) {

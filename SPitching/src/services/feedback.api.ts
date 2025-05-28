@@ -1,4 +1,5 @@
 import apiClient from './apiClient';
+import { RecentPracticeNotNull } from '@/types/presentation.types';
 
 export const getFeedbackSummary = async (practiceId: number) => {
   const res = await apiClient.get(`api/v1/feedback/practice/${practiceId}/score-details`);
@@ -20,5 +21,10 @@ export const getGestureScore = async (practiceId: number) => {
 };
 export const getSimilarityScore = async (practiceId: number) => {
   const res = await apiClient.get(`api/v1/feedback/practice/${practiceId}/script-similarity`);
+  return res.data;
+};
+
+export const getRecentSummary = async (): Promise<RecentPracticeNotNull> => {
+  const res = await apiClient.get(`api/v1/home/summary`);
   return res.data;
 };
