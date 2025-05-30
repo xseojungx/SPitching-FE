@@ -2,21 +2,17 @@ import { Tooltip, ResponsiveContainer, TooltipProps, AreaChart, Area, YAxis } fr
 import { ValueType, NameType } from 'recharts/types/component/DefaultTooltipContent';
 
 interface PracticeScore {
-  name: string;
+  name: number;
   score: number;
-  ges: number;
-  eye: number;
-  sim: number;
-  fluen: number;
 }
 type ScoreLineChartProps = { data: PracticeScore[] };
 
-const ScoreLineChart = ({ data }: ScoreLineChartProps) => {
+const DashboardScoreLineChart = ({ data }: ScoreLineChartProps) => {
   const CustomTooltip = ({ active, payload }: TooltipProps<ValueType, NameType>) => {
     if (active && payload && payload.length) {
       return (
         <div className='rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-[#333] shadow-md'>
-          <p>{`${payload[0].value}점`}</p>
+          <p>{payload[0].value && Math.round(Number(payload[0].value))}점</p>
         </div>
       );
     }
@@ -74,4 +70,4 @@ const ScoreLineChart = ({ data }: ScoreLineChartProps) => {
     </div>
   );
 };
-export default ScoreLineChart;
+export default DashboardScoreLineChart;

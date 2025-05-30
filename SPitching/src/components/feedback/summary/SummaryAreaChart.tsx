@@ -50,7 +50,6 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>)
 };
 
 const SummaryAreaChart = ({ graphScoresData }: { graphScoresData: ScoreItem[] }) => {
-  console.log(graphScoresData);
   const data = graphScoresData.map((item) => ({
     name: item.period + '회차',
     gestureScore: item.gestureScore,

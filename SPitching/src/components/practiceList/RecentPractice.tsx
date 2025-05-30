@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import ScoreLineChart from '../dashboard/ScoreLineChart';
+import DashboardScoreLineChart from '../dashboard/ScoreLineChart';
 import ScorePieChart from '../common/ScorePieChart';
 import TagList from './TagList';
 import EyeIcon from '../../assets/eye.svg?react';
@@ -25,7 +25,13 @@ const RecentPractice = ({
   graph,
 }: RecentPracticeProps) => {
   const navigate = useNavigate();
-  const data = prevPracticeData;
+
+  const prevPracticeData = [
+    { name: 1, score: graph.currentScore },
+    ...graph.previousScores.map((data, key) => {
+      return { name: key + 2, score: data };
+    }),
+  ].reverse();
 
   return (
     <div className='mx-auto grid h-3/4 max-h-[600px] min-h-fit w-10/12 max-w-screen-2xl grid-cols-10 grid-rows-[auto_1fr_auto] gap-4 px-4 py-6'>
@@ -65,9 +71,9 @@ const RecentPractice = ({
       {/* 중앙 요약 상자 */}
       <div className='white-card relative col-span-4 row-start-2 justify-between'>
         {graph ? (
-          <div className='absolute m-4 flex flex-col'>
-            <span className='b2 text-gray-700'>{practiceCount}회차 연습 결과</span>
-            <span className='h1 text-gray-900'>{graph.currentScore}점</span>
+          <div className='absolute z-2 m-4 flex flex-col rounded-xl bg-white/10 p-4 shadow-lg backdrop-blur-sm'>
+            <span className='b1 text-gray-700'>{practiceCount}회차 연습 결과</span>
+            <span className='h1 text-gray-900'>{Math.round(graph.currentScore)}점</span>
           </div>
         ) : (
           <div className='absolute top-0 left-0 z-1 flex h-full w-full flex-col items-center justify-center rounded-2xl bg-gray-600/40 backdrop-blur-xs'>
@@ -76,7 +82,7 @@ const RecentPractice = ({
         )}
 
         <div className='box-border w-full flex-3 pt-2'>
-          <ScoreLineChart data={data} />
+          <DashboardScoreLineChart data={prevPracticeData} />
         </div>
         <div className='flex h-12 w-full flex-2'>
           <div className='relative flex-1'>

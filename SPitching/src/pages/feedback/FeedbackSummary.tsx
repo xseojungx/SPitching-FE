@@ -66,6 +66,10 @@ const FeedbackSummary = () => {
     graphScoresData,
     dispatch,
   ]);
+  console.log('그래프 점수 데이터', graphScoresData);
+
+  const prevSimilarityScore =
+    graphScoresData?.score[graphScoresData.score.length - 2]?.cosineSimilarity || 0;
 
   if (!practiceId) {
     return <div>분석 결과 없음 (practiceId 없음)</div>;
@@ -84,7 +88,13 @@ const FeedbackSummary = () => {
         {graphScoresData && <SummaryGraph graphScoresData={graphScoresData} />}
 
         {recentPracticeData?.graph && <TotalScore recentPracticeData={recentPracticeData} />}
-        {similarityData && <SimilarityCard similarityData={similarityData} />}
+        {similarityData && (
+          <SimilarityCard
+            practiceId={similarityData.practiceId}
+            scriptSimilarity={similarityData.scriptSimilarity}
+            prevSimilarity={prevSimilarityScore}
+          />
+        )}
         <DurationCard />
         {gestureData && (
           <GestureScoreCard

@@ -90,7 +90,7 @@ body {
   }
 
   .c1 {
-    @apply text-[12px] leading-snug font-normal tracking-wide;
+    @apply text-[14px] leading-snug font-normal tracking-wide;
   }
 
   .c2 {
