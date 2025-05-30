@@ -12,9 +12,11 @@ import {
   useFeedbackFluency,
   useFeedbackSummary,
   useFeedbackSimilarity,
+  useRecentFeedback,
+  useGraphScores,
 } from '@/hooks/useFeedback';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/redux/store';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/redux/store';
 import {
   setSummary,
   setEyeContact,
@@ -22,9 +24,9 @@ import {
   setGesture,
   setSimilarity,
   setRecentPractice,
+  setGraphScores,
 } from '@/redux/slices/feedback.slice';
 
-import { useRecentPractice } from '@/hooks/useDashboard';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -39,10 +41,11 @@ const FeedbackSummary = () => {
   const { data: fluencyData } = useFeedbackFluency(practiceId);
   const { data: gestureData } = useFeedbackGesture(practiceId);
   const { data: similarityData } = useFeedbackSimilarity(practiceId);
-  const { data: recentPracticeData } = useRecentPractice();
+  const { data: recentPracticeData } = useRecentFeedback();
+  const { data: graphScoresData } = useGraphScores(practiceId);
 
   // const gesture = useSelector((state: RootState) => state.feedback.gesture);
-  // console.log('제스처', gesture);
+  console.log('제스처', graphScoresData);
 
   // 4. Redux에 저장
   useEffect(() => {
@@ -52,6 +55,7 @@ const FeedbackSummary = () => {
     if (fluencyData) dispatch(setFluency(fluencyData));
     if (gestureData) dispatch(setGesture(gestureData));
     if (similarityData) dispatch(setSimilarity(similarityData));
+    if (graphScoresData) dispatch(setGraphScores(graphScoresData));
   }, [
     recentPracticeData,
     summaryData,
@@ -59,6 +63,7 @@ const FeedbackSummary = () => {
     fluencyData,
     gestureData,
     similarityData,
+    graphScoresData,
     dispatch,
   ]);
 
@@ -76,18 +81,15 @@ const FeedbackSummary = () => {
           <span className='h1 text-gray-900'>{recentPracticeData?.title}</span>
           <span className='s2 text-gray-700'>{recentPracticeData?.description}</span>
         </div>
-        {recentPracticeData && (
-          <>
-            <SummaryGraph recentPracticeData={recentPracticeData} />
-            <TotalScore recentPracticeData={recentPracticeData} />
-          </>
-        )}
+        {graphScoresData && <SummaryGraph graphScoresData={graphScoresData} />}
+
+        {recentPracticeData?.graph && <TotalScore recentPracticeData={recentPracticeData} />}
         {similarityData && <SimilarityCard similarityData={similarityData} />}
         <DurationCard />
         {gestureData && (
           <GestureScoreCard
             crossedScore={gestureData.crossedScore}
-            gestureScore={gestureData.gestureScore}
+            gestureScore={Math.round(gestureData.gestureScore)}
             raisedScore={gestureData.raisedScore}
             faceScore={gestureData.faceScore}
             explainScore={gestureData.explainScore}

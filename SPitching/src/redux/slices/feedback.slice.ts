@@ -6,6 +6,7 @@ import {
   FluencyScore,
   GestureScore,
   SimilarityScore,
+  GraphScoreResponse,
 } from '@/types/feedback.types';
 import { RecentPractice } from '@/types/presentation.types';
 
@@ -16,6 +17,7 @@ interface FeedbackState {
   gesture: GestureScore | null;
   similarity: SimilarityScore | null;
   recentPractice: RecentPractice | null;
+  graphScores: GraphScoreResponse | null;
 }
 
 const initialState: FeedbackState = {
@@ -25,6 +27,7 @@ const initialState: FeedbackState = {
   gesture: null,
   similarity: null,
   recentPractice: null,
+  graphScores: null,
 };
 
 const feedbackSlice = createSlice({
@@ -49,6 +52,9 @@ const feedbackSlice = createSlice({
     setRecentPractice: (state, action: PayloadAction<RecentPractice>) => {
       state.recentPractice = action.payload;
     },
+    setGraphScores: (state, action: PayloadAction<GraphScoreResponse>) => {
+      state.graphScores = action.payload;
+    },
   },
 });
 
@@ -59,5 +65,6 @@ export const {
   setGesture,
   setSimilarity,
   setRecentPractice,
+  setGraphScores,
 } = feedbackSlice.actions;
 export default feedbackSlice.reducer;

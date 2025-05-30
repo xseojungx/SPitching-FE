@@ -1,10 +1,10 @@
-import type { RecentPractice } from '@/types/presentation.types';
 import SummaryAreaChart from './SummaryAreaChart';
+import { GraphScoreResponse } from '@/types/feedback.types';
 
-const SummaryGraph = ({ recentPracticeData }: { recentPracticeData: RecentPractice }) => {
+const SummaryGraph = ({ graphScoresData }: { graphScoresData: GraphScoreResponse }) => {
   return (
     <article className='white-card col-span-7 col-start-2 row-span-5 row-start-2 w-full'>
-      <SummaryAreaChart recentPracticeData={recentPracticeData} />
+      <SummaryAreaChart graphScoresData={graphScoresData.score} />
     </article>
   );
 };

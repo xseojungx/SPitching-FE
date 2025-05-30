@@ -5,6 +5,8 @@ import {
   getFluencyScore,
   getGestureScore,
   getSimilarityScore,
+  getRecentFeedback,
+  getGraphScores,
 } from '@/services/feedback.api';
 import {
   FeedbackSummary,
@@ -12,6 +14,7 @@ import {
   FluencyScore,
   GestureScore,
   SimilarityScore,
+  GraphScoreResponse,
 } from '@/types/feedback.types';
 
 export const useFeedbackSummary = (practiceId: number) =>
@@ -22,6 +25,9 @@ export const useFeedbackSummary = (practiceId: number) =>
     retry: false,
     enabled: !!practiceId,
   });
+
+export const useRecentFeedback = () =>
+  useQuery({ queryKey: ['recentFeedback'], queryFn: getRecentFeedback });
 
 export const useFeedbackEyeContact = (practiceId: number) =>
   useQuery({
@@ -55,6 +61,15 @@ export const useFeedbackSimilarity = (practiceId: number) =>
     queryKey: ['feedbackSimilarity', practiceId],
     queryFn: () => getSimilarityScore(practiceId),
     select: (data) => data as SimilarityScore,
+    retry: false,
+    enabled: !!practiceId,
+  });
+
+export const useGraphScores = (practiceId: number) =>
+  useQuery({
+    queryKey: ['graphScores', practiceId],
+    queryFn: () => getGraphScores(practiceId),
+    select: (data) => data as GraphScoreResponse,
     retry: false,
     enabled: !!practiceId,
   });

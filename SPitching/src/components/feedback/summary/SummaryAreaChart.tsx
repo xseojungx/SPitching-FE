@@ -6,34 +6,67 @@ import {
   Tooltip,
   ResponsiveContainer,
   AreaChart,
+  TooltipProps,
   Legend,
 } from 'recharts';
 import { useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
-import { RecentPractice } from '@/types/presentation.types';
+import { ScoreItem } from '@/types/feedback.types';
 
-const SummaryAreaChart = ({ recentPracticeData }: { recentPracticeData: RecentPractice }) => {
-  const data = [
-    { name: '1회차', ges: 45, eye: 60, sim: 50, fluen: 55 },
-    { name: '2회차', ges: 52, eye: 58, sim: 65, fluen: 62 },
-    { name: '3회차', ges: 60, eye: 55, sim: 70, fluen: 68 },
-    { name: '4회차', ges: 65, eye: 72, sim: 66, fluen: 74 },
-    { name: '5회차', ges: 58, eye: 78, sim: 73, fluen: 70 },
-    { name: '6회차', ges: 70, eye: 65, sim: 80, fluen: 75 },
-    {
-      name: '7회차',
-      ges: recentPracticeData.graph.gestureScore,
-      eye: recentPracticeData.graph.eyeScore,
-      sim: recentPracticeData.graph.cosineSimilarity,
-      fluen: recentPracticeData.graph.sttScore,
-    },
-  ];
-  console.log(recentPracticeData.graph);
+const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>) => {
+  if (active && payload && payload.length) {
+    return (
+      <div style={{ backgroundColor: 'white', border: '1px solid #ccc', padding: '10px' }}>
+        <p>{label}</p>
+        {payload.map((item) => {
+          let koreanName = '';
+          switch (item.dataKey) {
+            case 'gestureScore':
+              koreanName = '제스처';
+              break;
+            case 'eyeContactScore':
+              koreanName = '시선';
+              break;
+            case 'cosineSimilarity':
+              koreanName = '대본 유사도';
+              break;
+            case 'sttScore':
+              koreanName = '발표 유창성';
+              break;
+          }
+          return (
+            <p
+              key={item.dataKey}
+              style={{ color: item.color }}
+            >
+              {koreanName}: {item.value}
+            </p>
+          );
+        })}
+      </div>
+    );
+  }
+
+  return null;
+};
+
+const SummaryAreaChart = ({ graphScoresData }: { graphScoresData: ScoreItem[] }) => {
+  console.log(graphScoresData);
+  const data = graphScoresData.map((item) => ({
+    name: item.period + '회차',
+    gestureScore: item.gestureScore,
+    eyeContactScore: item.eyeContactScore,
+    cosineSimilarity: item.cosineSimilarity,
+    sttScore: item.sttScore,
+  }));
 
   // 1. 모든 값 중 Y값만 평탄화해서 한 배열로
   const allValues = useMemo(() => {
-    return data.flatMap((item) => [item.ges, item.eye, item.sim, item.fluen]);
+    return data.flatMap((item) => [
+      item.gestureScore,
+      item.eyeContactScore,
+      item.cosineSimilarity,
+      item.sttScore,
+    ]);
   }, [data]);
 
   // 2. domain 계산
@@ -53,7 +86,12 @@ const SummaryAreaChart = ({ recentPracticeData }: { recentPracticeData: RecentPr
   }, [allValues]);
 
   //마우스
-  const [opacity, setOpacity] = useState({ ges: 0.2, eye: 0.2, sim: 0.2, fluen: 0.2 });
+  const [opacity, setOpacity] = useState({
+    gestureScore: 0.2,
+    eyeContactScore: 0.2,
+    cosineSimilarity: 0.2,
+    sttScore: 0.2,
+  });
 
   const handleMouseEnter = (o) => {
     const { dataKey } = o;
@@ -163,21 +201,21 @@ const SummaryAreaChart = ({ recentPracticeData }: { recentPracticeData: RecentPr
         />
 
         <CartesianGrid strokeDasharray='3 3' />
-        <Tooltip />
+        <Tooltip content={<CustomTooltip />} />
         <Legend
           verticalAlign='bottom'
           height={36}
           iconType='line'
           formatter={(value) => {
             switch (value) {
-              case 'ges':
+              case 'gestureScore':
                 return '제스처';
-              case 'eye':
+              case 'eyeContactScore':
                 return '시선';
-              case 'sim':
-                return '유사도';
-              case 'fluen':
-                return '유창성';
+              case 'cosineSimilarity':
+                return '대본 유사도';
+              case 'sttScore':
+                return '발표 유창성';
               default:
                 return value;
             }
@@ -189,38 +227,38 @@ const SummaryAreaChart = ({ recentPracticeData }: { recentPracticeData: RecentPr
         {/* Area charts */}
         <Area
           type='monotone'
-          dataKey='ges'
+          dataKey='gestureScore'
           stroke='#78D5D7'
           strokeWidth={2}
           fill='url(#colorGes)'
-          fillOpacity={opacity.ges}
+          fillOpacity={opacity.gestureScore}
           strokeOpacity={1}
         />
         <Area
           type='monotone'
-          dataKey='eye'
+          dataKey='eyeContactScore'
           stroke='#479f60'
           strokeWidth={2}
           fill='url(#colorEye)'
-          fillOpacity={opacity.eye}
+          fillOpacity={opacity.eyeContactScore}
           strokeOpacity={1}
         />
         <Area
           type='monotone'
-          dataKey='sim'
+          dataKey='cosineSimilarity'
           stroke='#8f8bd4'
           strokeWidth={2}
           fill='url(#colorSim)'
-          fillOpacity={opacity.sim}
+          fillOpacity={opacity.cosineSimilarity}
           strokeOpacity={1}
         />
         <Area
           type='monotone'
-          dataKey='fluen'
+          dataKey='sttScore'
           stroke='#5B9BD5'
           strokeWidth={2}
           fill='url(#colorFluen)'
-          fillOpacity={opacity.fluen}
+          fillOpacity={opacity.sttScore}
           strokeOpacity={1}
         />
       </AreaChart>

@@ -1,3 +1,5 @@
+import { Tag } from './presentation.types';
+
 // 전체 요약 점수
 export interface ScoreDetails {
   scriptSimilarity: number | null;
@@ -7,6 +9,26 @@ export interface ScoreDetails {
   allScoresAvailable: boolean | null;
 }
 
+export interface RecentFeedback {
+  presentationId: number;
+  practiceId: number;
+  title: string;
+  description: string;
+  created: string; // 발표 생성일
+  lastPractice: string; // 마지막 연습 일시
+  practiceCount: number;
+  firstSlideImageUrl: string;
+  tags: Tag[];
+  graph: FeedbackGraph;
+}
+export interface FeedbackGraph {
+  cosineSimilarity: number;
+  currentScore: number;
+  eyeScore: number;
+  gestureScore: number;
+  sttScore: number;
+  previousScores: number[];
+}
 export interface FeedbackSummary {
   practiceId: number;
   totalScore: number;
@@ -76,4 +98,17 @@ export interface GestureScore {
   raisedScore: number;
   faceScore: number;
   videoUrl: string;
+}
+
+export interface ScoreItem {
+  period: string;
+  sttScore: number;
+  gestureScore: number;
+  cosineSimilarity: number;
+  eyeContactScore: number;
+}
+
+export interface GraphScoreResponse {
+  score: ScoreItem[];
+  presentationId: number;
 }

@@ -52,7 +52,16 @@ export interface RecentPractice {
   practiceCount: number;
   firstSlideImageUrl: string | null;
   tags: Tag[];
-  graph: PracticeGraph | null;
+  graph: FeedbackGraph;
+}
+
+export interface FeedbackGraph {
+  cosineSimilarity: number;
+  currentScore: number;
+  eyeScore: number;
+  gestureScore: number;
+  sttScore: number;
+  previousScores: number[];
 }
 
 // 연습 관련 점수 그래프 정보
