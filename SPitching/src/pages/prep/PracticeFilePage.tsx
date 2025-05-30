@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import FileUploader from '@/components/prep/FileUploader';
 import { usePracticeCreation } from '@/contexts/PracticeCreationContext';
 import Navbar from '@/components/common/Navbar';
 import ProgressBar from '@/components/prep/ProgressBar';
 import { ChevronsRightIcon } from 'lucide-react';
 import { useUploadPresentation } from '@/hooks/usePrep';
+import DefaultLoadingOverlay from '@/components/common/DefaultLoadingOverlay';
 
 const PracticeFilePage = () => {
-  const navigate = useNavigate();
-  const { setFile } = usePracticeCreation();
   const { presentationId } = usePracticeCreation();
 
   const [fileUpload, setFileUpload] = useState<File | null>(null);
@@ -31,9 +29,7 @@ const PracticeFilePage = () => {
 
     uploadFile({ presentationId: presentationId!, file: fileUpload });
   };
-  if (isPending) {
-    return <div>대기중</div>;
-  }
+
   return (
     <div className='box-border flex h-screen w-screen flex-col justify-center py-24'>
       <Navbar />
@@ -65,6 +61,7 @@ const PracticeFilePage = () => {
         </div>
       </article>
       <div className="fixed left-0 -z-1 h-screen w-screen bg-[url('/assets/dashboard_bg.svg')] bg-left-top bg-no-repeat opacity-90 not-first:bg-cover"></div>
+      {isPending && <DefaultLoadingOverlay />}
     </div>
   );
 };

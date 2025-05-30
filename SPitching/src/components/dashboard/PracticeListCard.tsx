@@ -60,7 +60,7 @@ const PracticeListCard = ({
           <div className='flex flex-wrap items-center gap-3 text-sm text-gray-600'>
             <span>연습 {practice_count}번</span>
             <span>마지막 연습 {formatDate(last_practice)}</span>
-            <span>점수 {totalScore}점</span>
+            <span>최근 점수 {Math.round(totalScore)}점</span>
           </div>
 
           {/* 버튼 그룹 */}

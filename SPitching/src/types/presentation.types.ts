@@ -52,7 +52,16 @@ export interface RecentPractice {
   practiceCount: number;
   firstSlideImageUrl: string | null;
   tags: Tag[];
-  graph: PracticeGraph | null;
+  graph: FeedbackGraph;
+}
+
+export interface FeedbackGraph {
+  cosineSimilarity: number;
+  currentScore: number;
+  eyeScore: number;
+  gestureScore: number;
+  sttScore: number;
+  previousScores: number[];
 }
 
 export interface RecentPracticeNotNull {

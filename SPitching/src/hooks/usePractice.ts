@@ -89,24 +89,9 @@ export const useGraphPolling = (practiceId: number, start: boolean): boolean => 
         const res = await apiClient.get<ScoreDetails>(
           `api/v1/feedback/practice/${practiceId}/score-details`,
         );
-        const graph = res.data;
-        // if (!res.data) return;
-
-        // if (res.data.eyeScore && res.data.fluencyScore && res.data.gestureScore) {
-        //   setCompleted(true);
-        //   if (intervalRef.current) {
-        //     clearInterval(intervalRef.current);
-        //   }
-        // }
-
-        console.log('그래프', graph);
-        const scores = [res.data.eyeScore, res.data.fluencyScore, res.data.gestureScore];
-
-        const allNotNull = scores.every((v) => v != null);
-        console.log('상태', allNotNull);
         if (!res.data) return;
 
-        if (allNotNull) {
+        if (res.data.eyeScore && res.data.fluencyScore && res.data.gestureScore) {
           setCompleted(true);
           if (intervalRef.current) {
             clearInterval(intervalRef.current);
@@ -127,49 +112,3 @@ export const useGraphPolling = (practiceId: number, start: boolean): boolean => 
 
   return completed;
 };
-
-// export const usePostSttFeedback = () => {
-//   return useMutation({
-//     mutationFn: ({
-//       file,
-//       userId,
-//       presentationId,
-//       practiceId,
-//     }: {
-//       file: Blob;
-//       userId: number;
-//       presentationId: number;
-//       practiceId: number;
-//     }) => postSttFeedback(file, userId, presentationId, practiceId),
-//   });
-// };
-// export const usePostEyeFeedback = () => {
-//   return useMutation({
-//     mutationFn: ({
-//       file,
-//       userId,
-//       presentationId,
-//       practiceId,
-//     }: {
-//       file: Blob;
-//       userId: number;
-//       presentationId: number;
-//       practiceId: number;
-//     }) => postEyeFeedback(file, userId, presentationId, practiceId),
-//   });
-// };
-// export const usePostGestureFeedback = () => {
-//   return useMutation({
-//     mutationFn: ({
-//       file,
-//       userId,
-//       presentationId,
-//       practiceId,
-//     }: {
-//       file: Blob;
-//       userId: number;
-//       presentationId: number;
-//       practiceId: number;
-//     }) => postGestureFeedback(file, userId, presentationId, practiceId),
-//   });
-// };

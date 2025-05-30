@@ -1,7 +1,8 @@
 import apiClient from './apiClient';
-import { RecentPracticeNotNull } from '@/types/presentation.types';
+import { FeedbackSummary, RecentFeedback, GraphScoreResponse } from '@/types/feedback.types';
 
-export const getFeedbackSummary = async (practiceId: number) => {
+
+export const getFeedbackSummary = async (practiceId: number): Promise<FeedbackSummary> => {
   const res = await apiClient.get(`api/v1/feedback/practice/${practiceId}/score-details`);
   return res.data;
 };
@@ -24,7 +25,12 @@ export const getSimilarityScore = async (practiceId: number) => {
   return res.data;
 };
 
-export const getRecentSummary = async (): Promise<RecentPracticeNotNull> => {
+export const getRecentFeedback = async (): Promise<RecentFeedback> => {
   const res = await apiClient.get(`api/v1/home/summary`);
+  return res.data;
+};
+
+export const getGraphScores = async (practiceId: number): Promise<GraphScoreResponse> => {
+  const res = await apiClient.get(`/api/v1/feedback/practice/${practiceId}/presentation-scores`);
   return res.data;
 };
