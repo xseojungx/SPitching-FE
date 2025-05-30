@@ -58,6 +58,7 @@ const SummaryAreaChart = ({ graphScoresData }: { graphScoresData: ScoreItem[] })
     sttScore: item.sttScore,
   }));
 
+
   // 1. 모든 값 중 Y값만 평탄화해서 한 배열로
   const allValues = useMemo(() => {
     return data.flatMap((item) => [

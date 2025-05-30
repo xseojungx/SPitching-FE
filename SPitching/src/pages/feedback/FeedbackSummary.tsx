@@ -14,6 +14,7 @@ import {
   useFeedbackSimilarity,
   useRecentFeedback,
   useGraphScores,
+
 } from '@/hooks/useFeedback';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
@@ -44,6 +45,7 @@ const FeedbackSummary = () => {
   const { data: recentPracticeData } = useRecentFeedback();
   const { data: graphScoresData } = useGraphScores(practiceId);
 
+
   // const gesture = useSelector((state: RootState) => state.feedback.gesture);
   console.log('제스처', graphScoresData);
 
@@ -71,7 +73,7 @@ const FeedbackSummary = () => {
   const prevSimilarityScore =
     graphScoresData?.score[graphScoresData.score.length - 2]?.cosineSimilarity || 0;
 
-  if (!practiceId) {
+  if (!practiceId || !recentPracticeData?.graph) {
     return <div>분석 결과 없음 (practiceId 없음)</div>;
   }
 
@@ -94,6 +96,7 @@ const FeedbackSummary = () => {
             scriptSimilarity={similarityData.scriptSimilarity}
             prevSimilarity={prevSimilarityScore}
           />
+
         )}
         <DurationCard />
         {gestureData && (

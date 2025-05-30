@@ -64,6 +64,19 @@ export interface FeedbackGraph {
   previousScores: number[];
 }
 
+export interface RecentPracticeNotNull {
+  presentationId: number;
+  practiceId: number;
+  title: string;
+  description: string;
+  created: string; // 발표 생성일
+  lastPractice: string; // 마지막 연습 일시
+  practiceCount: number;
+  firstSlideImageUrl: string;
+  tags: Tag[];
+  graph: PracticeGraph;
+}
+
 // 연습 관련 점수 그래프 정보
 export interface PracticeGraph {
   cosineSimilarity: number;

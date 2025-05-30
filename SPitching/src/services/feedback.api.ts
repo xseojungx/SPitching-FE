@@ -1,6 +1,7 @@
 import apiClient from './apiClient';
 import { FeedbackSummary, RecentFeedback, GraphScoreResponse } from '@/types/feedback.types';
 
+
 export const getFeedbackSummary = async (practiceId: number): Promise<FeedbackSummary> => {
   const res = await apiClient.get(`api/v1/feedback/practice/${practiceId}/score-details`);
   return res.data;

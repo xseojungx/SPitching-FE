@@ -4,6 +4,7 @@ import { ValueType, NameType } from 'recharts/types/component/DefaultTooltipCont
 import { RecentFeedback } from '@/types/feedback.types';
 
 const TotalScore = ({ recentPracticeData }: { recentPracticeData: RecentFeedback }) => {
+
   //메모 처리하기
   const CustomTooltip = ({ active, payload }: TooltipProps<ValueType, NameType>) => {
     if (active && payload && payload.length) {
