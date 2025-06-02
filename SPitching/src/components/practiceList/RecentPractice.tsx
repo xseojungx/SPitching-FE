@@ -7,7 +7,7 @@ import GestureIcon from '../../assets/gesture.svg?react';
 import SimilarityIcon from '../../assets/sim.svg?react';
 import FluencyIcon from '../../assets/fluency.svg?react';
 import { SquarePen, Play } from 'lucide-react';
-import { prevPracticeData } from '@/assets/mockData';
+import { mockPracticeData } from '@/assets/mockData';
 import { formatDateWithTime } from '@/utils/date';
 
 import { RecentPractice as RecentPracticeProps } from '@/types/presentation.types';
@@ -26,12 +26,14 @@ const RecentPractice = ({
 }: RecentPracticeProps) => {
   const navigate = useNavigate();
 
-  const prevPracticeData = [
-    { name: 1, score: graph.currentScore },
-    ...graph.previousScores.map((data, key) => {
-      return { name: key + 2, score: data };
-    }),
-  ].reverse();
+  const prevPracticeData = graph?.currentScore
+    ? [
+        { name: 1, score: graph.currentScore },
+        ...graph.previousScores.map((data, key) => {
+          return { name: key + 2, score: data };
+        }),
+      ].reverse()
+    : [];
 
   return (
     <div className='mx-auto grid h-3/4 max-h-[600px] min-h-fit w-10/12 max-w-screen-2xl grid-cols-10 grid-rows-[auto_1fr_auto] gap-4 px-4 py-6'>
@@ -71,37 +73,62 @@ const RecentPractice = ({
       {/* 중앙 요약 상자 */}
       <div className='white-card relative col-span-4 row-start-2 justify-between'>
         {graph ? (
-          <div className='absolute z-2 m-4 flex flex-col rounded-xl bg-white/10 p-4 shadow-lg backdrop-blur-sm'>
-            <span className='b1 text-gray-700'>{practiceCount}회차 연습 결과</span>
-            <span className='h1 text-gray-900'>{Math.round(graph.currentScore)}점</span>
-          </div>
+          <>
+            <div className='absolute z-2 m-4 flex flex-col rounded-xl bg-white/10 p-4 shadow-lg backdrop-blur-sm'>
+              <span className='b1 text-gray-700'>{practiceCount}회차 연습 결과</span>
+              <span className='h1 text-gray-900'>{Math.round(graph.currentScore)}점</span>
+            </div>
+            <div className='box-border w-full flex-3 pt-2'>
+              <DashboardScoreLineChart data={prevPracticeData} />
+            </div>
+            <div className='flex h-12 w-full flex-2'>
+              <div className='relative flex-1'>
+                <ScorePieChart value={graph.eyeScore || 0} />
+                <EyeIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+              </div>
+              <div className='relative flex-1'>
+                <ScorePieChart value={graph.gestureScore || 0} />
+                <GestureIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+              </div>
+              <div className='relative flex-1'>
+                <ScorePieChart value={graph.cosineSimilarity || 0} />
+                <SimilarityIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+              </div>
+              <div className='relative flex-1'>
+                <ScorePieChart value={graph.sttScore || 0} />
+                <FluencyIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+              </div>
+            </div>
+          </>
         ) : (
-          <div className='absolute top-0 left-0 z-1 flex h-full w-full flex-col items-center justify-center rounded-2xl bg-gray-600/40 backdrop-blur-xs'>
-            <span className='s1 text-gray-900'>첫 연습을 시작해보세요!</span>
-          </div>
-        )}
+          <>
+            <div className='absolute top-0 left-0 z-1 flex h-full w-full flex-col items-center justify-center rounded-2xl bg-gray-600/50 backdrop-blur-xs'>
+              <span className='h2 text-white'>첫 연습을 시작해보세요!</span>
+            </div>
+            <div className='box-border w-full flex-3 pt-2'>
+              <DashboardScoreLineChart data={mockPracticeData} />
+            </div>
 
-        <div className='box-border w-full flex-3 pt-2'>
-          <DashboardScoreLineChart data={prevPracticeData} />
-        </div>
-        <div className='flex h-12 w-full flex-2'>
-          <div className='relative flex-1'>
-            <ScorePieChart value={graph?.eyeScore || 0} />
-            <EyeIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
-          </div>
-          <div className='relative flex-1'>
-            <ScorePieChart value={graph?.gestureScore || 0} />
-            <GestureIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
-          </div>
-          <div className='relative flex-1'>
-            <ScorePieChart value={graph?.cosineSimilarity || 0} />
-            <SimilarityIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
-          </div>
-          <div className='relative flex-1'>
-            <ScorePieChart value={graph?.sttScore || 0} />
-            <FluencyIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
-          </div>
-        </div>
+            <div className='flex h-12 w-full flex-2'>
+              <div className='relative flex-1'>
+                <ScorePieChart value={67} />
+                <EyeIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+              </div>
+              <div className='relative flex-1'>
+                <ScorePieChart value={87} />
+                <GestureIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+              </div>
+              <div className='relative flex-1'>
+                <ScorePieChart value={56} />
+                <SimilarityIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+              </div>
+              <div className='relative flex-1'>
+                <ScorePieChart value={98} />
+                <FluencyIcon className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       {/* 우측 상자 */}

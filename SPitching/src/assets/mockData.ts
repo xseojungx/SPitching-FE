@@ -38,20 +38,11 @@ export const presentationMockData = {
   ],
 };
 
-export interface PracticeScore {
-  name: string;
-  score: number;
-  ges: number;
-  eye: number;
-  sim: number;
-  fluen: number;
-}
-
-export const prevPracticeData = [
-  { name: '1회차', score: 52, ges: 45, eye: 60, sim: 50, fluen: 55 },
-  { name: '2회차', score: 59, ges: 52, eye: 58, sim: 65, fluen: 62 },
-  { name: '3회차', score: 63, ges: 60, eye: 55, sim: 70, fluen: 68 },
-  { name: '4회차', score: 69, ges: 65, eye: 72, sim: 66, fluen: 74 },
-  { name: '5회차', score: 69, ges: 58, eye: 78, sim: 73, fluen: 70 },
-  { name: '6회차', score: 72, ges: 70, eye: 65, sim: 80, fluen: 75 },
+export const mockPracticeData = [
+  { name: 1, score: 40 },
+  { name: 2, score: 65 },
+  { name: 3, score: 60 },
+  { name: 4, score: 75 },
+  { name: 5, score: 77 },
+  { name: 6, score: 85 },
 ];
