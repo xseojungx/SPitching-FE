@@ -14,7 +14,7 @@ export default function Landing() {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   return (
-    <div className='flex min-h-screen flex-col bg-gradient-to-br from-[#FFFFFF] via-[#A9EAD6] to-[#F8FAF5] text-[#5A5F5C]'>
+    <div className='flex min-h-screen flex-col bg-gradient-to-br from-[#FFFFFF] via-[#c2fae9] to-[#F8FAF5] text-[#5A5F5C]'>
       {/* Header */}
       <Navbar />
 
@@ -48,27 +48,27 @@ export default function Landing() {
             <img
               src={Eye}
               alt='시선 추적'
-              className='mb-4 h-50 rounded-2xl'
+              className='mb-4 h-40 rounded-2xl shadow-lg'
             />
             <h3 className='mb-2 text-xl font-semibold'>시선 추적 피드백</h3>
-            <p className='text-center text-base'>발표 중 시선 분포 분석으로 시청자 집중 유도</p>
+            <p className='text-center text-base'>발표 중 시선 방향 분석으로 시청자 집중 유도</p>
           </div>
 
           <div className='flex flex-col items-center'>
             <img
               src={Gesture}
               alt='제스처 인식'
-              className='mb-4 h-50 rounded-2xl'
+              className='mb-4 h-40 rounded-2xl shadow-lg'
             />
             <h3 className='mb-2 text-xl font-semibold'>제스처 인식 피드백</h3>
-            <p className='text-center text-base'>핸드 제스처 분석으로 자연스러운 동작 완성</p>
+            <p className='text-center text-base'>제스처 분석으로 자연스러운 동작 완성</p>
           </div>
 
           <div className='flex flex-col items-center'>
             <img
               src={Fluency}
               alt='음성 유창성'
-              className='mb-4 h-50 rounded-2xl'
+              className='mb-4 h-40 rounded-2xl shadow-lg'
             />
             <h3 className='mb-2 text-xl font-semibold'>유창성 분석</h3>
             <p className='text-center text-base'>발음과 속도 검토로 매끄러운 전달</p>
