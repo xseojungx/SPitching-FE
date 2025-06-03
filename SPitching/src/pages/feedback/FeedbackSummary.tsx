@@ -72,7 +72,7 @@ const FeedbackSummary = () => {
     presentationData,
     dispatch,
   ]);
-  console.log('그래프 점수 데이터', graphScoresData);
+  console.log('그래프 점수 데이터', fluencyData);
 
   const prevSimilarityScore =
     graphScoresData?.score[graphScoresData.score.length - 2]?.cosineSimilarity || 0;
@@ -101,7 +101,10 @@ const FeedbackSummary = () => {
             prevSimilarity={prevSimilarityScore}
           />
         )}
-        <DurationCard />
+        <DurationCard
+          second={fluencyData?.statisticsSilence[0].totalPresentationTime || 0}
+          goal={Number(presentationData?.duration) || 0}
+        />
         {gestureData && (
           <GestureScoreCard
             crossedScore={gestureData.crossedScore}
