@@ -6,6 +6,7 @@ import EyeContactCard from '../../components/feedback/summary/EyeContactCard';
 import FluencyCard from '../../components/feedback/summary/FluencyCard';
 import GestureScoreCard from '../../components/feedback/summary/GestureScoreCard';
 import SimilarityCard from '../../components/feedback/summary/SimilarityCard';
+// import { transformGraphScoreData } from '@/utils/graphScoreUtils';
 import {
   useFeedbackGesture,
   useFeedbackEyeContact,
@@ -14,7 +15,7 @@ import {
   useFeedbackSimilarity,
   useRecentFeedback,
   useGraphScores,
-
+  usePresentation,
 } from '@/hooks/useFeedback';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
@@ -26,6 +27,7 @@ import {
   setSimilarity,
   setRecentPractice,
   setGraphScores,
+  setPresentation,
 } from '@/redux/slices/feedback.slice';
 
 import { useEffect } from 'react';
@@ -44,10 +46,10 @@ const FeedbackSummary = () => {
   const { data: similarityData } = useFeedbackSimilarity(practiceId);
   const { data: recentPracticeData } = useRecentFeedback();
   const { data: graphScoresData } = useGraphScores(practiceId);
-
+  const { data: presentationData } = usePresentation(graphScoresData?.presentationId);
 
   // const gesture = useSelector((state: RootState) => state.feedback.gesture);
-  console.log('제스처', graphScoresData);
+  console.log('그래프', graphScoresData);
 
   // 4. Redux에 저장
   useEffect(() => {
@@ -58,6 +60,7 @@ const FeedbackSummary = () => {
     if (gestureData) dispatch(setGesture(gestureData));
     if (similarityData) dispatch(setSimilarity(similarityData));
     if (graphScoresData) dispatch(setGraphScores(graphScoresData));
+    if (presentationData) dispatch(setPresentation(presentationData));
   }, [
     recentPracticeData,
     summaryData,
@@ -66,6 +69,7 @@ const FeedbackSummary = () => {
     gestureData,
     similarityData,
     graphScoresData,
+    presentationData,
     dispatch,
   ]);
   console.log('그래프 점수 데이터', graphScoresData);
@@ -73,8 +77,8 @@ const FeedbackSummary = () => {
   const prevSimilarityScore =
     graphScoresData?.score[graphScoresData.score.length - 2]?.cosineSimilarity || 0;
 
-  if (!practiceId || !recentPracticeData?.graph) {
-    return <div>분석 결과 없음 (practiceId 없음)</div>;
+  if (!practiceId || !presentationData) {
+    return <div>분석 결과 없음</div>;
   }
 
   return (
@@ -84,8 +88,8 @@ const FeedbackSummary = () => {
       <main className='grid-layout h-full w-full grid-rows-[auto_repeat(9,1fr)] pt-0'>
         <div className='col-span-0 md:col-span-1' />
         <div className='col-span-10 flex w-full items-end gap-3'>
-          <span className='h1 text-gray-900'>{recentPracticeData?.title}</span>
-          <span className='s2 text-gray-700'>{recentPracticeData?.description}</span>
+          <span className='h1 text-gray-900'>{presentationData?.title}</span>
+          <span className='s2 text-gray-700'>{presentationData?.description}</span>
         </div>
         {graphScoresData && <SummaryGraph graphScoresData={graphScoresData} />}
 
@@ -96,7 +100,6 @@ const FeedbackSummary = () => {
             scriptSimilarity={similarityData.scriptSimilarity}
             prevSimilarity={prevSimilarityScore}
           />
-
         )}
         <DurationCard />
         {gestureData && (

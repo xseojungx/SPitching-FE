@@ -112,3 +112,25 @@ export interface GraphScoreResponse {
   score: ScoreItem[];
   presentationId: number;
 }
+
+// src/types/presentation.types.ts
+
+export interface PresentationUser {
+  id: number;
+  name: string;
+  email: string;
+  role: 'USER' | 'ADMIN'; // 필요하면 다른 Role 추가
+  picture: string;
+}
+
+export interface Presentation {
+  id: number;
+  title: string;
+  description: string;
+  createdAt: string; // ISO timestamp
+  updatedAt: string; // ISO timestamp
+  deletedAt: string | null;
+  practiceCount: number;
+  duration: string;
+  user: PresentationUser;
+}

@@ -7,6 +7,7 @@ import {
   getSimilarityScore,
   getRecentFeedback,
   getGraphScores,
+  getPresentationById,
 } from '@/services/feedback.api';
 import {
   FeedbackSummary,
@@ -15,6 +16,7 @@ import {
   GestureScore,
   SimilarityScore,
   GraphScoreResponse,
+  Presentation,
 } from '@/types/feedback.types';
 
 export const useFeedbackSummary = (practiceId: number) =>
@@ -74,3 +76,13 @@ export const useGraphScores = (practiceId: number) =>
     enabled: !!practiceId,
   });
 
+export const usePresentation = (presentationId: number | undefined) => {
+  return useQuery<Presentation>({
+    queryKey: ['presentation', presentationId],
+    queryFn: () => {
+      if (!presentationId) throw new Error('presentationId is undefined');
+      return getPresentationById(presentationId);
+    },
+    enabled: !!presentationId,
+  });
+};
