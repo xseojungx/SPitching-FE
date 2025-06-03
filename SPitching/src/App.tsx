@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { RootState } from '@/redux/store';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Landing from './pages/landing/Landing'; // 새로운 시작 페이지
 import Dashboard from './pages/dashboard/Dashboard';
@@ -22,12 +22,16 @@ import EyeContactDetailPage from './pages/feedback/EyeContactDetailPage';
 // import PublicOnlyRoute from '@/routes/PublicOnlyRoute';
 function App() {
   const navigate = useNavigate();
+  const location = useLocation(); // 현재 경로 가져오기
 
   const { isLoading } = useAuth();
 
   const isAuthChecked = useSelector((state: RootState) => state.auth.isAuthChecked);
 
   useEffect(() => {
+    if (location.pathname === '/' || location.pathname === '/login') {
+      return; // '/'나 '/login'에서는 타이머 설정 안 함
+    }
     const timer = setTimeout(() => {
       if (!isAuthChecked) {
         alert('인증 시간이 초과되었습니다. 다시 로그인해주세요.');
