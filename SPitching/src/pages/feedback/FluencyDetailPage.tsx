@@ -1,6 +1,5 @@
 // src/pages/FluencyDetailPage.tsx
 import Navbar from '@/components/common/Navbar';
-import FluencySummaryCard from '@/components/feedback/fluency/FluencySummaryCard';
 import TranscriptViewer from '@/components/feedback/fluency/TranscriptViewer';
 import StatisticsSection from '@/components/feedback/fluency/StatisticsSection';
 import { useFeedbackFluency } from '@/hooks/useFeedback';
@@ -16,7 +15,7 @@ import { calculateFluencyFeedback } from '@/utils/feedbackMessage';
 const FluencyDetailPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { practiceId } = useParams();
-  const { fluency, recentPractice } = useSelector((state: RootState) => state.feedback);
+  const { fluency, presentation } = useSelector((state: RootState) => state.feedback);
   const {
     data: fluencyData,
     isLoading,
@@ -47,7 +46,7 @@ const FluencyDetailPage = () => {
         {/* 1) 제목 Fluency Summary */}
         <div className='col-span-10 col-start-2 flex w-full items-center justify-between gap-3'>
           <div className='flex items-end gap-2'>
-            <span className='h1 text-gray-900'>{recentPractice?.title}</span>
+            <span className='h1 text-gray-900'>{presentation?.title}</span>
             <span className='s2 text-gray-900'>발표 유창성 피드백</span>
           </div>
           <button

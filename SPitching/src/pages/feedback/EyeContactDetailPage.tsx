@@ -1,13 +1,11 @@
 import Navbar from '@/components/common/Navbar';
-import GestureVideo from '@/components/feedback/GestureDetail/GestureVideo';
-import FeedbackTabs from '@/components/feedback/GestureDetail/FeedbackTabs';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store';
 import { ArrowLeft } from 'lucide-react';
 import { useFeedbackEyeContact } from '@/hooks/useFeedback';
 import { useNavigate, useParams } from 'react-router-dom';
-import { setEyeContact, setGesture } from '@/redux/slices/feedback.slice';
+import { setEyeContact } from '@/redux/slices/feedback.slice';
 import { useEffect, useState } from 'react';
 import EyeSummaryCard from '@/components/feedback/eyecontact/EyeSummaryCard';
 import EyeVideo from '@/components/feedback/eyecontact/EyeVideo';
@@ -16,7 +14,7 @@ const EyeContactDetailPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { practiceId } = useParams();
   const { eyeContact } = useSelector((state: RootState) => state.feedback);
-  const recentPractice = useSelector((state: RootState) => state.feedback.recentPractice);
+  const presentationData = useSelector((state: RootState) => state.feedback.presentation);
   const navigate = useNavigate();
 
   const {
@@ -52,7 +50,7 @@ const EyeContactDetailPage = () => {
         <div className='col-span-0 md:col-span-1' />
         <div className='col-span-10 flex w-full items-center justify-between gap-3'>
           <div className='flex items-end gap-2'>
-            <span className='h1 text-gray-900'>{recentPractice?.title}</span>
+            <span className='h1 text-gray-900'>{presentationData?.title}</span>
             <span className='s2 text-gray-900'>시선 피드백</span>
           </div>
           <button

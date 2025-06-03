@@ -16,7 +16,7 @@ const GestureDetailPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { practiceId } = useParams();
   const { gesture } = useSelector((state: RootState) => state.feedback);
-  const recentPractice = useSelector((state: RootState) => state.feedback.recentPractice);
+  const presentationData = useSelector((state: RootState) => state.feedback.presentation);
   const navigate = useNavigate();
 
   const {
@@ -56,7 +56,7 @@ const GestureDetailPage = () => {
         <div className='col-span-0 md:col-span-1' />
         <div className='col-span-10 flex w-full items-center justify-between gap-3'>
           <div className='flex items-end gap-2'>
-            <span className='h1 text-gray-900'>{recentPractice?.title}</span>
+            <span className='h1 text-gray-900'>{presentationData?.title}</span>
             <span className='s2 text-gray-900'>제스처 피드백</span>
           </div>
           <button
