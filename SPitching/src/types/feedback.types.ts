@@ -5,8 +5,10 @@ export interface ScoreDetails {
   scriptSimilarity: number | null;
   gestureScore: number | null;
   eyeScore: number | null;
+  practiceId: number;
+  scoreCalculated: boolean;
   fluencyScore: number | null;
-  allScoresAvailable: boolean | null;
+  totalScore: number | null;
 }
 
 export interface RecentFeedback {

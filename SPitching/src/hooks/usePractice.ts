@@ -91,7 +91,7 @@ export const useGraphPolling = (practiceId: number, start: boolean): boolean => 
         );
         if (!res.data) return;
 
-        if (res.data.eyeScore && res.data.fluencyScore && res.data.gestureScore) {
+        if (res.data.scoreCalculated) {
           setCompleted(true);
           if (intervalRef.current) {
             clearInterval(intervalRef.current);
